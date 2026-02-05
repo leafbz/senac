@@ -1,0 +1,14 @@
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\bin\Debug\net8.0\simulado.exe
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\bin\Debug\net8.0\simulado.deps.json
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\bin\Debug\net8.0\simulado.runtimeconfig.json
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\bin\Debug\net8.0\simulado.dll
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\bin\Debug\net8.0\simulado.pdb
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\simulado.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\simulado.AssemblyInfoInputs.cache
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\simulado.AssemblyInfo.cs
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\simulado.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\simulado.dll
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\refint\simulado.dll
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\simulado.pdb
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\simulado.genruntimeconfig.cache
+C:\Users\rafael.rbrazao\source\repos\aula_logica\simulado\obj\Debug\net8.0\ref\simulado.dll

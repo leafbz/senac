@@ -1,0 +1,14 @@
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\bin\Debug\net8.0\ex09.exe
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\bin\Debug\net8.0\ex09.deps.json
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\bin\Debug\net8.0\ex09.runtimeconfig.json
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\bin\Debug\net8.0\ex09.dll
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\bin\Debug\net8.0\ex09.pdb
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\ex09.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\ex09.AssemblyInfoInputs.cache
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\ex09.AssemblyInfo.cs
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\ex09.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\ex09.dll
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\refint\ex09.dll
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\ex09.pdb
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\ex09.genruntimeconfig.cache
+C:\Users\rafael.rbrazao\source\repos\aula_logica\ex09\obj\Debug\net8.0\ref\ex09.dll
