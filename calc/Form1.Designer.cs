@@ -45,16 +45,19 @@
             this.btnDiv = new System.Windows.Forms.Button();
             this.btnEqual = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // lblDisplay
             // 
-            this.lblDisplay.AutoSize = true;
-            this.lblDisplay.Location = new System.Drawing.Point(297, 68);
+            this.lblDisplay.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.lblDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisplay.Location = new System.Drawing.Point(201, 75);
             this.lblDisplay.Name = "lblDisplay";
-            this.lblDisplay.Size = new System.Drawing.Size(35, 13);
+            this.lblDisplay.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.lblDisplay.Size = new System.Drawing.Size(318, 33);
             this.lblDisplay.TabIndex = 0;
-            this.lblDisplay.Text = "label1";
             // 
             // button1
             // 
@@ -241,7 +244,6 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -264,6 +266,7 @@
         private System.Windows.Forms.Button btnDiv;
         private System.Windows.Forms.Button btnEqual;
         private System.Windows.Forms.Button btnClear;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 
