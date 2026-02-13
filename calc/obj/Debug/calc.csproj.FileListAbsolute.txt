@@ -1,0 +1,11 @@
+C:\Users\rafael.rbrazao\source\repos\calc\bin\Debug\calc.exe.config
+C:\Users\rafael.rbrazao\source\repos\calc\bin\Debug\calc.exe
+C:\Users\rafael.rbrazao\source\repos\calc\bin\Debug\calc.pdb
+C:\Users\rafael.rbrazao\source\repos\calc\obj\Debug\calc.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\calc\obj\Debug\calc.Form1.resources
+C:\Users\rafael.rbrazao\source\repos\calc\obj\Debug\calc.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\calc\obj\Debug\calc.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\calc\obj\Debug\calc.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\calc\obj\Debug\calc.exe
+C:\Users\rafael.rbrazao\source\repos\calc\obj\Debug\calc.pdb
+C:\Users\rafael.rbrazao\source\repos\calc\obj\Debug\calc.exe.config
