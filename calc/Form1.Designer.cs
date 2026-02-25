@@ -242,7 +242,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblDisplay);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = " ";
             this.ResumeLayout(false);
 
         }

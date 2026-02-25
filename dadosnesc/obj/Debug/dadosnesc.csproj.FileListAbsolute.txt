@@ -1,0 +1,11 @@
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\bin\Debug\dadosnesc.exe.config
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\bin\Debug\dadosnesc.exe
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\bin\Debug\dadosnesc.pdb
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\obj\Debug\dadosnesc.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\obj\Debug\dadosnesc.FrmSimples.resources
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\obj\Debug\dadosnesc.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\obj\Debug\dadosnesc.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\obj\Debug\dadosnesc.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\obj\Debug\dadosnesc.exe
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\obj\Debug\dadosnesc.pdb
+C:\Users\rafael.rbrazao\source\repos\dadosnesc\obj\Debug\dadosnesc.exe.config

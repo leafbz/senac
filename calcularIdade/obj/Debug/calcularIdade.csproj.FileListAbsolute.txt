@@ -1,0 +1,11 @@
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\bin\Debug\calcularIdade.exe.config
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\bin\Debug\calcularIdade.exe
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\bin\Debug\calcularIdade.pdb
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\obj\Debug\calcularIdade.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\obj\Debug\calcularIdade.frmCalcIdade.resources
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\obj\Debug\calcularIdade.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\obj\Debug\calcularIdade.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\obj\Debug\calcularIdade.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\obj\Debug\calcularIdade.exe
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\obj\Debug\calcularIdade.pdb
+C:\Users\rafael.rbrazao\source\repos\calcularIdade\obj\Debug\calcularIdade.exe.config
