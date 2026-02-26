@@ -1,0 +1,11 @@
+C:\Users\rafael.rbrazao\source\repos\estoque\bin\Debug\estoque.exe.config
+C:\Users\rafael.rbrazao\source\repos\estoque\bin\Debug\estoque.exe
+C:\Users\rafael.rbrazao\source\repos\estoque\bin\Debug\estoque.pdb
+C:\Users\rafael.rbrazao\source\repos\estoque\obj\Debug\estoque.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\estoque\obj\Debug\estoque.Form1.resources
+C:\Users\rafael.rbrazao\source\repos\estoque\obj\Debug\estoque.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\estoque\obj\Debug\estoque.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\estoque\obj\Debug\estoque.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\estoque\obj\Debug\estoque.exe
+C:\Users\rafael.rbrazao\source\repos\estoque\obj\Debug\estoque.pdb
+C:\Users\rafael.rbrazao\source\repos\estoque\obj\Debug\estoque.exe.config

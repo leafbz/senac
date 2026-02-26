@@ -1,0 +1,11 @@
+C:\Users\rafael.rbrazao\source\repos\diaSemana\bin\Debug\diaSemana.exe.config
+C:\Users\rafael.rbrazao\source\repos\diaSemana\bin\Debug\diaSemana.exe
+C:\Users\rafael.rbrazao\source\repos\diaSemana\bin\Debug\diaSemana.pdb
+C:\Users\rafael.rbrazao\source\repos\diaSemana\obj\Debug\diaSemana.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\diaSemana\obj\Debug\diaSemana.Form1.resources
+C:\Users\rafael.rbrazao\source\repos\diaSemana\obj\Debug\diaSemana.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\diaSemana\obj\Debug\diaSemana.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\diaSemana\obj\Debug\diaSemana.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\diaSemana\obj\Debug\diaSemana.exe
+C:\Users\rafael.rbrazao\source\repos\diaSemana\obj\Debug\diaSemana.pdb
+C:\Users\rafael.rbrazao\source\repos\diaSemana\obj\Debug\diaSemana.exe.config
