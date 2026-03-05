@@ -1,0 +1,11 @@
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\bin\Debug\tabuadaLoop.exe.config
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\bin\Debug\tabuadaLoop.exe
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\bin\Debug\tabuadaLoop.pdb
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\obj\Debug\tabuadaLoop.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\obj\Debug\tabuadaLoop.frmTabuada.resources
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\obj\Debug\tabuadaLoop.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\obj\Debug\tabuadaLoop.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\obj\Debug\tabuadaLoop.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\obj\Debug\tabuadaLoop.exe
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\obj\Debug\tabuadaLoop.pdb
+C:\Users\rafael.rbrazao\source\repos\tabuadaLoop\obj\Debug\tabuadaLoop.exe.config

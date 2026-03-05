@@ -124,7 +124,7 @@ namespace estoque
             }
         }
 
-        private void dataGridView1_RowHeaderMouseClick_1(object sender, DataGridViewCellMouseEventArgs e)
+        private void dataGridView1_RowHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             FillInputControls(e.RowIndex);
         }
@@ -140,5 +140,6 @@ namespace estoque
                 txtQtd.Text = dataGridView1.Rows[Index].Cells[1].Value.ToString();
             }
         }
+
     }
 }
