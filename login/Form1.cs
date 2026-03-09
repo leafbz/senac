@@ -12,6 +12,7 @@ namespace login
 {
     public partial class Form1 : Form
     {
+        int tentativas = 0;
         private Dictionary<string, string> users = new Dictionary<string, string>();
         public Form1()
         {
@@ -22,14 +23,30 @@ namespace login
         {
             string user = txtUser.Text;
             string senha = txtSenha.Text;
-            if (users.ContainsKey(user) && users[user]==senha)
+            
+            while (tentativas < 3)
             {
-                MessageBox.Show("Login bem-sucedido!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                ClearFields();
+                if (users.ContainsKey(user) && users[user] == senha)
+                {
+                    MessageBox.Show("Login bem-sucedido!", "Sucesso",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tentativas = 0;
+                    ClearFields();
+                    return;
+                }
+                else
+                {
+                    tentativas++;
+                    MessageBox.Show("Email ou Senha Inválido", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                }
             }
-            else
+            if (tentativas >= 3)
             {
-                MessageBox.Show("Email ou Senha Inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Número máximo de tentativas atingido.", "Bloqueado",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btnLogin.Enabled = false;
             }
         }
         private void btnRegistro_Click(object sender, EventArgs e)
