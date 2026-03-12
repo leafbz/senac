@@ -48,6 +48,21 @@ namespace jogonumeros
 
             nt--;
             lblNT.Text = nt.ToString();
+
+            if (palpite == rndNum)
+            {
+                ganhou = true;
+                dica = "Parabéns, você acertou!";
+            }
+            else if (palpite < rndNum)
+            {
+                dica = "O número que você digitou é menor, digite um número maior";
+            }
+            else
+            {
+                dica = "O número que você digitou é maior, digite um número menor";
+            }
+            txtResultado.Text = dica;
         }
     }
 }
