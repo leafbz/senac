@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sidebar", "sidebar.csproj", "{C31EE56A-1FE9-430D-A683-87E3A43EB671}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C31EE56A-1FE9-430D-A683-87E3A43EB671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C31EE56A-1FE9-430D-A683-87E3A43EB671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C31EE56A-1FE9-430D-A683-87E3A43EB671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C31EE56A-1FE9-430D-A683-87E3A43EB671}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {018F47D0-200E-42EE-AD0B-5A7A5E111ABF}
+	EndGlobalSection
+EndGlobal

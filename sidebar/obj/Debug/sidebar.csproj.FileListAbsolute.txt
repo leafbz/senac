@@ -1,0 +1,16 @@
+C:\Users\rafael.rbrazao\source\repos\sidebar\bin\Debug\sidebar.exe.config
+C:\Users\rafael.rbrazao\source\repos\sidebar\bin\Debug\sidebar.exe
+C:\Users\rafael.rbrazao\source\repos\sidebar\bin\Debug\sidebar.pdb
+C:\Users\rafael.rbrazao\source\repos\sidebar\obj\Debug\sidebar.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\sidebar\obj\Debug\sidebar.Form1.resources
+C:\Users\rafael.rbrazao\source\repos\sidebar\obj\Debug\sidebar.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\sidebar\obj\Debug\sidebar.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\sidebar\obj\Debug\sidebar.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\sidebar\obj\Debug\sidebar.exe
+C:\Users\rafael.rbrazao\source\repos\sidebar\obj\Debug\sidebar.pdb
+C:\Users\rafael.rbrazao\source\repos\sidebar\obj\Debug\sidebar.exe.config
+C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCARCHIVE.resources
+C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCBUNDLE.resources
+C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCLIVRO.resources
+C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCADD.resources
+C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCEDIT.resources
