@@ -1,0 +1,12 @@
+C:\Users\rafael.rbrazao\source\repos\ShowHide\bin\Debug\ShowHide.exe.config
+C:\Users\rafael.rbrazao\source\repos\ShowHide\bin\Debug\ShowHide.exe
+C:\Users\rafael.rbrazao\source\repos\ShowHide\bin\Debug\ShowHide.pdb
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.frmShowHide.resources
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.exe
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.pdb
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.exe.config
+C:\Users\rafael.rbrazao\source\repos\ShowHide\obj\Debug\ShowHide.frmHome.resources

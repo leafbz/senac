@@ -515,7 +515,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(600, 60);
-            this.tableLayoutPanel1.TabIndex = 2;
+            this.tableLayoutPanel1.TabIndex = 3;
             // 
             // panelSold
             // 
@@ -577,7 +577,6 @@
             this.btnDelete.Text = "Excluir";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnDelete.UseVisualStyleBackColor = false;
-            this.btnDelete.Click += new System.EventHandler(this.Btn_Click);
             // 
             // panelArchive
             // 
@@ -608,7 +607,6 @@
             this.btnArch.Text = "Arquivar";
             this.btnArch.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnArch.UseVisualStyleBackColor = false;
-            this.btnArch.Click += new System.EventHandler(this.Btn_Click);
             // 
             // panelEdit
             // 
@@ -639,7 +637,6 @@
             this.btnEdit.Text = "Editar";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEdit.UseVisualStyleBackColor = false;
-            this.btnEdit.Click += new System.EventHandler(this.Btn_Click);
             // 
             // panelAdd
             // 
@@ -670,7 +667,6 @@
             this.btnAdd.Text = "Adicionar";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAdd.UseVisualStyleBackColor = false;
-            this.btnAdd.Click += new System.EventHandler(this.Btn_Click);
             // 
             // Form1
             // 
