@@ -496,7 +496,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.Silver;
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(38)))), ((int)(((byte)(10)))));
             this.tableLayoutPanel1.ColumnCount = 5;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -531,12 +531,12 @@
             // 
             // btnSold
             // 
-            this.btnSold.BackColor = System.Drawing.Color.Silver;
+            this.btnSold.BackColor = System.Drawing.Color.Green;
             this.btnSold.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSold.FlatAppearance.BorderSize = 0;
             this.btnSold.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSold.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSold.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.btnSold.ForeColor = System.Drawing.Color.Yellow;
             this.btnSold.Image = ((System.Drawing.Image)(resources.GetObject("btnSold.Image")));
             this.btnSold.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSold.Location = new System.Drawing.Point(0, 0);
@@ -545,7 +545,7 @@
             this.btnSold.TabIndex = 1;
             this.btnSold.Text = "Vendido";
             this.btnSold.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSold.UseVisualStyleBackColor = false;
+            this.btnSold.UseVisualStyleBackColor = true;
             this.btnSold.Click += new System.EventHandler(this.Btn_Click);
             // 
             // panelDelete
@@ -562,12 +562,12 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.BackColor = System.Drawing.Color.Silver;
+            this.btnDelete.BackColor = System.Drawing.Color.Green;
             this.btnDelete.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDelete.FlatAppearance.BorderSize = 0;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.btnDelete.ForeColor = System.Drawing.Color.Yellow;
             this.btnDelete.Image = ((System.Drawing.Image)(resources.GetObject("btnDelete.Image")));
             this.btnDelete.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnDelete.Location = new System.Drawing.Point(0, 0);
@@ -576,7 +576,8 @@
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Excluir";
             this.btnDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.Btn_Click);
             // 
             // panelArchive
             // 
@@ -592,12 +593,12 @@
             // 
             // btnArch
             // 
-            this.btnArch.BackColor = System.Drawing.Color.Silver;
+            this.btnArch.BackColor = System.Drawing.Color.Green;
             this.btnArch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnArch.FlatAppearance.BorderSize = 0;
             this.btnArch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnArch.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnArch.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.btnArch.ForeColor = System.Drawing.Color.Yellow;
             this.btnArch.Image = ((System.Drawing.Image)(resources.GetObject("btnArch.Image")));
             this.btnArch.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnArch.Location = new System.Drawing.Point(0, 0);
@@ -606,7 +607,8 @@
             this.btnArch.TabIndex = 1;
             this.btnArch.Text = "Arquivar";
             this.btnArch.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnArch.UseVisualStyleBackColor = false;
+            this.btnArch.UseVisualStyleBackColor = true;
+            this.btnArch.Click += new System.EventHandler(this.Btn_Click);
             // 
             // panelEdit
             // 
@@ -622,12 +624,12 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.BackColor = System.Drawing.Color.Silver;
+            this.btnEdit.BackColor = System.Drawing.Color.Green;
             this.btnEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEdit.FlatAppearance.BorderSize = 0;
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.btnEdit.ForeColor = System.Drawing.Color.Yellow;
             this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
             this.btnEdit.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnEdit.Location = new System.Drawing.Point(0, 0);
@@ -636,7 +638,8 @@
             this.btnEdit.TabIndex = 1;
             this.btnEdit.Text = "Editar";
             this.btnEdit.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnEdit.UseVisualStyleBackColor = false;
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.Btn_Click);
             // 
             // panelAdd
             // 
@@ -652,12 +655,12 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.BackColor = System.Drawing.Color.Silver;
+            this.btnAdd.BackColor = System.Drawing.Color.Green;
             this.btnAdd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAdd.FlatAppearance.BorderSize = 0;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.btnAdd.ForeColor = System.Drawing.Color.Yellow;
             this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
             this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAdd.Location = new System.Drawing.Point(0, 0);
@@ -666,7 +669,8 @@
             this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Adicionar";
             this.btnAdd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnAdd.UseVisualStyleBackColor = false;
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.Btn_Click);
             // 
             // Form1
             // 
@@ -677,6 +681,7 @@
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.panel1.ResumeLayout(false);

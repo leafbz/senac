@@ -1,0 +1,11 @@
+C:\Users\rafael.rbrazao\source\repos\curd\bin\Debug\curd.exe.config
+C:\Users\rafael.rbrazao\source\repos\curd\bin\Debug\curd.exe
+C:\Users\rafael.rbrazao\source\repos\curd\bin\Debug\curd.pdb
+C:\Users\rafael.rbrazao\source\repos\curd\obj\Debug\curd.csproj.AssemblyReference.cache
+C:\Users\rafael.rbrazao\source\repos\curd\obj\Debug\curd.frmCadastroClientes.resources
+C:\Users\rafael.rbrazao\source\repos\curd\obj\Debug\curd.Properties.Resources.resources
+C:\Users\rafael.rbrazao\source\repos\curd\obj\Debug\curd.csproj.GenerateResource.cache
+C:\Users\rafael.rbrazao\source\repos\curd\obj\Debug\curd.csproj.CoreCompileInputs.cache
+C:\Users\rafael.rbrazao\source\repos\curd\obj\Debug\curd.exe
+C:\Users\rafael.rbrazao\source\repos\curd\obj\Debug\curd.pdb
+C:\Users\rafael.rbrazao\source\repos\curd\obj\Debug\curd.exe.config

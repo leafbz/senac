@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\sidebar\\modal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|solutionrelative:modal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\sidebar\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\sidebar\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\sidebar\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\sidebar\\modal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{C31EE56A-1FE9-430D-A683-87E3A43EB671}|sidebar.csproj|solutionrelative:modal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,20 +26,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\Sidebar\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "Form1.Designer.cs",
-              "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\Sidebar\\Form1.Designer.cs",
-              "RelativeToolTip": "Form1.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "modal.cs",
+              "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\modal.cs",
+              "RelativeDocumentMoniker": "modal.cs",
+              "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\modal.cs*",
+              "RelativeToolTip": "modal.cs*",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAUwCYAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-07T18:05:18.35Z",
+              "WhenOpened": "2026-04-16T18:06:59.574Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "modal.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\modal.cs",
+              "RelativeDocumentMoniker": "modal.cs",
+              "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\modal.cs [Design]*",
+              "RelativeToolTip": "modal.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T17:57:22.947Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -45,14 +61,14 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAqwCIAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAABMAAAAAAAAAAAA1wBYAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-07T18:05:27.635Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\sidebar\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",

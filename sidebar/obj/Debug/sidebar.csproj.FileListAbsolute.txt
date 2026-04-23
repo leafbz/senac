@@ -14,3 +14,4 @@ C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCBUNDLE.resource
 C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCLIVRO.resources
 C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCADD.resources
 C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.UCEDIT.resources
+C:\Users\rafael.rbrazao\source\repos\Sidebar\obj\Debug\sidebar.modal.resources

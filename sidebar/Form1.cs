@@ -12,6 +12,7 @@ namespace sidebar
 {
     public partial class Form1 : Form
     {
+        public static Form1 Instance;
         private Boolean showPanelLivro = false;
         private Boolean showPanelBundle = false;
         private Boolean showPanelArquivado = false;
@@ -19,12 +20,14 @@ namespace sidebar
         public Form1()
         {
             InitializeComponent();
+            Instance = this;
             togglePanels();
             UCLIVRO uc = new UCLIVRO();
             addUserControl(uc);
         }
+        public static int parentX, parentY;
 
-        private void addUserControl(UserControl userControl)
+        public void addUserControl(UserControl userControl)
         {
             userControl.Dock = DockStyle.Fill;
             panelContainer.Controls.Clear();
@@ -43,8 +46,25 @@ namespace sidebar
             switch (btn.Name)
             {
                 case "btnAdd": 
-                    addUserControl(new UCLIVRO());
-                    panelAdd.BackColor = Color.DarkGreen;
+                    Form modalbg = new Form();
+                    using (modal modal = new modal())
+                    {
+                        modalbg.StartPosition = FormStartPosition.Manual;
+                        modalbg.FormBorderStyle = FormBorderStyle.None;
+                        modalbg.Opacity = .50d;
+                        modalbg.BackColor = Color.Black;
+                        modalbg.Size = this.Size;
+                        modalbg.Location = this.Location;
+                        modalbg.ShowInTaskbar = false;
+                        modalbg.Show();
+                        modal.Owner = modalbg;
+
+                        parentX = this.Location.X;
+                        parentY = this.Location.Y;
+
+                        modal.ShowDialog();
+                        modalbg.Dispose();
+                    }
                     break;
                 case "btnEdit":
                     addUserControl(new UCLIVRO());
