@@ -201,6 +201,7 @@
             this.btnAdd.Text = "Add Employee";
             this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            this.btnAdd.Paint += new System.Windows.Forms.PaintEventHandler(this.btnAdd_Paint);
             // 
             // pictureBox1
             // 

@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.btnSave = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.image = new System.Windows.Forms.PictureBox();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.btnAddImg = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -45,28 +45,28 @@
             this.lblLang = new System.Windows.Forms.Label();
             this.lblPubYear = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.txtISBN = new System.Windows.Forms.TextBox();
+            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.txtAuthor = new System.Windows.Forms.TextBox();
+            this.txtPublisher = new System.Windows.Forms.TextBox();
             this.panelInfo = new System.Windows.Forms.Panel();
+            this.txtLanguage = new System.Windows.Forms.TextBox();
+            this.txtGenre = new System.Windows.Forms.TextBox();
+            this.numPublicationYear = new System.Windows.Forms.NumericUpDown();
             this.panelDesc = new System.Windows.Forms.Panel();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.txtDescription = new System.Windows.Forms.TextBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.cmbCondition = new System.Windows.Forms.TextBox();
+            this.numPrice = new System.Windows.Forms.NumericUpDown();
+            this.cmbStatus = new System.Windows.Forms.ComboBox();
+            this.cmbCondition = new System.Windows.Forms.ComboBox();
+            this.numWeight = new System.Windows.Forms.NumericUpDown();
+            this.numPages = new System.Windows.Forms.NumericUpDown();
+            this.txtReasonStatus = new System.Windows.Forms.TextBox();
             this.cmbBookType = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -74,22 +74,27 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnArchive = new System.Windows.Forms.Button();
+            this.lblId = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.txtDefectedNotes = new System.Windows.Forms.TextBox();
             this.panelNotes = new System.Windows.Forms.Panel();
+            this.txtTitleId = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panelInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPublicationYear)).BeginInit();
             this.panelDesc.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPages)).BeginInit();
             this.panel10.SuspendLayout();
             this.panelNotes.SuspendLayout();
             this.SuspendLayout();
@@ -108,21 +113,24 @@
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.Paint += new System.Windows.Forms.PaintEventHandler(this.btnSave_Paint);
             // 
-            // button2
+            // btnCancel
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.button2.Location = new System.Drawing.Point(1238, 801);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(117, 48);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnCancel.Location = new System.Drawing.Point(1238, 801);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(117, 48);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Paint += new System.Windows.Forms.PaintEventHandler(this.btnCancel_Paint);
             // 
             // panel2
             // 
@@ -155,19 +163,20 @@
             this.image.TabIndex = 1;
             this.image.TabStop = false;
             // 
-            // button6
+            // btnRemove
             // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.button6.Location = new System.Drawing.Point(194, 302);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(117, 48);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "Remove";
-            this.button6.UseVisualStyleBackColor = false;
+            this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnRemove.FlatAppearance.BorderSize = 0;
+            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemove.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnRemove.Location = new System.Drawing.Point(194, 302);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(117, 48);
+            this.btnRemove.TabIndex = 6;
+            this.btnRemove.Text = "Remove";
+            this.btnRemove.UseVisualStyleBackColor = false;
+            this.btnRemove.Paint += new System.Windows.Forms.PaintEventHandler(this.btnRemove_Paint);
             // 
             // btnAddImg
             // 
@@ -183,13 +192,14 @@
             this.btnAddImg.Text = "Add Image";
             this.btnAddImg.UseVisualStyleBackColor = false;
             this.btnAddImg.Click += new System.EventHandler(this.btnAddImg_Click);
+            this.btnAddImg.Paint += new System.Windows.Forms.PaintEventHandler(this.btnAddImg_Paint);
             // 
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(245)))), ((int)(((byte)(239)))));
             this.panel1.Controls.Add(this.btnAddImg);
-            this.panel1.Controls.Add(this.button6);
+            this.panel1.Controls.Add(this.btnRemove);
             this.panel1.Controls.Add(this.image);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -290,75 +300,49 @@
             this.label13.TabIndex = 7;
             this.label13.Text = "Publisher:";
             // 
-            // comboBox1
+            // txtISBN
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(134, 197);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(159, 24);
-            this.comboBox1.TabIndex = 8;
+            this.txtISBN.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtISBN.Location = new System.Drawing.Point(134, 72);
+            this.txtISBN.Name = "txtISBN";
+            this.txtISBN.Size = new System.Drawing.Size(274, 22);
+            this.txtISBN.TabIndex = 10;
             // 
-            // comboBox2
+            // txtTitle
             // 
-            this.comboBox2.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(134, 240);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(159, 24);
-            this.comboBox2.TabIndex = 9;
+            this.txtTitle.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTitle.Location = new System.Drawing.Point(134, 114);
+            this.txtTitle.Name = "txtTitle";
+            this.txtTitle.Size = new System.Drawing.Size(274, 22);
+            this.txtTitle.TabIndex = 11;
             // 
-            // textBox1
+            // txtAuthor
             // 
-            this.textBox1.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(134, 72);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(274, 22);
-            this.textBox1.TabIndex = 10;
+            this.txtAuthor.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAuthor.Location = new System.Drawing.Point(134, 155);
+            this.txtAuthor.Name = "txtAuthor";
+            this.txtAuthor.Size = new System.Drawing.Size(274, 22);
+            this.txtAuthor.TabIndex = 12;
             // 
-            // textBox2
+            // txtPublisher
             // 
-            this.textBox2.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(134, 114);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(274, 22);
-            this.textBox2.TabIndex = 11;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(134, 155);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(274, 22);
-            this.textBox3.TabIndex = 12;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(134, 325);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(274, 22);
-            this.textBox5.TabIndex = 14;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(134, 283);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(159, 22);
-            this.textBox4.TabIndex = 15;
+            this.txtPublisher.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPublisher.Location = new System.Drawing.Point(134, 325);
+            this.txtPublisher.Name = "txtPublisher";
+            this.txtPublisher.Size = new System.Drawing.Size(274, 22);
+            this.txtPublisher.TabIndex = 14;
             // 
             // panelInfo
             // 
             this.panelInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(245)))), ((int)(((byte)(239)))));
-            this.panelInfo.Controls.Add(this.textBox4);
-            this.panelInfo.Controls.Add(this.textBox5);
-            this.panelInfo.Controls.Add(this.textBox3);
-            this.panelInfo.Controls.Add(this.textBox2);
-            this.panelInfo.Controls.Add(this.textBox1);
-            this.panelInfo.Controls.Add(this.comboBox2);
-            this.panelInfo.Controls.Add(this.comboBox1);
+            this.panelInfo.Controls.Add(this.txtLanguage);
+            this.panelInfo.Controls.Add(this.txtGenre);
+            this.panelInfo.Controls.Add(this.numPublicationYear);
+            this.panelInfo.Controls.Add(this.txtPublisher);
+            this.panelInfo.Controls.Add(this.txtAuthor);
+            this.panelInfo.Controls.Add(this.txtTitle);
+            this.panelInfo.Controls.Add(this.txtISBN);
             this.panelInfo.Controls.Add(this.label13);
             this.panelInfo.Controls.Add(this.lblPubYear);
             this.panelInfo.Controls.Add(this.lblLang);
@@ -373,11 +357,34 @@
             this.panelInfo.Size = new System.Drawing.Size(489, 366);
             this.panelInfo.TabIndex = 3;
             // 
+            // txtLanguage
+            // 
+            this.txtLanguage.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLanguage.Location = new System.Drawing.Point(134, 242);
+            this.txtLanguage.Name = "txtLanguage";
+            this.txtLanguage.Size = new System.Drawing.Size(154, 22);
+            this.txtLanguage.TabIndex = 20;
+            // 
+            // txtGenre
+            // 
+            this.txtGenre.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGenre.Location = new System.Drawing.Point(134, 195);
+            this.txtGenre.Name = "txtGenre";
+            this.txtGenre.Size = new System.Drawing.Size(154, 22);
+            this.txtGenre.TabIndex = 19;
+            // 
+            // numPublicationYear
+            // 
+            this.numPublicationYear.Location = new System.Drawing.Point(134, 280);
+            this.numPublicationYear.Name = "numPublicationYear";
+            this.numPublicationYear.Size = new System.Drawing.Size(120, 22);
+            this.numPublicationYear.TabIndex = 18;
+            // 
             // panelDesc
             // 
             this.panelDesc.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelDesc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(245)))), ((int)(((byte)(239)))));
-            this.panelDesc.Controls.Add(this.textBox12);
+            this.panelDesc.Controls.Add(this.txtDescription);
             this.panelDesc.Controls.Add(this.panel8);
             this.panelDesc.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelDesc.Location = new System.Drawing.Point(87, 558);
@@ -385,14 +392,14 @@
             this.panelDesc.Size = new System.Drawing.Size(489, 206);
             this.panelDesc.TabIndex = 3;
             // 
-            // textBox12
+            // txtDescription
             // 
-            this.textBox12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox12.Location = new System.Drawing.Point(0, 53);
-            this.textBox12.Multiline = true;
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(489, 153);
-            this.textBox12.TabIndex = 1;
+            this.txtDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDescription.Location = new System.Drawing.Point(0, 53);
+            this.txtDescription.Multiline = true;
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(489, 153);
+            this.txtDescription.TabIndex = 1;
             // 
             // panel8
             // 
@@ -442,13 +449,13 @@
             // 
             this.panel5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(245)))), ((int)(((byte)(239)))));
-            this.panel5.Controls.Add(this.textBox6);
-            this.panel5.Controls.Add(this.textBox7);
-            this.panel5.Controls.Add(this.textBox8);
-            this.panel5.Controls.Add(this.textBox9);
+            this.panel5.Controls.Add(this.numPrice);
+            this.panel5.Controls.Add(this.cmbStatus);
             this.panel5.Controls.Add(this.cmbCondition);
+            this.panel5.Controls.Add(this.numWeight);
+            this.panel5.Controls.Add(this.numPages);
+            this.panel5.Controls.Add(this.txtReasonStatus);
             this.panel5.Controls.Add(this.cmbBookType);
-            this.panel5.Controls.Add(this.comboBox4);
             this.panel5.Controls.Add(this.label3);
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.label8);
@@ -463,45 +470,52 @@
             this.panel5.Size = new System.Drawing.Size(420, 366);
             this.panel5.TabIndex = 16;
             // 
-            // textBox6
+            // numPrice
             // 
-            this.textBox6.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(167, 286);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(228, 22);
-            this.textBox6.TabIndex = 15;
+            this.numPrice.Location = new System.Drawing.Point(167, 152);
+            this.numPrice.Name = "numPrice";
+            this.numPrice.Size = new System.Drawing.Size(120, 22);
+            this.numPrice.TabIndex = 20;
             // 
-            // textBox7
+            // cmbStatus
             // 
-            this.textBox7.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(167, 329);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(228, 22);
-            this.textBox7.TabIndex = 14;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(167, 151);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(228, 22);
-            this.textBox8.TabIndex = 12;
-            // 
-            // textBox9
-            // 
-            this.textBox9.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(167, 107);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(228, 22);
-            this.textBox9.TabIndex = 11;
+            this.cmbStatus.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbStatus.FormattingEnabled = true;
+            this.cmbStatus.Location = new System.Drawing.Point(167, 110);
+            this.cmbStatus.Name = "cmbStatus";
+            this.cmbStatus.Size = new System.Drawing.Size(159, 24);
+            this.cmbStatus.TabIndex = 19;
             // 
             // cmbCondition
             // 
             this.cmbCondition.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbCondition.Location = new System.Drawing.Point(167, 64);
+            this.cmbCondition.FormattingEnabled = true;
+            this.cmbCondition.Location = new System.Drawing.Point(167, 67);
             this.cmbCondition.Name = "cmbCondition";
-            this.cmbCondition.Size = new System.Drawing.Size(228, 22);
-            this.cmbCondition.TabIndex = 10;
+            this.cmbCondition.Size = new System.Drawing.Size(159, 24);
+            this.cmbCondition.TabIndex = 18;
+            // 
+            // numWeight
+            // 
+            this.numWeight.Location = new System.Drawing.Point(167, 287);
+            this.numWeight.Name = "numWeight";
+            this.numWeight.Size = new System.Drawing.Size(120, 22);
+            this.numWeight.TabIndex = 17;
+            // 
+            // numPages
+            // 
+            this.numPages.Location = new System.Drawing.Point(167, 196);
+            this.numPages.Name = "numPages";
+            this.numPages.Size = new System.Drawing.Size(120, 22);
+            this.numPages.TabIndex = 16;
+            // 
+            // txtReasonStatus
+            // 
+            this.txtReasonStatus.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReasonStatus.Location = new System.Drawing.Point(167, 329);
+            this.txtReasonStatus.Name = "txtReasonStatus";
+            this.txtReasonStatus.Size = new System.Drawing.Size(228, 22);
+            this.txtReasonStatus.TabIndex = 14;
             // 
             // cmbBookType
             // 
@@ -511,15 +525,6 @@
             this.cmbBookType.Name = "cmbBookType";
             this.cmbBookType.Size = new System.Drawing.Size(228, 24);
             this.cmbBookType.TabIndex = 9;
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(167, 194);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(228, 24);
-            this.comboBox4.TabIndex = 8;
             // 
             // label3
             // 
@@ -591,46 +596,48 @@
             this.label12.TabIndex = 1;
             this.label12.Text = "Condition:";
             // 
-            // button4
+            // btnDelete
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.button4.Location = new System.Drawing.Point(1381, 12);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(117, 48);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Delete";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnDelete.FlatAppearance.BorderSize = 0;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnDelete.Location = new System.Drawing.Point(1381, 12);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(117, 48);
+            this.btnDelete.TabIndex = 4;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Paint += new System.Windows.Forms.PaintEventHandler(this.btnDelete_Paint);
             // 
-            // button3
+            // btnArchive
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.button3.Location = new System.Drawing.Point(1238, 12);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(117, 48);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Archive";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnArchive.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnArchive.FlatAppearance.BorderSize = 0;
+            this.btnArchive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnArchive.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnArchive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnArchive.Location = new System.Drawing.Point(1238, 12);
+            this.btnArchive.Name = "btnArchive";
+            this.btnArchive.Size = new System.Drawing.Size(117, 48);
+            this.btnArchive.TabIndex = 5;
+            this.btnArchive.Text = "Archive";
+            this.btnArchive.UseVisualStyleBackColor = false;
+            this.btnArchive.Paint += new System.Windows.Forms.PaintEventHandler(this.btnArchive_Paint);
             // 
-            // label6
+            // lblId
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(12, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(307, 38);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Book ID: NL0000";
-            this.label6.Visible = false;
+            this.lblId.AutoSize = true;
+            this.lblId.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblId.Location = new System.Drawing.Point(12, 9);
+            this.lblId.Name = "lblId";
+            this.lblId.Size = new System.Drawing.Size(307, 38);
+            this.lblId.TabIndex = 6;
+            this.lblId.Text = "Book ID: NL0000";
+            this.lblId.Visible = false;
             // 
             // panel10
             // 
@@ -654,20 +661,20 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Notes";
             // 
-            // textBox11
+            // txtDefectedNotes
             // 
-            this.textBox11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox11.Location = new System.Drawing.Point(0, 53);
-            this.textBox11.Multiline = true;
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(420, 153);
-            this.textBox11.TabIndex = 1;
+            this.txtDefectedNotes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDefectedNotes.Location = new System.Drawing.Point(0, 53);
+            this.txtDefectedNotes.Multiline = true;
+            this.txtDefectedNotes.Name = "txtDefectedNotes";
+            this.txtDefectedNotes.Size = new System.Drawing.Size(420, 153);
+            this.txtDefectedNotes.TabIndex = 1;
             // 
             // panelNotes
             // 
             this.panelNotes.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelNotes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(245)))), ((int)(((byte)(239)))));
-            this.panelNotes.Controls.Add(this.textBox11);
+            this.panelNotes.Controls.Add(this.txtDefectedNotes);
             this.panelNotes.Controls.Add(this.panel10);
             this.panelNotes.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelNotes.Location = new System.Drawing.Point(648, 558);
@@ -675,20 +682,28 @@
             this.panelNotes.Size = new System.Drawing.Size(420, 206);
             this.panelNotes.TabIndex = 3;
             // 
+            // txtTitleId
+            // 
+            this.txtTitleId.Location = new System.Drawing.Point(815, 109);
+            this.txtTitleId.Name = "txtTitleId";
+            this.txtTitleId.Size = new System.Drawing.Size(100, 22);
+            this.txtTitleId.TabIndex = 18;
+            // 
             // frmAddBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.txtTitleId);
             this.Controls.Add(this.panel5);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.lblId);
+            this.Controls.Add(this.btnArchive);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.panelNotes);
             this.Controls.Add(this.panelDesc);
             this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
@@ -703,6 +718,7 @@
             this.panel4.PerformLayout();
             this.panelInfo.ResumeLayout(false);
             this.panelInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPublicationYear)).EndInit();
             this.panelDesc.ResumeLayout(false);
             this.panelDesc.PerformLayout();
             this.panel8.ResumeLayout(false);
@@ -711,6 +727,9 @@
             this.panel6.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPages)).EndInit();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
             this.panelNotes.ResumeLayout(false);
@@ -723,11 +742,11 @@
         #endregion
 
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox image;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.Button btnAddImg;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel4;
@@ -739,28 +758,20 @@
         private System.Windows.Forms.Label lblLang;
         private System.Windows.Forms.Label lblPubYear;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox txtISBN;
+        private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.TextBox txtAuthor;
+        private System.Windows.Forms.TextBox txtPublisher;
         private System.Windows.Forms.Panel panelInfo;
         private System.Windows.Forms.Panel panelDesc;
-        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox cmbCondition;
+        private System.Windows.Forms.TextBox txtReasonStatus;
         private System.Windows.Forms.ComboBox cmbBookType;
-        private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -768,12 +779,21 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnArchive;
+        private System.Windows.Forms.Label lblId;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox txtDefectedNotes;
         private System.Windows.Forms.Panel panelNotes;
+        private System.Windows.Forms.NumericUpDown numPublicationYear;
+        private System.Windows.Forms.ComboBox cmbCondition;
+        private System.Windows.Forms.NumericUpDown numWeight;
+        private System.Windows.Forms.NumericUpDown numPages;
+        private System.Windows.Forms.ComboBox cmbStatus;
+        private System.Windows.Forms.NumericUpDown numPrice;
+        private System.Windows.Forms.TextBox txtTitleId;
+        private System.Windows.Forms.TextBox txtLanguage;
+        private System.Windows.Forms.TextBox txtGenre;
     }
 }

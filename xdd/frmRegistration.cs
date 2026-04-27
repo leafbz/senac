@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -284,6 +285,28 @@ namespace xdd
                 {
                     Conn.Close();
                 }
+            }
+        }
+
+        private void btnAdd_Paint(object sender, PaintEventArgs e)
+        {
+            Button btn = (Button)sender;
+            int radius = 20; // Ajuste o raio para mudar a curvatura
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.StartFigure();
+                // Canto superior esquerdo
+                path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
+                // Canto superior direito
+                path.AddArc(new Rectangle(btn.Width - radius, 0, radius, radius), 270, 90);
+                // Canto inferior direito
+                path.AddArc(new Rectangle(btn.Width - radius, btn.Height - radius, radius, radius), 0, 90);
+                // Canto inferior esquerdo
+                path.AddArc(new Rectangle(0, btn.Height - radius, radius, radius), 90, 90);
+                path.CloseFigure();
+
+                btn.Region = new Region(path);
             }
         }
     }

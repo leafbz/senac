@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,22 +13,110 @@ namespace xdd
 {
     public partial class Book : Form
     {
-        string[] Books = { "The Underground Railroad", "Alice in Wonderland", "Pequeno Manual Antirracista", "Anne of Green Gables", "The Clock House Murders: The classic japonise locked room mystery", "It Ends With Us" };
         public Book()
         {
             InitializeComponent();
-            AddCards(Books);
+            LoadBooks();
         }
-        private void AddCards(string[] itens)
+
+        public void LoadBooks()
         {
-            cardContainer.Controls.Clear();
-            foreach (var text in itens)
+            try
             {
-                Card card = new Card();
-                card.Detail(text);
-                card.bookImg = Image.FromFile(@"C:\Users\rafael.rbrazao\Downloads\glorp-4x.png");
-                cardContainer.Controls.Add(card);
+                cardContainer.Controls.Clear();
+
+                List<ClassBook> books = GetAllBooks();
+
+                foreach (ClassBook book in books)
+                {
+                    Card card = new Card();
+
+                    // Your current Card already has Detail(string) and bookImg.
+                    // If you later create Card.SetBook(ClassBook book), replace these two lines with card.SetBook(book).
+                    card.Detail(book.ToString());
+
+                    if (book.CoverImage != null)
+                        card.bookImg = book.CoverImage;
+
+                    cardContainer.Controls.Add(card);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading books: " + ex.Message);
+            }
+        }
+
+        private List<ClassBook> GetAllBooks()
+        {
+            List<ClassBook> books = new List<ClassBook>();
+
+            string query = @"
+                SELECT 
+                    b.book_id,
+                    b.price,
+                    b.book_condition,
+                    b.book_status,
+                    b.reason_status,
+                    b.defected_notes,
+                    b.title_id_in_book,
+
+                    bt.title_id,
+                    bt.title,
+                    bt.author,
+                    bt.iSBN,
+                    bt.pages,
+                    bt.book_type,
+                    bt.book_approx_weight,
+                    bt.publisher,
+                    bt.publication_year,
+                    bt.book_language,
+                    bt.genre,
+                    bt.book_description,
+                    bt.book_image
+                FROM book b
+                INNER JOIN book_titles bt
+                    ON b.title_id_in_book = bt.title_id
+                ORDER BY bt.title ASC;";
+
+            using (var conn = Db.GetConnection())
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                conn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        books.Add(new ClassBook
+                        {
+                            BookId = reader["book_id"].ToString(),
+                            TitleId = reader["title_id"].ToString(),
+
+                            Price = Convert.ToDecimal(reader["price"]),
+                            Condition = reader["book_condition"].ToString(),
+                            Status = reader["book_status"].ToString(),
+                            ReasonStatus = reader["reason_status"] == DBNull.Value ? null : reader["reason_status"].ToString(),
+                            DefectedNotes = reader["defected_notes"].ToString(),
+
+                            Title = reader["title"].ToString(),
+                            Author = reader["author"].ToString(),
+                            ISBN = reader["iSBN"].ToString(),
+                            Pages = Convert.ToInt32(reader["pages"]),
+                            BookType = reader["book_type"].ToString(),
+                            ApproxWeight = Convert.ToDecimal(reader["book_approx_weight"]),
+                            Publisher = reader["publisher"].ToString(),
+                            PublicationYear = Convert.ToInt32(reader["publication_year"]),
+                            Language = reader["book_language"].ToString(),
+                            Genre = reader["genre"].ToString(),
+                            Description = reader["book_description"].ToString(),
+                            ImageBytes = reader["book_image"] == DBNull.Value ? null : (byte[])reader["book_image"]
+                        });
+                    }
+                }
+            }
+
+            return books;
         }
     }
 }

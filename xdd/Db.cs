@@ -10,7 +10,7 @@ namespace xdd
     public static class Db
     {
         private static readonly string connectionString =
-            "server=localhost;database=your_database;uid=root;pwd=your_password;";
+            "datasource=localhost; username=root; password=; database=ninelivebooks";
 
         public static MySqlConnection GetConnection()
         {

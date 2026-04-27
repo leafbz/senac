@@ -70,6 +70,7 @@
             this.btnEnter.Text = "Enter";
             this.btnEnter.UseVisualStyleBackColor = false;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
+            this.btnEnter.Paint += new System.Windows.Forms.PaintEventHandler(this.btnEnter_Paint);
             // 
             // txtPassword
             // 
