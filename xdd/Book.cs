@@ -31,9 +31,8 @@ namespace xdd
                 {
                     Card card = new Card();
 
-                    // Your current Card already has Detail(string) and bookImg.
-                    // If you later create Card.SetBook(ClassBook book), replace these two lines with card.SetBook(book).
-                    card.Detail(book.ToString());
+                    card.SetBook(book);
+                    //card.Detail(book.ToString());
 
                     if (book.CoverImage != null)
                         card.bookImg = book.CoverImage;

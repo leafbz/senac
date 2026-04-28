@@ -49,3 +49,4 @@ C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmRegistration.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\nivelive.4DDAD583.Up2Date
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmLogin.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.ModalAdd.resources
+C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmResetPassword.resources

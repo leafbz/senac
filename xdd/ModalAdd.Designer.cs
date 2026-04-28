@@ -48,6 +48,7 @@
             this.btnBook.Text = "Book";
             this.btnBook.UseVisualStyleBackColor = false;
             this.btnBook.Click += new System.EventHandler(this.btnBook_Click);
+            this.btnBook.Paint += new System.Windows.Forms.PaintEventHandler(this.btnBook_Paint);
             // 
             // btnBundle
             // 
@@ -64,6 +65,7 @@
             this.btnBundle.Text = "Bundle";
             this.btnBundle.UseVisualStyleBackColor = false;
             this.btnBundle.Click += new System.EventHandler(this.btnBundle_Click);
+            this.btnBundle.Paint += new System.Windows.Forms.PaintEventHandler(this.btnBundle_Paint);
             // 
             // btnClose
             // 
@@ -80,6 +82,7 @@
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Paint += new System.Windows.Forms.PaintEventHandler(this.btnClose_Paint);
             // 
             // ModalAdd
             // 

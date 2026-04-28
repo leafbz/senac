@@ -13,19 +13,81 @@ namespace xdd
     public partial class Card : UserControl
     {
         private string text = "Label";
-        public string customText { get { return text; } set { text = value; } }
         private Image bookImage;
-        public Image bookImg { get { return bookImage; } set { bookImage = value; pictureBox1.Image = value; } }
+
+        public ClassBook BookData { get; private set; }
+
+        public string customText
+        {
+            get { return text; }
+            set
+            {
+                text = value;
+                if (label1 != null)
+                    label1.Text = value;
+            }
+        }
+
+        public Image bookImg
+        {
+            get { return bookImage; }
+            set
+            {
+                bookImage = value;
+                pictureBox1.Image = value;
+            }
+        }
 
         public event EventHandler CardClicked;
+
         public Card()
         {
             InitializeComponent();
-            this.Click += (s, e) => CardClicked?.Invoke(this, e);
+            RegisterClickEvents(this);
         }
+
+        public void SetBook(ClassBook book)
+        {
+            BookData = book;
+
+            Detail(
+                $"{book.Title}\n" +
+                $"{book.Author}\n" +
+                $"ID: {book.BookId}\n" +
+                $"Condition: {book.Condition}\n" +
+                $"Status: {book.Status}\n" +
+                $"Price: ${book.Price:F2}"
+            );
+
+            bookImg = book.CoverImage;
+        }
+
         public void Detail(string text)
         {
             customText = text;
+        }
+
+        private void RegisterClickEvents(Control parent)
+        {
+            parent.Click += Card_Click;
+
+            foreach (Control control in parent.Controls)
+            {
+                control.Click += Card_Click;
+
+                if (control.HasChildren)
+                    RegisterClickEvents(control);
+            }
+        }
+
+        private void Card_Click(object sender, EventArgs e)
+        {
+            CardClicked?.Invoke(this, e);
+
+            if (BookData != null && frmPrincipal.PrincipalInstance != null)
+            {
+                //frmPrincipal.PrincipalInstance.OpenBookDetails(BookData);
+            }
         }
 
         private void Card_MouseHover(object sender, EventArgs e)

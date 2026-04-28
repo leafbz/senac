@@ -59,7 +59,6 @@
             this.btnEnter.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnEnter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
             this.btnEnter.FlatAppearance.BorderSize = 0;
-            this.btnEnter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(109)))), ((int)(((byte)(36)))));
             this.btnEnter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.btnEnter.Location = new System.Drawing.Point(128, 385);

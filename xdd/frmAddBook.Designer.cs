@@ -376,6 +376,11 @@
             // numPublicationYear
             // 
             this.numPublicationYear.Location = new System.Drawing.Point(134, 280);
+            this.numPublicationYear.Maximum = new decimal(new int[] {
+            2026,
+            0,
+            0,
+            0});
             this.numPublicationYear.Name = "numPublicationYear";
             this.numPublicationYear.Size = new System.Drawing.Size(120, 22);
             this.numPublicationYear.TabIndex = 18;
@@ -472,6 +477,7 @@
             // 
             // numPrice
             // 
+            this.numPrice.DecimalPlaces = 2;
             this.numPrice.Location = new System.Drawing.Point(167, 152);
             this.numPrice.Name = "numPrice";
             this.numPrice.Size = new System.Drawing.Size(120, 22);
@@ -497,10 +503,12 @@
             // 
             // numWeight
             // 
+            this.numWeight.DecimalPlaces = 1;
             this.numWeight.Location = new System.Drawing.Point(167, 287);
             this.numWeight.Name = "numWeight";
             this.numWeight.Size = new System.Drawing.Size(120, 22);
             this.numWeight.TabIndex = 17;
+            this.numWeight.Tag = "Kg";
             // 
             // numPages
             // 
@@ -523,7 +531,7 @@
             this.cmbBookType.FormattingEnabled = true;
             this.cmbBookType.Location = new System.Drawing.Point(167, 240);
             this.cmbBookType.Name = "cmbBookType";
-            this.cmbBookType.Size = new System.Drawing.Size(228, 24);
+            this.cmbBookType.Size = new System.Drawing.Size(100, 24);
             this.cmbBookType.TabIndex = 9;
             // 
             // label3
@@ -620,7 +628,7 @@
             this.btnArchive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnArchive.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnArchive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.btnArchive.Location = new System.Drawing.Point(1238, 12);
+            this.btnArchive.Location = new System.Drawing.Point(1236, 12);
             this.btnArchive.Name = "btnArchive";
             this.btnArchive.Size = new System.Drawing.Size(117, 48);
             this.btnArchive.TabIndex = 5;
@@ -637,7 +645,6 @@
             this.lblId.Size = new System.Drawing.Size(307, 38);
             this.lblId.TabIndex = 6;
             this.lblId.Text = "Book ID: NL0000";
-            this.lblId.Visible = false;
             // 
             // panel10
             // 
