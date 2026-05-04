@@ -53,6 +53,7 @@
             this.lblRedefinir.Size = new System.Drawing.Size(111, 16);
             this.lblRedefinir.TabIndex = 13;
             this.lblRedefinir.Text = "Forgot Password";
+            this.lblRedefinir.Click += new System.EventHandler(this.lblRedefinir_Click);
             // 
             // btnEnter
             // 
@@ -106,6 +107,7 @@
             this.label1.Size = new System.Drawing.Size(144, 16);
             this.label1.TabIndex = 14;
             this.label1.Text = "Don\'t have a Account?";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // panel1
             // 

@@ -24,19 +24,12 @@ namespace xdd
             try
             {
                 cardContainer.Controls.Clear();
-
                 List<ClassBook> books = GetAllBooks();
 
                 foreach (ClassBook book in books)
                 {
                     Card card = new Card();
-
                     card.SetBook(book);
-                    //card.Detail(book.ToString());
-
-                    if (book.CoverImage != null)
-                        card.bookImg = book.CoverImage;
-
                     cardContainer.Controls.Add(card);
                 }
             }
@@ -51,7 +44,7 @@ namespace xdd
             List<ClassBook> books = new List<ClassBook>();
 
             string query = @"
-                SELECT 
+                SELECT
                     b.book_id,
                     b.price,
                     b.book_condition,
@@ -59,7 +52,6 @@ namespace xdd
                     b.reason_status,
                     b.defected_notes,
                     b.title_id_in_book,
-
                     bt.title_id,
                     bt.title,
                     bt.author,
@@ -76,7 +68,7 @@ namespace xdd
                 FROM book b
                 INNER JOIN book_titles bt
                     ON b.title_id_in_book = bt.title_id
-                ORDER BY bt.title ASC;";
+                ORDER BY bt.title ASC, b.book_id ASC;";
 
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))
@@ -91,13 +83,11 @@ namespace xdd
                         {
                             BookId = reader["book_id"].ToString(),
                             TitleId = reader["title_id"].ToString(),
-
                             Price = Convert.ToDecimal(reader["price"]),
                             Condition = reader["book_condition"].ToString(),
                             Status = reader["book_status"].ToString(),
                             ReasonStatus = reader["reason_status"] == DBNull.Value ? null : reader["reason_status"].ToString(),
                             DefectedNotes = reader["defected_notes"].ToString(),
-
                             Title = reader["title"].ToString(),
                             Author = reader["author"].ToString(),
                             ISBN = reader["iSBN"].ToString(),
@@ -119,3 +109,4 @@ namespace xdd
         }
     }
 }
+

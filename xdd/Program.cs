@@ -17,7 +17,7 @@ namespace xdd
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmResetPassword());
+            Application.Run(new frmLogin());
         }
     }
 }

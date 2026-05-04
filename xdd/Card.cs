@@ -34,7 +34,11 @@ namespace xdd
             set
             {
                 bookImage = value;
-                pictureBox1.Image = value;
+                if (pictureBox1 != null)
+                {
+                    pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+                    pictureBox1.Image = value;
+                }
             }
         }
 
@@ -74,7 +78,6 @@ namespace xdd
             foreach (Control control in parent.Controls)
             {
                 control.Click += Card_Click;
-
                 if (control.HasChildren)
                     RegisterClickEvents(control);
             }
@@ -86,7 +89,7 @@ namespace xdd
 
             if (BookData != null && frmPrincipal.PrincipalInstance != null)
             {
-                //frmPrincipal.PrincipalInstance.OpenBookDetails(BookData);
+                frmPrincipal.PrincipalInstance.OpenBookForm(BookData, BookFormMode.View);
             }
         }
 

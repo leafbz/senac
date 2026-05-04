@@ -150,7 +150,14 @@ namespace xdd
 
                     }
 
-                    if (VerifyPassword(password, storedHash))
+                    if (storedHash == null)
+                    {
+                        MessageBox.Show("The username/email or password is incorrect.");
+                        return;
+                    }
+
+
+                        if (VerifyPassword(password, storedHash))
                     {
 
                         Sessao.User_Id = user_Id;
@@ -163,18 +170,12 @@ namespace xdd
                     }
                     else
                     {
-                        MessageBox.Show("The username or password is incorrect.");
+                        MessageBox.Show("The username/email or password is incorrect.");
                     }
                 }
             }
         }
-        //private void lblRedefinir_Click(object sender, EventArgs e)
-        //{
-        //    frmResetPassword form = new frmResetPassword();
-        //    form.Show();
-        //    this.Hide();
-
-        //}
+       
 
         private void txtPassword_Enter(object sender, EventArgs e)
         {
@@ -250,5 +251,21 @@ namespace xdd
                 btn.Region = new Region(path);
             }
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            frmRegistration form = new frmRegistration();
+            form.Show();
+            this.Hide();
+        }
+
+        private void lblRedefinir_Click(object sender, EventArgs e)
+        {
+            frmResetPassword form = new frmResetPassword();
+            form.Show();
+            this.Hide();
+        }
+
+      
     }
 }

@@ -52,6 +52,12 @@ namespace xdd
                 btnAdd.Visible = false;
             }
 
+            if (Sessao.User_Role == "Administrator" || Sessao.User_Role == "Staff")
+
+            {
+                btnQuit.Visible = false;
+            }
+
             if (Sessao.User_Role == "Adminstrator") 
             {
               btnRegister.Visible = false;
@@ -109,9 +115,9 @@ namespace xdd
 
                 string role = cbRole.Text.Trim();
 
-                if (role != "Administrator" && role != "User")
+                if (role != "Administrator" && role != "Staff")
                 {
-                    MessageBox.Show("Invalid status. Use only Administrator or User.");
+                    MessageBox.Show("Invalid status. Use only Administrator or Staff.");
                     return;
                 }
 
@@ -129,6 +135,10 @@ namespace xdd
                 cmd.ExecuteNonQuery();
 
                 MessageBox.Show("Registration was successful.");
+
+                frmLogin form = new frmLogin();
+                form.Show();
+                this.Close();
             }
 
             catch (MySqlException ex)
@@ -248,9 +258,9 @@ namespace xdd
 
                 string role = cbRole.Text.Trim();
 
-                if (role != "Administrator" && role != "User")
+                if (role != "Administrator" && role != "Staff")
                 {
-                    MessageBox.Show("Invalid status. Use only Administrator or User.");
+                    MessageBox.Show("Invalid status. Use only Administrator or Staff.");
                     return;
                 }
 
@@ -266,6 +276,7 @@ namespace xdd
                 cmd.ExecuteNonQuery();
 
                 MessageBox.Show("New Employee added.");
+
             }
 
             catch (MySqlException ex)
@@ -308,6 +319,13 @@ namespace xdd
 
                 btn.Region = new Region(path);
             }
+        }
+
+        private void btnQuit_Click(object sender, EventArgs e)
+        {
+            frmLogin form = new frmLogin();
+            form.Show();
+            this.Close();
         }
     }
 }

@@ -46,6 +46,7 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtConfirmPassword = new System.Windows.Forms.TextBox();
             this.picConfirmPassword = new System.Windows.Forms.PictureBox();
+            this.btnQuit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPassword)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picConfirmPassword)).BeginInit();
@@ -77,7 +78,7 @@
             this.cbStatus.Items.AddRange(new object[] {
             "Ative",
             "Inactive"});
-            this.cbStatus.Location = new System.Drawing.Point(951, 313);
+            this.cbStatus.Location = new System.Drawing.Point(954, 312);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(210, 24);
             this.cbStatus.TabIndex = 29;
@@ -88,7 +89,7 @@
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.lblName.Location = new System.Drawing.Point(709, 247);
+            this.lblName.Location = new System.Drawing.Point(709, 244);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(43, 16);
             this.lblName.TabIndex = 16;
@@ -101,8 +102,8 @@
             this.cbRole.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRole.FormattingEnabled = true;
             this.cbRole.Items.AddRange(new object[] {
-            "User"});
-            this.cbRole.Location = new System.Drawing.Point(951, 264);
+            "Staff"});
+            this.cbRole.Location = new System.Drawing.Point(951, 263);
             this.cbRole.Name = "cbRole";
             this.cbRole.Size = new System.Drawing.Size(210, 24);
             this.cbRole.TabIndex = 28;
@@ -122,10 +123,10 @@
             // txtEmail
             // 
             this.txtEmail.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtEmail.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(709, 312);
+            this.txtEmail.Font = new System.Drawing.Font("Georgia", 10.75F);
+            this.txtEmail.Location = new System.Drawing.Point(709, 313);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(210, 22);
+            this.txtEmail.Size = new System.Drawing.Size(210, 24);
             this.txtEmail.TabIndex = 27;
             // 
             // label3
@@ -146,7 +147,7 @@
             this.lblRole.AutoSize = true;
             this.lblRole.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRole.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.lblRole.Location = new System.Drawing.Point(951, 248);
+            this.lblRole.Location = new System.Drawing.Point(951, 244);
             this.lblRole.Name = "lblRole";
             this.lblRole.Size = new System.Drawing.Size(35, 16);
             this.lblRole.TabIndex = 20;
@@ -155,10 +156,10 @@
             // txtName
             // 
             this.txtName.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtName.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtName.Location = new System.Drawing.Point(709, 263);
+            this.txtName.Font = new System.Drawing.Font("Georgia", 10.75F);
+            this.txtName.Location = new System.Drawing.Point(709, 264);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(210, 22);
+            this.txtName.Size = new System.Drawing.Size(210, 24);
             this.txtName.TabIndex = 24;
             // 
             // label6
@@ -179,7 +180,7 @@
             this.lblStatus.AutoSize = true;
             this.lblStatus.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.lblStatus.Location = new System.Drawing.Point(951, 297);
+            this.lblStatus.Location = new System.Drawing.Point(951, 296);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(45, 16);
             this.lblStatus.TabIndex = 22;
@@ -229,20 +230,20 @@
             // txtPassword
             // 
             this.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtPassword.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Font = new System.Drawing.Font("Georgia", 10.75F);
             this.txtPassword.Location = new System.Drawing.Point(712, 364);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(210, 22);
+            this.txtPassword.Size = new System.Drawing.Size(210, 24);
             this.txtPassword.TabIndex = 26;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
             // txtConfirmPassword
             // 
             this.txtConfirmPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtConfirmPassword.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConfirmPassword.Location = new System.Drawing.Point(947, 364);
+            this.txtConfirmPassword.Font = new System.Drawing.Font("Georgia", 10.75F);
+            this.txtConfirmPassword.Location = new System.Drawing.Point(951, 364);
             this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.Size = new System.Drawing.Size(210, 22);
+            this.txtConfirmPassword.Size = new System.Drawing.Size(210, 24);
             this.txtConfirmPassword.TabIndex = 25;
             this.txtConfirmPassword.UseSystemPasswordChar = true;
             // 
@@ -259,12 +260,27 @@
             this.picConfirmPassword.TabStop = false;
             this.picConfirmPassword.Click += new System.EventHandler(this.picConfirmPassword_Click);
             // 
+            // btnQuit
+            // 
+            this.btnQuit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnQuit.FlatAppearance.BorderSize = 0;
+            this.btnQuit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
+            this.btnQuit.Location = new System.Drawing.Point(12, 12);
+            this.btnQuit.Name = "btnQuit";
+            this.btnQuit.Padding = new System.Windows.Forms.Padding(5);
+            this.btnQuit.Size = new System.Drawing.Size(26, 26);
+            this.btnQuit.TabIndex = 36;
+            this.btnQuit.UseVisualStyleBackColor = false;
+            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
+            // 
             // frmRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(70)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(1584, 731);
+            this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.picConfirmPassword);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtConfirmPassword);
@@ -312,5 +328,6 @@
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtConfirmPassword;
         private System.Windows.Forms.PictureBox picConfirmPassword;
+        private System.Windows.Forms.Button btnQuit;
     }
 }

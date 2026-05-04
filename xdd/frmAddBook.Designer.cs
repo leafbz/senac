@@ -362,7 +362,7 @@
             this.txtLanguage.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtLanguage.Location = new System.Drawing.Point(134, 242);
             this.txtLanguage.Name = "txtLanguage";
-            this.txtLanguage.Size = new System.Drawing.Size(154, 22);
+            this.txtLanguage.Size = new System.Drawing.Size(274, 22);
             this.txtLanguage.TabIndex = 20;
             // 
             // txtGenre
@@ -370,7 +370,7 @@
             this.txtGenre.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtGenre.Location = new System.Drawing.Point(134, 195);
             this.txtGenre.Name = "txtGenre";
-            this.txtGenre.Size = new System.Drawing.Size(154, 22);
+            this.txtGenre.Size = new System.Drawing.Size(274, 22);
             this.txtGenre.TabIndex = 19;
             // 
             // numPublicationYear
@@ -478,6 +478,11 @@
             // numPrice
             // 
             this.numPrice.DecimalPlaces = 2;
+            this.numPrice.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.numPrice.Location = new System.Drawing.Point(167, 152);
             this.numPrice.Name = "numPrice";
             this.numPrice.Size = new System.Drawing.Size(120, 22);
@@ -628,7 +633,7 @@
             this.btnArchive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnArchive.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnArchive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.btnArchive.Location = new System.Drawing.Point(1236, 12);
+            this.btnArchive.Location = new System.Drawing.Point(1237, 12);
             this.btnArchive.Name = "btnArchive";
             this.btnArchive.Size = new System.Drawing.Size(117, 48);
             this.btnArchive.TabIndex = 5;
@@ -691,7 +696,7 @@
             // 
             // txtTitleId
             // 
-            this.txtTitleId.Location = new System.Drawing.Point(815, 109);
+            this.txtTitleId.Location = new System.Drawing.Point(802, 99);
             this.txtTitleId.Name = "txtTitleId";
             this.txtTitleId.Size = new System.Drawing.Size(100, 22);
             this.txtTitleId.TabIndex = 18;

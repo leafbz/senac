@@ -14,8 +14,7 @@ namespace xdd
         private Button btnEditMode;
         private Button btnCreateCopy;
 
-        public frmAddBook()
-            : this(BookFormMode.Add)
+        public frmAddBook() : this(BookFormMode.Add)
         {
         }
 
@@ -35,6 +34,8 @@ namespace xdd
         private void frmAddBook_Load(object sender, EventArgs e)
         {
             LoadCombos();
+            ConfigureNumericFields();
+            HookBookTypeWeightSuggestion();
             EnsureModeButtons();
 
             txtISBN.Leave -= txtISBN_Leave;
@@ -57,41 +58,50 @@ namespace xdd
 
         private void EnsureModeButtons()
         {
+            Control parent = btnSave.Parent ?? this;
+
             if (btnEditMode == null)
             {
                 btnEditMode = new Button
                 {
                     Name = "btnEditMode",
                     Text = "Edit",
-                    Width = btnSave.Width,
-                    Height = btnSave.Height,
-                    Left = btnSave.Left,
-                    Top = btnSave.Top,
-                    BackColor = btnSave.BackColor,
-                    ForeColor = btnSave.ForeColor,
-                    Font = btnSave.Font
+                    Width = btnArchive.Width,
+                    Height = btnArchive.Height,
+                    Left = btnArchive.Left,
+                    Top = btnArchive.Top,
+                    BackColor = btnArchive.BackColor,
+                    ForeColor = btnArchive.ForeColor,
+                    Font = btnArchive.Font,
+                    FlatStyle = btnArchive.FlatStyle,
+                    Visible = false
                 };
-                btnEditMode.Click += btnEditMode_Click;
-                Controls.Add(btnEditMode);
-                btnEditMode.BringToFront();
-            }
 
-            if (btnCreateCopy == null)
+                btnEditMode.Click += btnEditMode_Click;
+                parent.Controls.Add(btnEditMode);
+                btnEditMode.BringToFront();
+
+        }
+
+        if (btnCreateCopy == null)
+        {
+            btnCreateCopy = new Button
             {
-                btnCreateCopy = new Button
-                {
-                    Name = "btnCreateCopy",
-                    Text = "Create Copy",
-                    Width = btnSave.Width + 20,
-                    Height = btnSave.Height,
-                    Left = btnSave.Right + 10,
-                    Top = btnSave.Top,
-                    BackColor = btnSave.BackColor,
-                    ForeColor = btnSave.ForeColor,
-                    Font = btnSave.Font
-                };
+                Name = "btnCreateCopy",
+                Text = "Create Copy",
+                Width = btnArchive.Width + 25,
+                Height = btnArchive.Height,
+                Left = btnArchive.Right + 10,
+                Top = btnArchive.Top,
+                BackColor = btnArchive.BackColor,
+                ForeColor = btnArchive.ForeColor,
+                Font = btnArchive.Font,
+                FlatStyle = btnArchive.FlatStyle,
+                Visible = false
+            };
+
                 btnCreateCopy.Click += btnCreateCopy_Click;
-                Controls.Add(btnCreateCopy);
+                parent.Controls.Add(btnCreateCopy);
                 btnCreateCopy.BringToFront();
             }
         }
@@ -103,15 +113,12 @@ namespace xdd
                 case BookFormMode.Add:
                     PrepareAddMode();
                     break;
-
                 case BookFormMode.View:
                     PrepareViewMode();
                     break;
-
                 case BookFormMode.Edit:
                     PrepareEditMode();
                     break;
-
                 case BookFormMode.AddCopy:
                     PrepareAddCopyMode();
                     break;
@@ -123,8 +130,8 @@ namespace xdd
             ClearForm(false);
             lblId.Text = GenerateNextBookId();
             txtTitleId.Text = GenerateNextTitleId();
+            SetAllFieldsReadOnly(false);
 
-            //SetAllFieldsReadOnly(false);
             btnSave.Text = "Save New Book";
             btnSave.Visible = true;
             btnEditMode.Visible = false;
@@ -137,6 +144,7 @@ namespace xdd
                 FillForm(_selectedBook);
 
             SetAllFieldsReadOnly(true);
+
             btnSave.Visible = false;
             btnEditMode.Visible = true;
             btnCreateCopy.Visible = true;
@@ -163,7 +171,6 @@ namespace xdd
 
             lblId.Text = GenerateNextBookId();
 
-            // Same title_id, new physical copy.
             SetAllFieldsReadOnly(true);
             SetInventoryFieldsReadOnly(false);
 
@@ -183,7 +190,6 @@ namespace xdd
         {
             lblId.Text = book.BookId;
             txtTitleId.Text = book.TitleId;
-
             txtTitle.Text = book.Title;
             txtAuthor.Text = book.Author;
             txtISBN.Text = book.ISBN;
@@ -215,6 +221,74 @@ namespace xdd
             else
                 control.Value = value;
         }
+        private void ConfigureNumericFields()
+        {
+            int currentYear = DateTime.Now.Year;
+
+            numPages.Minimum = 1;
+            numPages.Maximum = 10000;
+            numPages.DecimalPlaces = 0;
+            numPages.Value = 1;
+
+            numWeight.Minimum = 1;
+            numWeight.Maximum = 2000;
+            numWeight.DecimalPlaces = 2;
+            numWeight.Increment = 10.00M;
+            numWeight.Value = 220;
+            numWeight.Enabled = true; 
+
+            numPrice.Minimum = 0;
+            numPrice.Maximum = 999999;
+            numPrice.DecimalPlaces = 2;
+            numPrice.Increment = 1.00M;
+            numPrice.Value = 0;
+
+            numPublicationYear.Minimum = 1450;
+            numPublicationYear.Maximum = currentYear;
+            numPublicationYear.DecimalPlaces = 0;
+            numPublicationYear.Value = currentYear;
+        }
+        private void HookBookTypeWeightSuggestion()
+        {
+            cmbBookType.SelectedIndexChanged -= cmbBookType_SelectedIndexChanged;
+            cmbBookType.SelectedIndexChanged += cmbBookType_SelectedIndexChanged;
+        }
+
+        private void cmbBookType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetWeightByBookType();
+        }
+
+        private void SetWeightByBookType()
+        {
+            if (cmbBookType.SelectedItem == null)
+                return;
+
+            decimal suggestedWeight;
+
+            switch (cmbBookType.SelectedItem.ToString())
+            {
+                case "PB":
+                    // Paperback reference: 180g to 250g
+                    suggestedWeight = 220M;
+                    break;
+
+                case "TPB":
+                    // Trade paperback reference: 350g to 550g
+                    suggestedWeight = 450M;
+                    break;
+
+                case "HB":
+                    // Hardcover reference: 600g to 900g; illustrated HB can exceed 1kg
+                    suggestedWeight = 750M;
+                    break;
+
+                default:
+                    return;
+            }
+
+            SetNumericValue(numWeight, suggestedWeight);
+        }
 
         private void btnEditMode_Click(object sender, EventArgs e)
         {
@@ -244,6 +318,7 @@ namespace xdd
             using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Filter = "Image Files|*.jpg;*.jpeg;*.png";
+
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     using (var tempImage = Image.FromFile(dlg.FileName))
@@ -362,18 +437,6 @@ namespace xdd
 
         private bool ValidateForm()
         {
-            if (string.IsNullOrWhiteSpace(lblId.Text))
-            {
-                MessageBox.Show("Book ID is required.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtTitleId.Text))
-            {
-                MessageBox.Show("Title ID is required.");
-                return false;
-            }
-
             if (string.IsNullOrWhiteSpace(txtTitle.Text))
             {
                 MessageBox.Show("Title is required.");
@@ -434,13 +497,7 @@ namespace xdd
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtDefectedNotes.Text))
-            {
-                MessageBox.Show("Defected notes is required. Use 'None' if there are no defects.");
-                return false;
-            }
-
-            if (cmbStatus.SelectedItem.ToString() == "UNAVAILABEL" && string.IsNullOrWhiteSpace(txtReasonStatus.Text))
+            if (cmbStatus.SelectedItem.ToString() == "UNAVAILABLE" && string.IsNullOrWhiteSpace(txtReasonStatus.Text))
             {
                 MessageBox.Show("Reason status is required when the book is unavailable.");
                 return false;
@@ -589,7 +646,6 @@ namespace xdd
             {
                 cmd.Parameters.AddWithValue("@isbn", isbn);
                 object result = cmd.ExecuteScalar();
-
                 return result == null || result == DBNull.Value ? null : result.ToString();
             }
         }
@@ -619,11 +675,11 @@ namespace xdd
                         txtTitleId.Text = reader["title_id"].ToString();
                         txtTitle.Text = reader["title"].ToString();
                         txtAuthor.Text = reader["author"].ToString();
-                        numPages.Value = Convert.ToDecimal(reader["pages"]);
+                        SetNumericValue(numPages, Convert.ToDecimal(reader["pages"]));
                         cmbBookType.SelectedItem = reader["book_type"].ToString();
-                        numWeight.Value = Convert.ToDecimal(reader["book_approx_weight"]);
+                        SetNumericValue(numWeight, Convert.ToDecimal(reader["book_approx_weight"]));
                         txtPublisher.Text = reader["publisher"].ToString();
-                        numPublicationYear.Value = Convert.ToDecimal(reader["publication_year"]);
+                        SetNumericValue(numPublicationYear, Convert.ToDecimal(reader["publication_year"]));
                         txtLanguage.Text = reader["book_language"].ToString();
                         txtGenre.Text = reader["genre"].ToString();
                         txtDescription.Text = reader["book_description"].ToString();
@@ -663,7 +719,7 @@ namespace xdd
 
         private string GenerateNextTitleId()
         {
-            string query = "SELECT MAX(CAST(SUBSTRING(title_id, 3) AS UNSIGNED)) FROM book_titles WHERE title_id LIKE 'TL%'";
+            string query = "SELECT MAX(CAST(SUBSTRING(title_id, 4) AS UNSIGNED)) FROM book_titles WHERE title_id LIKE 'NLT%'";
 
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))
@@ -672,10 +728,10 @@ namespace xdd
                 object result = cmd.ExecuteScalar();
 
                 if (result == null || result == DBNull.Value)
-                    return "TL0001";
+                    return "NLT0001";
 
                 int number = Convert.ToInt32(result) + 1;
-                return "TL" + number.ToString("D4");
+                return "NLT" + number.ToString("D4");
             }
         }
 
@@ -724,8 +780,8 @@ namespace xdd
             txtDescription.Clear();
 
             numPages.Value = numPages.Minimum;
-            numWeight.Value = numWeight.Minimum;
-            numPublicationYear.Value = 2000;
+            SetNumericValue(numWeight, 220M);
+            SetNumericValue(numPublicationYear, DateTime.Now.Year);
             numPrice.Value = numPrice.Minimum;
 
             cmbBookType.SelectedIndex = -1;
@@ -783,6 +839,7 @@ namespace xdd
         {
             Button btn = (Button)sender;
             int radius = 20;
+
             using (GraphicsPath path = new GraphicsPath())
             {
                 path.StartFigure();
