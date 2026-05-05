@@ -377,11 +377,11 @@ namespace xdd
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtDefectedNotes.Text))
-            {
-                MessageBox.Show("Defected notes is required.");
-                return false;
-            }
+            //if (string.IsNullOrWhiteSpace(txtDefectedNotes.Text))
+            //{
+            //    MessageBox.Show("Defected notes is required.");
+            //    return false;
+            //}
 
             if (cmbStatus.SelectedItem.ToString() == "UNAVALIABLE" &&
                 string.IsNullOrWhiteSpace(txtReasonStatus.Text))
