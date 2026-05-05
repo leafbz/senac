@@ -9,19 +9,14 @@ namespace xdd
 {
     public partial class frmAddBook : Form
     {
-        private BookFormMode _mode;
+        private BookFormMode _mode = BookFormMode.Add;
         private ClassBook _selectedBook;
-        private Button btnEditMode;
-        private Button btnCreateCopy;
+        private bool _loadingForm = false;
 
-        public frmAddBook() : this(BookFormMode.Add)
-        {
-        }
-
-        public frmAddBook(BookFormMode mode)
+        public frmAddBook()
         {
             InitializeComponent();
-            _mode = mode;
+            _mode = BookFormMode.Add;
         }
 
         public frmAddBook(ClassBook book, BookFormMode mode)
@@ -33,15 +28,85 @@ namespace xdd
 
         private void frmAddBook_Load(object sender, EventArgs e)
         {
+            _loadingForm = true;
+
+            SetupNumericControls();
             LoadCombos();
-            ConfigureNumericFields();
-            HookBookTypeWeightSuggestion();
-            EnsureModeButtons();
+            WireEvents();
+
+            if (_mode == BookFormMode.Add)
+            {
+                PrepareAddMode();
+            }
+            else
+            {
+                FillForm(_selectedBook);
+                SetMode(_mode);
+            }
+
+            _loadingForm = false;
+        }
+
+        private void WireEvents()
+        {
+            btnSave.Click -= btnSave_Click;
+            btnSave.Click += btnSave_Click;
+
+            btnEdit.Click -= btnEdit_Click;
+            btnEdit.Click += btnEdit_Click;
+
+            btnCreateCopy.Click -= btnCreateCopy_Click;
+            btnCreateCopy.Click += btnCreateCopy_Click;
+
+            btnCancel.Click -= btnCancel_Click;
+            btnCancel.Click += btnCancel_Click;
+
+            btnAddImg.Click -= btnAddImg_Click;
+            btnAddImg.Click += btnAddImg_Click;
+
+            btnRemoveImg.Click -= btnRemoveImg_Click;
+            btnRemoveImg.Click += btnRemoveImg_Click;
+
+            cmbBookType.SelectedIndexChanged -= cmbBookType_SelectedIndexChanged;
+            cmbBookType.SelectedIndexChanged += cmbBookType_SelectedIndexChanged;
 
             txtISBN.Leave -= txtISBN_Leave;
             txtISBN.Leave += txtISBN_Leave;
 
-            ApplyMode();
+            numPublicationYear.Enter -= NumericUpDown_Enter;
+            numPages.Enter -= NumericUpDown_Enter;
+            numWeight.Enter -= NumericUpDown_Enter;
+            numPrice.Enter -= NumericUpDown_Enter;
+
+            numPublicationYear.Enter += NumericUpDown_Enter;
+            numPages.Enter += NumericUpDown_Enter;
+            numWeight.Enter += NumericUpDown_Enter;
+            numPrice.Enter += NumericUpDown_Enter;
+        }
+
+        private void SetupNumericControls()
+        {
+            int currentYear = DateTime.Now.Year;
+
+            numPublicationYear.Minimum = 1450;
+            numPublicationYear.Maximum = currentYear;
+            numPublicationYear.Value = currentYear;
+            numPublicationYear.Increment = 1;
+
+            numPages.Minimum = 1;
+            numPages.Maximum = 5000;
+            numPages.Value = 1;
+            numPages.Increment = 1;
+
+            numWeight.Minimum = 1;
+            numWeight.Maximum = 2000;
+            numWeight.DecimalPlaces = 2;
+            numWeight.Increment = 10;
+
+            numPrice.Minimum = 0;
+            numPrice.Maximum = 9999;
+            numPrice.DecimalPlaces = 2;
+            numPrice.Increment = 0.50M;
         }
 
         private void LoadCombos()
@@ -53,143 +118,76 @@ namespace xdd
             cmbCondition.Items.AddRange(new string[] { "NEW", "VERY GOOD", "GOOD", "ACCEPTABLE" });
 
             cmbStatus.Items.Clear();
-            cmbStatus.Items.AddRange(new string[] { "AVAILABLE", "SOLD", "UNAVAILABLE" });
-        }
-
-        private void EnsureModeButtons()
-        {
-            Control parent = btnSave.Parent ?? this;
-
-            if (btnEditMode == null)
-            {
-                btnEditMode = new Button
-                {
-                    Name = "btnEditMode",
-                    Text = "Edit",
-                    Width = btnArchive.Width,
-                    Height = btnArchive.Height,
-                    Left = btnArchive.Left,
-                    Top = btnArchive.Top,
-                    BackColor = btnArchive.BackColor,
-                    ForeColor = btnArchive.ForeColor,
-                    Font = btnArchive.Font,
-                    FlatStyle = btnArchive.FlatStyle,
-                    Visible = false
-                };
-
-                btnEditMode.Click += btnEditMode_Click;
-                parent.Controls.Add(btnEditMode);
-                btnEditMode.BringToFront();
-
-        }
-
-        if (btnCreateCopy == null)
-        {
-            btnCreateCopy = new Button
-            {
-                Name = "btnCreateCopy",
-                Text = "Create Copy",
-                Width = btnArchive.Width + 25,
-                Height = btnArchive.Height,
-                Left = btnArchive.Right + 10,
-                Top = btnArchive.Top,
-                BackColor = btnArchive.BackColor,
-                ForeColor = btnArchive.ForeColor,
-                Font = btnArchive.Font,
-                FlatStyle = btnArchive.FlatStyle,
-                Visible = false
-            };
-
-                btnCreateCopy.Click += btnCreateCopy_Click;
-                parent.Controls.Add(btnCreateCopy);
-                btnCreateCopy.BringToFront();
-            }
-        }
-
-        private void ApplyMode()
-        {
-            switch (_mode)
-            {
-                case BookFormMode.Add:
-                    PrepareAddMode();
-                    break;
-                case BookFormMode.View:
-                    PrepareViewMode();
-                    break;
-                case BookFormMode.Edit:
-                    PrepareEditMode();
-                    break;
-                case BookFormMode.AddCopy:
-                    PrepareAddCopyMode();
-                    break;
-            }
+            cmbStatus.Items.AddRange(new string[] { "AVAILABLE", "SOLD", "UNAVALIABLE" });
         }
 
         private void PrepareAddMode()
         {
-            ClearForm(false);
-            lblId.Text = GenerateNextBookId();
+            ClearForm();
+
+            txtBookId.Text = GenerateNextBookId();
             txtTitleId.Text = GenerateNextTitleId();
-            SetAllFieldsReadOnly(false);
+            txtLanguage.Text = "English";
 
-            btnSave.Text = "Save New Book";
-            btnSave.Visible = true;
-            btnEditMode.Visible = false;
-            btnCreateCopy.Visible = false;
+            SetMode(BookFormMode.Add);
         }
 
-        private void PrepareViewMode()
+        private void SetMode(BookFormMode mode)
         {
-            if (_selectedBook != null)
-                FillForm(_selectedBook);
+            _mode = mode;
 
-            SetAllFieldsReadOnly(true);
+            bool isView = mode == BookFormMode.View;
+            bool isEdit = mode == BookFormMode.Edit;
+            bool isAdd = mode == BookFormMode.Add;
 
-            btnSave.Visible = false;
-            btnEditMode.Visible = true;
-            btnCreateCopy.Visible = true;
+            SetFieldsReadOnly(isView);
+
+            //txtBookId.ReadOnly = true;
+            txtTitleId.ReadOnly = true;
+
+            txtBookId.Visible = isEdit;
+            txtTitleId.Visible = false;
+
+            btnSave.Visible = isAdd || isEdit;
+            btnEdit.Visible = isView;
+            btnCreateCopy.Visible = isView;
+            btnCancel.Visible = true;
+
+            btnSave.Text = isAdd ? "Add Book" : "Save Changes";
         }
 
-        private void PrepareEditMode()
+        private void SetFieldsReadOnly(bool readOnly)
         {
-            if (_selectedBook != null)
-                FillForm(_selectedBook);
+            txtTitle.ReadOnly = readOnly;
+            txtAuthor.ReadOnly = readOnly;
+            txtISBN.ReadOnly = readOnly;
+            txtPublisher.ReadOnly = readOnly;
+            txtLanguage.ReadOnly = readOnly;
+            txtGenre.ReadOnly = readOnly;
+            txtDescription.ReadOnly = readOnly;
+            txtReasonStatus.ReadOnly = readOnly;
+            txtDefectedNotes.ReadOnly = readOnly;
 
-            SetAllFieldsReadOnly(true);
-            SetInventoryFieldsReadOnly(false);
+            numPages.Enabled = !readOnly;
+            numWeight.Enabled = !readOnly;
+            numPublicationYear.Enabled = !readOnly;
+            numPrice.Enabled = !readOnly;
 
-            btnSave.Text = "Save Changes";
-            btnSave.Visible = true;
-            btnEditMode.Visible = false;
-            btnCreateCopy.Visible = false;
-        }
+            cmbBookType.Enabled = !readOnly;
+            cmbCondition.Enabled = !readOnly;
+            cmbStatus.Enabled = !readOnly;
 
-        private void PrepareAddCopyMode()
-        {
-            if (_selectedBook != null)
-                FillForm(_selectedBook);
-
-            lblId.Text = GenerateNextBookId();
-
-            SetAllFieldsReadOnly(true);
-            SetInventoryFieldsReadOnly(false);
-
-            cmbCondition.SelectedIndex = -1;
-            cmbStatus.SelectedItem = "AVAILABLE";
-            numPrice.Value = numPrice.Minimum;
-            txtReasonStatus.Clear();
-            txtDefectedNotes.Text = "None";
-
-            btnSave.Text = "Save Copy";
-            btnSave.Visible = true;
-            btnEditMode.Visible = false;
-            btnCreateCopy.Visible = false;
+            btnAddImg.Enabled = !readOnly;
+            btnRemoveImg.Enabled = !readOnly;
         }
 
         private void FillForm(ClassBook book)
         {
-            lblId.Text = book.BookId;
+            if (book == null) return;
+
+            txtBookId.Text = book.BookId;
             txtTitleId.Text = book.TitleId;
+
             txtTitle.Text = book.Title;
             txtAuthor.Text = book.Author;
             txtISBN.Text = book.ISBN;
@@ -207,135 +205,15 @@ namespace xdd
             cmbCondition.SelectedItem = book.Condition;
             cmbStatus.SelectedItem = book.Status;
 
-            txtReasonStatus.Text = book.ReasonStatus ?? string.Empty;
-            txtDefectedNotes.Text = book.DefectedNotes ?? string.Empty;
+            txtReasonStatus.Text = book.ReasonStatus;
+            txtDefectedNotes.Text = book.DefectedNotes;
+
             image.Image = book.CoverImage;
-        }
-
-        private void SetNumericValue(NumericUpDown control, decimal value)
-        {
-            if (value < control.Minimum)
-                control.Value = control.Minimum;
-            else if (value > control.Maximum)
-                control.Value = control.Maximum;
-            else
-                control.Value = value;
-        }
-        private void ConfigureNumericFields()
-        {
-            int currentYear = DateTime.Now.Year;
-
-            numPages.Minimum = 1;
-            numPages.Maximum = 10000;
-            numPages.DecimalPlaces = 0;
-            numPages.Value = 1;
-
-            numWeight.Minimum = 1;
-            numWeight.Maximum = 2000;
-            numWeight.DecimalPlaces = 2;
-            numWeight.Increment = 10.00M;
-            numWeight.Value = 220;
-            numWeight.Enabled = true; 
-
-            numPrice.Minimum = 0;
-            numPrice.Maximum = 999999;
-            numPrice.DecimalPlaces = 2;
-            numPrice.Increment = 1.00M;
-            numPrice.Value = 0;
-
-            numPublicationYear.Minimum = 1450;
-            numPublicationYear.Maximum = currentYear;
-            numPublicationYear.DecimalPlaces = 0;
-            numPublicationYear.Value = currentYear;
-        }
-        private void HookBookTypeWeightSuggestion()
-        {
-            cmbBookType.SelectedIndexChanged -= cmbBookType_SelectedIndexChanged;
-            cmbBookType.SelectedIndexChanged += cmbBookType_SelectedIndexChanged;
-        }
-
-        private void cmbBookType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            SetWeightByBookType();
-        }
-
-        private void SetWeightByBookType()
-        {
-            if (cmbBookType.SelectedItem == null)
-                return;
-
-            decimal suggestedWeight;
-
-            switch (cmbBookType.SelectedItem.ToString())
-            {
-                case "PB":
-                    // Paperback reference: 180g to 250g
-                    suggestedWeight = 220M;
-                    break;
-
-                case "TPB":
-                    // Trade paperback reference: 350g to 550g
-                    suggestedWeight = 450M;
-                    break;
-
-                case "HB":
-                    // Hardcover reference: 600g to 900g; illustrated HB can exceed 1kg
-                    suggestedWeight = 750M;
-                    break;
-
-                default:
-                    return;
-            }
-
-            SetNumericValue(numWeight, suggestedWeight);
-        }
-
-        private void btnEditMode_Click(object sender, EventArgs e)
-        {
-            _mode = BookFormMode.Edit;
-            ApplyMode();
-        }
-
-        private void btnCreateCopy_Click(object sender, EventArgs e)
-        {
-            _mode = BookFormMode.AddCopy;
-            ApplyMode();
-        }
-
-        private void txtISBN_Leave(object sender, EventArgs e)
-        {
-            if (_mode != BookFormMode.Add)
-                return;
-
-            LoadExistingTitleByISBN(txtISBN.Text.Trim());
-        }
-
-        private void btnAddImg_Click(object sender, EventArgs e)
-        {
-            if (_mode == BookFormMode.View)
-                return;
-
-            using (OpenFileDialog dlg = new OpenFileDialog())
-            {
-                dlg.Filter = "Image Files|*.jpg;*.jpeg;*.png";
-
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    using (var tempImage = Image.FromFile(dlg.FileName))
-                    {
-                        image.Image = new Bitmap(tempImage);
-                    }
-                }
-            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (_mode == BookFormMode.View)
-                return;
-
-            if (!ValidateForm())
-                return;
+            if (!ValidateForm()) return;
 
             ClassBook book = GetBookFromForm();
 
@@ -347,45 +225,31 @@ namespace xdd
                 {
                     try
                     {
-                        if (_mode == BookFormMode.Add)
+                        string existingTitleId = GetExistingTitleIdByISBN(book.ISBN, conn, transaction);
+
+                        if (!string.IsNullOrWhiteSpace(existingTitleId))
                         {
-                            string existingTitleId = GetExistingTitleIdByISBN(book.ISBN, conn, transaction);
-
-                            if (!string.IsNullOrWhiteSpace(existingTitleId))
-                            {
-                                book.TitleId = existingTitleId;
-                                txtTitleId.Text = existingTitleId;
-                            }
-                            else
-                            {
-                                SaveBookTitle(book, conn, transaction);
-                            }
-
-                            InsertInventoryBook(book, conn, transaction);
-                        }
-                        else if (_mode == BookFormMode.AddCopy)
-                        {
-                            InsertInventoryBook(book, conn, transaction);
-                        }
-                        else if (_mode == BookFormMode.Edit)
-                        {
-                            UpdateInventoryBook(book, conn, transaction);
-                        }
-
-                        transaction.Commit();
-                        MessageBox.Show("Book saved successfully.");
-
-                        RefreshBookListIfOpen();
-
-                        if (_mode == BookFormMode.Edit)
-                        {
-                            _selectedBook = book;
-                            _mode = BookFormMode.View;
-                            ApplyMode();
+                            book.TitleId = existingTitleId;
+                            txtTitleId.Text = existingTitleId;
                         }
                         else
                         {
+                            SaveBookTitle(book, conn, transaction);
+                        }
+
+                        SaveInventoryBook(book, conn, transaction);
+
+                        transaction.Commit();
+
+                        MessageBox.Show("Book saved successfully.");
+
+                        if (_mode == BookFormMode.Add)
+                        {
                             PrepareAddMode();
+                        }
+                        else
+                        {
+                            SetMode(BookFormMode.View);
                         }
                     }
                     catch (Exception ex)
@@ -401,25 +265,29 @@ namespace xdd
         {
             return new ClassBook
             {
-                BookId = lblId.Text.Trim(),
+                BookId = txtBookId.Text.Trim(),
                 TitleId = txtTitleId.Text.Trim(),
+
                 Title = txtTitle.Text.Trim(),
                 Author = txtAuthor.Text.Trim(),
                 ISBN = txtISBN.Text.Trim(),
-                Pages = (int)numPages.Value,
-                BookType = cmbBookType.SelectedItem?.ToString(),
-                ApproxWeight = numWeight.Value,
                 Publisher = txtPublisher.Text.Trim(),
-                PublicationYear = (int)numPublicationYear.Value,
                 Language = txtLanguage.Text.Trim(),
                 Genre = txtGenre.Text.Trim(),
                 Description = txtDescription.Text.Trim(),
-                ImageBytes = GetImageBytesFromPictureBox(),
+
+                Pages = (int)numPages.Value,
+                BookType = cmbBookType.SelectedItem?.ToString(),
+                ApproxWeight = numWeight.Value,
+                PublicationYear = (int)numPublicationYear.Value,
+
                 Price = numPrice.Value,
                 Condition = cmbCondition.SelectedItem?.ToString(),
                 Status = cmbStatus.SelectedItem?.ToString(),
                 ReasonStatus = string.IsNullOrWhiteSpace(txtReasonStatus.Text) ? null : txtReasonStatus.Text.Trim(),
-                DefectedNotes = txtDefectedNotes.Text.Trim()
+                DefectedNotes = txtDefectedNotes.Text.Trim(),
+
+                ImageBytes = GetImageBytesFromPictureBox()
             };
         }
 
@@ -437,6 +305,24 @@ namespace xdd
 
         private bool ValidateForm()
         {
+            if (string.IsNullOrWhiteSpace(txtBookId.Text))
+            {
+                MessageBox.Show("Book ID is required.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTitleId.Text))
+            {
+                MessageBox.Show("Title ID is required.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtISBN.Text))
+            {
+                MessageBox.Show("ISBN is required.");
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(txtTitle.Text))
             {
                 MessageBox.Show("Title is required.");
@@ -446,12 +332,6 @@ namespace xdd
             if (string.IsNullOrWhiteSpace(txtAuthor.Text))
             {
                 MessageBox.Show("Author is required.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtISBN.Text))
-            {
-                MessageBox.Show("ISBN is required.");
                 return false;
             }
 
@@ -497,9 +377,16 @@ namespace xdd
                 return false;
             }
 
-            if (cmbStatus.SelectedItem.ToString() == "UNAVAILABLE" && string.IsNullOrWhiteSpace(txtReasonStatus.Text))
+            if (string.IsNullOrWhiteSpace(txtDefectedNotes.Text))
             {
-                MessageBox.Show("Reason status is required when the book is unavailable.");
+                MessageBox.Show("Defected notes is required.");
+                return false;
+            }
+
+            if (cmbStatus.SelectedItem.ToString() == "UNAVALIABLE" &&
+                string.IsNullOrWhiteSpace(txtReasonStatus.Text))
+            {
+                MessageBox.Show("Reason status is required when book is unavailable.");
                 return false;
             }
 
@@ -513,6 +400,7 @@ namespace xdd
             using (var checkCmd = new MySqlCommand(checkQuery, conn, transaction))
             {
                 checkCmd.Parameters.AddWithValue("@title_id", book.TitleId);
+
                 int count = Convert.ToInt32(checkCmd.ExecuteScalar());
 
                 if (count == 0)
@@ -586,6 +474,23 @@ namespace xdd
             cmd.Parameters.AddWithValue("@image", (object)book.ImageBytes ?? DBNull.Value);
         }
 
+        private void SaveInventoryBook(ClassBook book, MySqlConnection conn, MySqlTransaction transaction)
+        {
+            string checkQuery = "SELECT COUNT(*) FROM book WHERE book_id = @book_id";
+
+            using (var checkCmd = new MySqlCommand(checkQuery, conn, transaction))
+            {
+                checkCmd.Parameters.AddWithValue("@book_id", book.BookId);
+
+                int count = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                if (count == 0)
+                    InsertInventoryBook(book, conn, transaction);
+                else
+                    UpdateInventoryBook(book, conn, transaction);
+            }
+        }
+
         private void InsertInventoryBook(ClassBook book, MySqlConnection conn, MySqlTransaction transaction)
         {
             string query = @"
@@ -645,8 +550,13 @@ namespace xdd
             using (var cmd = new MySqlCommand(query, conn, transaction))
             {
                 cmd.Parameters.AddWithValue("@isbn", isbn);
+
                 object result = cmd.ExecuteScalar();
-                return result == null || result == DBNull.Value ? null : result.ToString();
+
+                if (result == null || result == DBNull.Value)
+                    return null;
+
+                return result.ToString();
             }
         }
 
@@ -656,8 +566,9 @@ namespace xdd
                 return;
 
             string query = @"
-                SELECT title_id, title, author, pages, book_type, book_approx_weight,
-                       publisher, publication_year, book_language, genre, book_description, book_image
+                SELECT 
+                    title_id, title, author, pages, book_type, book_approx_weight,
+                    publisher, publication_year, book_language, genre, book_description, book_image
                 FROM book_titles
                 WHERE iSBN = @isbn
                 LIMIT 1";
@@ -672,26 +583,33 @@ namespace xdd
                 {
                     if (reader.Read())
                     {
+                        _loadingForm = true;
+
                         txtTitleId.Text = reader["title_id"].ToString();
                         txtTitle.Text = reader["title"].ToString();
                         txtAuthor.Text = reader["author"].ToString();
-                        SetNumericValue(numPages, Convert.ToDecimal(reader["pages"]));
-                        cmbBookType.SelectedItem = reader["book_type"].ToString();
-                        SetNumericValue(numWeight, Convert.ToDecimal(reader["book_approx_weight"]));
                         txtPublisher.Text = reader["publisher"].ToString();
-                        SetNumericValue(numPublicationYear, Convert.ToDecimal(reader["publication_year"]));
                         txtLanguage.Text = reader["book_language"].ToString();
                         txtGenre.Text = reader["genre"].ToString();
                         txtDescription.Text = reader["book_description"].ToString();
 
+                        cmbBookType.SelectedItem = reader["book_type"].ToString();
+
+                        SetNumericValue(numPages, Convert.ToDecimal(reader["pages"]));
+                        SetNumericValue(numWeight, Convert.ToDecimal(reader["book_approx_weight"]));
+                        SetNumericValue(numPublicationYear, Convert.ToDecimal(reader["publication_year"]));
+
                         if (reader["book_image"] != DBNull.Value)
                         {
                             byte[] imageBytes = (byte[])reader["book_image"];
-                            using (var ms = new MemoryStream(imageBytes))
+
+                            using (MemoryStream ms = new MemoryStream(imageBytes))
                             {
                                 image.Image = Image.FromStream(new MemoryStream(ms.ToArray()));
                             }
                         }
+
+                        _loadingForm = false;
 
                         MessageBox.Show("Existing title found. A new physical copy will be created.");
                     }
@@ -701,12 +619,16 @@ namespace xdd
 
         private string GenerateNextBookId()
         {
-            string query = "SELECT MAX(CAST(SUBSTRING(book_id, 3) AS UNSIGNED)) FROM book WHERE book_id LIKE 'NL%'";
+            string query = @"
+                SELECT MAX(CAST(SUBSTRING(book_id, 3) AS UNSIGNED))
+                FROM book
+                WHERE book_id LIKE 'NL%'";
 
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))
             {
                 conn.Open();
+
                 object result = cmd.ExecuteScalar();
 
                 if (result == null || result == DBNull.Value)
@@ -719,70 +641,44 @@ namespace xdd
 
         private string GenerateNextTitleId()
         {
-            string query = "SELECT MAX(CAST(SUBSTRING(title_id, 4) AS UNSIGNED)) FROM book_titles WHERE title_id LIKE 'NLT%'";
+            string query = @"
+                SELECT MAX(CAST(SUBSTRING(title_id, 3) AS UNSIGNED))
+                FROM book_titles
+                WHERE title_id LIKE 'TL%'";
 
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))
             {
                 conn.Open();
+
                 object result = cmd.ExecuteScalar();
 
                 if (result == null || result == DBNull.Value)
-                    return "NLT0001";
+                    return "TL0001";
 
                 int number = Convert.ToInt32(result) + 1;
-                return "NLT" + number.ToString("D4");
+                return "TL" + number.ToString("D4");
             }
         }
 
-        private void RefreshBookListIfOpen()
+        private void ClearForm()
         {
-            if (frmPrincipal.PrincipalInstance == null)
-                return;
-
-            RefreshBookFormInside(frmPrincipal.PrincipalInstance);
-        }
-
-        private void RefreshBookFormInside(Control parent)
-        {
-            foreach (Control control in parent.Controls)
-            {
-                if (control is Book bookForm)
-                {
-                    bookForm.LoadBooks();
-                    return;
-                }
-
-                if (control.HasChildren)
-                    RefreshBookFormInside(control);
-            }
-        }
-
-        private void ClearForm(bool generateIds = true)
-        {
-            if (generateIds)
-            {
-                lblId.Text = GenerateNextBookId();
-                txtTitleId.Text = GenerateNextTitleId();
-            }
-            else
-            {
-                lblId.Text = string.Empty;
-                txtTitleId.Text = string.Empty;
-            }
+            //txtBookId.Clear();
+            txtBookId.Text = string.Empty;
+            txtTitleId.Clear();
 
             txtTitle.Clear();
             txtAuthor.Clear();
             txtISBN.Clear();
             txtPublisher.Clear();
-            txtLanguage.Clear();
+            txtLanguage.Text = "English";
             txtGenre.Clear();
             txtDescription.Clear();
 
-            numPages.Value = numPages.Minimum;
-            SetNumericValue(numWeight, 220M);
+            SetNumericValue(numPages, 1);
+            SetNumericValue(numWeight, 1);
             SetNumericValue(numPublicationYear, DateTime.Now.Year);
-            numPrice.Value = numPrice.Minimum;
+            SetNumericValue(numPrice, 0);
 
             cmbBookType.SelectedIndex = -1;
             cmbCondition.SelectedIndex = -1;
@@ -790,67 +686,169 @@ namespace xdd
 
             txtReasonStatus.Clear();
             txtDefectedNotes.Clear();
+
             image.Image = null;
         }
 
-        private void SetAllFieldsReadOnly(bool readOnly)
+        private void SetNumericValue(NumericUpDown control, decimal value)
         {
-            txtTitleId.ReadOnly = true;
-            txtTitle.ReadOnly = readOnly;
-            txtAuthor.ReadOnly = readOnly;
-            txtISBN.ReadOnly = readOnly;
-            txtPublisher.ReadOnly = readOnly;
-            txtLanguage.ReadOnly = readOnly;
-            txtGenre.ReadOnly = readOnly;
-            txtDescription.ReadOnly = readOnly;
+            if (value < control.Minimum)
+                value = control.Minimum;
 
-            numPages.Enabled = !readOnly;
-            numWeight.Enabled = !readOnly;
-            numPublicationYear.Enabled = !readOnly;
-            numPrice.Enabled = !readOnly;
+            if (value > control.Maximum)
+                value = control.Maximum;
 
-            cmbBookType.Enabled = !readOnly;
-            cmbCondition.Enabled = !readOnly;
-            cmbStatus.Enabled = !readOnly;
-
-            txtReasonStatus.ReadOnly = readOnly;
-            txtDefectedNotes.ReadOnly = readOnly;
-            btnAddImg.Enabled = !readOnly;
+            control.Value = value;
         }
 
-        private void SetInventoryFieldsReadOnly(bool readOnly)
+        private void SetWeightByBookType()
         {
-            numPrice.Enabled = !readOnly;
-            cmbCondition.Enabled = !readOnly;
-            cmbStatus.Enabled = !readOnly;
-            txtReasonStatus.ReadOnly = readOnly;
-            txtDefectedNotes.ReadOnly = readOnly;
+            if (_loadingForm)
+                return;
+
+            if (cmbBookType.SelectedItem == null)
+                return;
+
+            switch (cmbBookType.SelectedItem.ToString())
+            {
+                case "PB":
+                    numWeight.Minimum = 180;
+                    numWeight.Maximum = 250;
+                    SetNumericValue(numWeight, 220);
+                    break;
+
+                case "TPB":
+                    numWeight.Minimum = 350;
+                    numWeight.Maximum = 550;
+                    SetNumericValue(numWeight, 450);
+                    break;
+
+                case "HB":
+                    numWeight.Minimum = 600;
+                    numWeight.Maximum = 1200;
+                    SetNumericValue(numWeight, 750);
+                    break;
+            }
+
+            numWeight.Enabled = _mode != BookFormMode.View;
+        }
+
+        private void cmbBookType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetWeightByBookType();
+        }
+
+        private void NumericUpDown_Enter(object sender, EventArgs e)
+        {
+            if (sender is NumericUpDown numeric)
+            {
+                numeric.Select(0, numeric.Text.Length);
+            }
+        }
+
+        private void txtISBN_Leave(object sender, EventArgs e)
+        {
+            if (_mode == BookFormMode.Add)
+            {
+                LoadExistingTitleByISBN(txtISBN.Text.Trim());
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            SetMode(BookFormMode.Edit);
+        }
+
+        private void btnCreateCopy_Click(object sender, EventArgs e)
+        {
+            if (_selectedBook == null)
+                return;
+
+            txtBookId.Text = GenerateNextBookId();
+
+            cmbCondition.SelectedIndex = -1;
+            cmbStatus.SelectedIndex = -1;
+            txtReasonStatus.Clear();
+            txtDefectedNotes.Clear();
+            SetNumericValue(numPrice, 0);
+
+            SetMode(BookFormMode.Add);
+
+            txtTitleId.ReadOnly = true;
+            txtISBN.ReadOnly = true;
+            txtTitle.ReadOnly = true;
+            txtAuthor.ReadOnly = true;
+            txtPublisher.ReadOnly = true;
+            txtLanguage.ReadOnly = true;
+            txtGenre.ReadOnly = true;
+            txtDescription.ReadOnly = true;
+
+            numPages.Enabled = false;
+            numWeight.Enabled = false;
+            numPublicationYear.Enabled = false;
+            cmbBookType.Enabled = false;
+
+            txtBookId.Visible = false;
+            txtTitleId.Visible = false;
+
+            btnSave.Text = "Create Copy";
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (_mode == BookFormMode.Add)
+            {
+                ClearForm();
+                PrepareAddMode();
+            }
+            else
+            {
+                SetMode(BookFormMode.View);
+            }
+        }
+
+        private void btnAddImg_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "Image Files|*.jpg;*.jpeg;*.png";
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    image.Image = new Bitmap(dlg.FileName);
+                }
+            }
+        }
+
+        private void btnRemoveImg_Click(object sender, EventArgs e)
+        {
+            image.Image = null;
         }
 
         #region Round Buttons
         private void btnArchive_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-        private void btnDelete_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-        private void btnAddImg_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-        private void btnRemove_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-        private void btnCancel_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-        private void btnSave_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+                private void btnDelete_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+                private void btnAddImg_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+                private void btnRemove_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+                private void btnCancel_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+                private void btnSave_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
 
-        private void RoundButton(object sender)
-        {
-            Button btn = (Button)sender;
-            int radius = 20;
+                private void RoundButton(object sender)
+                {
+                    Button btn = (Button)sender;
+                    int radius = 20;
 
-            using (GraphicsPath path = new GraphicsPath())
-            {
-                path.StartFigure();
-                path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
-                path.AddArc(new Rectangle(btn.Width - radius, 0, radius, radius), 270, 90);
-                path.AddArc(new Rectangle(btn.Width - radius, btn.Height - radius, radius, radius), 0, 90);
-                path.AddArc(new Rectangle(0, btn.Height - radius, radius, radius), 90, 90);
-                path.CloseFigure();
-                btn.Region = new Region(path);
-            }
-        }
+                    using (GraphicsPath path = new GraphicsPath())
+                    {
+                        path.StartFigure();
+                        path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
+                        path.AddArc(new Rectangle(btn.Width - radius, 0, radius, radius), 270, 90);
+                        path.AddArc(new Rectangle(btn.Width - radius, btn.Height - radius, radius, radius), 0, 90);
+                        path.AddArc(new Rectangle(0, btn.Height - radius, radius, radius), 90, 90);
+                        path.CloseFigure();
+                        btn.Region = new Region(path);
+                    }
+                }
         #endregion
     }
 }

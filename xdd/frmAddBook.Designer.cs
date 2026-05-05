@@ -33,7 +33,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.image = new System.Windows.Forms.PictureBox();
-            this.btnRemove = new System.Windows.Forms.Button();
+            this.btnRemoveImg = new System.Windows.Forms.Button();
             this.btnAddImg = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -76,12 +76,14 @@
             this.label12 = new System.Windows.Forms.Label();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnArchive = new System.Windows.Forms.Button();
-            this.lblId = new System.Windows.Forms.Label();
+            this.txtBookId = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.txtDefectedNotes = new System.Windows.Forms.TextBox();
             this.panelNotes = new System.Windows.Forms.Panel();
             this.txtTitleId = new System.Windows.Forms.TextBox();
+            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnCreateCopy = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             this.panel1.SuspendLayout();
@@ -163,20 +165,20 @@
             this.image.TabIndex = 1;
             this.image.TabStop = false;
             // 
-            // btnRemove
+            // btnRemoveImg
             // 
-            this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.btnRemove.FlatAppearance.BorderSize = 0;
-            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemove.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemove.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.btnRemove.Location = new System.Drawing.Point(194, 302);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(117, 48);
-            this.btnRemove.TabIndex = 6;
-            this.btnRemove.Text = "Remove";
-            this.btnRemove.UseVisualStyleBackColor = false;
-            this.btnRemove.Paint += new System.Windows.Forms.PaintEventHandler(this.btnRemove_Paint);
+            this.btnRemoveImg.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnRemoveImg.FlatAppearance.BorderSize = 0;
+            this.btnRemoveImg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveImg.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveImg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnRemoveImg.Location = new System.Drawing.Point(194, 302);
+            this.btnRemoveImg.Name = "btnRemoveImg";
+            this.btnRemoveImg.Size = new System.Drawing.Size(117, 48);
+            this.btnRemoveImg.TabIndex = 6;
+            this.btnRemoveImg.Text = "Remove";
+            this.btnRemoveImg.UseVisualStyleBackColor = false;
+            this.btnRemoveImg.Paint += new System.Windows.Forms.PaintEventHandler(this.btnRemove_Paint);
             // 
             // btnAddImg
             // 
@@ -199,7 +201,7 @@
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(245)))), ((int)(((byte)(239)))));
             this.panel1.Controls.Add(this.btnAddImg);
-            this.panel1.Controls.Add(this.btnRemove);
+            this.panel1.Controls.Add(this.btnRemoveImg);
             this.panel1.Controls.Add(this.image);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -327,7 +329,7 @@
             // txtPublisher
             // 
             this.txtPublisher.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPublisher.Location = new System.Drawing.Point(134, 325);
+            this.txtPublisher.Location = new System.Drawing.Point(134, 315);
             this.txtPublisher.Name = "txtPublisher";
             this.txtPublisher.Size = new System.Drawing.Size(274, 22);
             this.txtPublisher.TabIndex = 14;
@@ -617,7 +619,7 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.btnDelete.Location = new System.Drawing.Point(1381, 12);
+            this.btnDelete.Location = new System.Drawing.Point(1405, 12);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(117, 48);
             this.btnDelete.TabIndex = 4;
@@ -633,7 +635,7 @@
             this.btnArchive.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnArchive.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnArchive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.btnArchive.Location = new System.Drawing.Point(1237, 12);
+            this.btnArchive.Location = new System.Drawing.Point(1253, 12);
             this.btnArchive.Name = "btnArchive";
             this.btnArchive.Size = new System.Drawing.Size(117, 48);
             this.btnArchive.TabIndex = 5;
@@ -641,15 +643,15 @@
             this.btnArchive.UseVisualStyleBackColor = false;
             this.btnArchive.Paint += new System.Windows.Forms.PaintEventHandler(this.btnArchive_Paint);
             // 
-            // lblId
+            // txtBookId
             // 
-            this.lblId.AutoSize = true;
-            this.lblId.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblId.Location = new System.Drawing.Point(12, 9);
-            this.lblId.Name = "lblId";
-            this.lblId.Size = new System.Drawing.Size(307, 38);
-            this.lblId.TabIndex = 6;
-            this.lblId.Text = "Book ID: NL0000";
+            this.txtBookId.AutoSize = true;
+            this.txtBookId.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBookId.Location = new System.Drawing.Point(12, 9);
+            this.txtBookId.Name = "txtBookId";
+            this.txtBookId.Size = new System.Drawing.Size(307, 38);
+            this.txtBookId.TabIndex = 6;
+            this.txtBookId.Text = "Book ID: NL0000";
             // 
             // panel10
             // 
@@ -701,14 +703,46 @@
             this.txtTitleId.Size = new System.Drawing.Size(100, 22);
             this.txtTitleId.TabIndex = 18;
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEdit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnEdit.FlatAppearance.BorderSize = 0;
+            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEdit.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEdit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnEdit.Location = new System.Drawing.Point(952, 12);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(117, 48);
+            this.btnEdit.TabIndex = 20;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = false;
+            // 
+            // btnCreateCopy
+            // 
+            this.btnCreateCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreateCopy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnCreateCopy.FlatAppearance.BorderSize = 0;
+            this.btnCreateCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreateCopy.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreateCopy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnCreateCopy.Location = new System.Drawing.Point(1104, 12);
+            this.btnCreateCopy.Name = "btnCreateCopy";
+            this.btnCreateCopy.Size = new System.Drawing.Size(117, 48);
+            this.btnCreateCopy.TabIndex = 19;
+            this.btnCreateCopy.Text = "Create Copy";
+            this.btnCreateCopy.UseVisualStyleBackColor = false;
+            // 
             // frmAddBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 861);
+            this.Controls.Add(this.btnEdit);
+            this.Controls.Add(this.btnCreateCopy);
             this.Controls.Add(this.txtTitleId);
             this.Controls.Add(this.panel5);
-            this.Controls.Add(this.lblId);
+            this.Controls.Add(this.txtBookId);
             this.Controls.Add(this.btnArchive);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.panelNotes);
@@ -758,7 +792,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox image;
-        private System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.Button btnRemoveImg;
         private System.Windows.Forms.Button btnAddImg;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel4;
@@ -793,7 +827,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnArchive;
-        private System.Windows.Forms.Label lblId;
+        private System.Windows.Forms.Label txtBookId;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtDefectedNotes;
@@ -807,5 +841,7 @@
         private System.Windows.Forms.TextBox txtTitleId;
         private System.Windows.Forms.TextBox txtLanguage;
         private System.Windows.Forms.TextBox txtGenre;
+        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnCreateCopy;
     }
 }
