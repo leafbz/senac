@@ -253,7 +253,15 @@ namespace xdd
                     {
                         string existingTitleId = GetExistingTitleIdByISBN(book.ISBN, conn, transaction);
 
-                        if (!string.IsNullOrWhiteSpace(existingTitleId))
+                        if (_mode == BookFormMode.Edit)
+                        {
+                            SaveBookTitle(book, conn, transaction);
+                        }
+                        else if (_mode == BookFormMode.AddCopy)
+                        {
+                            book.TitleId = _currentTitleId;
+                        }
+                        else if (!string.IsNullOrWhiteSpace(existingTitleId))
                         {
                             book.TitleId = existingTitleId;
                             _currentTitleId = existingTitleId;
@@ -262,6 +270,8 @@ namespace xdd
                         {
                             SaveBookTitle(book, conn, transaction);
                         }
+                        
+                        SaveInventoryBook(book, conn, transaction);
 
                         SaveInventoryBook(book, conn, transaction);
 
@@ -275,6 +285,7 @@ namespace xdd
                         }
                         else
                         {
+                            _selectedBook = book;
                             SetMode(BookFormMode.View);
                         }
                     }
@@ -826,8 +837,7 @@ namespace xdd
         {
             if (_mode == BookFormMode.Add)
             {
-                ClearForm();
-                PrepareAddMode();
+                frmPrincipal.PrincipalInstance.AbrirForm<Book>();
                 return;
             }
 
