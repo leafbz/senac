@@ -250,7 +250,7 @@ namespace xdd
         {
             frmLogin form = new frmLogin();
             form.Show();
-            this.Close();
+            this.Hide();
         }
     }
 }

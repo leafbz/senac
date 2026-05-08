@@ -64,7 +64,6 @@ namespace xdd
             }
 
             if (Sessao.User_Role == "Administrator")
-
             {
                 cbRole.Items.Add("Administrator");
             }
@@ -207,17 +206,17 @@ namespace xdd
 
         private void picConfirmPassword_Click(object sender, EventArgs e)
         {
-            if (VisiblePassword)
+            if (VisibleConfirmPassword)
             {
-                txtPassword.UseSystemPasswordChar = true;
+                txtConfirmPassword.UseSystemPasswordChar = true;
                 picConfirmPassword.Image = Properties.Resources.naovisivel;
-                VisiblePassword = false;
+                VisibleConfirmPassword = false;
             }
             else
             {
-                txtPassword.UseSystemPasswordChar = false;
+                txtConfirmPassword.UseSystemPasswordChar = false;
                 picConfirmPassword.Image = Properties.Resources.visivel;
-                VisiblePassword = true;
+                VisibleConfirmPassword = true;
             }
         }
 
@@ -325,7 +324,7 @@ namespace xdd
         {
             frmLogin form = new frmLogin();
             form.Show();
-            this.Close();
+            this.Hide();
         }
     }
 }

@@ -29,6 +29,7 @@ namespace xdd
         public string Status { get; set; }
         public string ReasonStatus { get; set; }
         public string DefectedNotes { get; set; }
+        public string Origin { get; set; }
 
         public Image CoverImage
         {
@@ -43,11 +44,6 @@ namespace xdd
                     return Image.FromStream(new MemoryStream(ms.ToArray()));
                 }
             }
-        }
-
-        public override string ToString()
-        {
-            return $"{Title} - {Author}";
         }
     }
 }

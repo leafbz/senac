@@ -66,7 +66,7 @@ namespace xdd
 
         public void OpenAddBookForm()
         {
-            frmAddBook form = new frmAddBook(BookFormMode.Add);
+            frmAddBook form = new frmAddBook();
             form.TopLevel = false;
             form.FormBorderStyle = FormBorderStyle.None;
             form.Dock = DockStyle.Fill;

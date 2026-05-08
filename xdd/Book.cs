@@ -51,6 +51,7 @@ namespace xdd
                     b.book_status,
                     b.reason_status,
                     b.defected_notes,
+                    b.origin,
                     b.title_id_in_book,
                     bt.title_id,
                     bt.title,
@@ -68,7 +69,7 @@ namespace xdd
                 FROM book b
                 INNER JOIN book_titles bt
                     ON b.title_id_in_book = bt.title_id
-                ORDER BY bt.title ASC, b.book_id ASC;";
+                ORDER BY b.book_id ASC, bt.title ASC;";
 
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))
@@ -88,6 +89,7 @@ namespace xdd
                             Status = reader["book_status"].ToString(),
                             ReasonStatus = reader["reason_status"] == DBNull.Value ? null : reader["reason_status"].ToString(),
                             DefectedNotes = reader["defected_notes"].ToString(),
+                            Origin = reader["origin"] == DBNull.Value ? null : reader["origin"].ToString(),
                             Title = reader["title"].ToString(),
                             Author = reader["author"].ToString(),
                             ISBN = reader["iSBN"].ToString(),

@@ -12,6 +12,8 @@ namespace xdd
         private BookFormMode _mode = BookFormMode.Add;
         private ClassBook _selectedBook;
         private bool _loadingForm = false;
+        private string _currentBookId;
+        private string _currentTitleId;
 
         public frmAddBook()
         {
@@ -67,6 +69,9 @@ namespace xdd
             btnRemoveImg.Click -= btnRemoveImg_Click;
             btnRemoveImg.Click += btnRemoveImg_Click;
 
+            btnDelete.Click -= btnDelete_Click;
+            btnDelete.Click += btnDelete_Click;
+
             cmbBookType.SelectedIndexChanged -= cmbBookType_SelectedIndexChanged;
             cmbBookType.SelectedIndexChanged += cmbBookType_SelectedIndexChanged;
 
@@ -119,15 +124,28 @@ namespace xdd
 
             cmbStatus.Items.Clear();
             cmbStatus.Items.AddRange(new string[] { "AVAILABLE", "SOLD", "UNAVALIABLE" });
+
+            cmbReasonStatus.Items.Clear();
+            cmbReasonStatus.Items.AddRange(new string[]
+            {
+                "Damaged",
+                "ManufacturingDefect",
+                "CustomerDamage",
+                "RemovedFromCuration",
+                "Lost",
+                "Other"
+            });
+
+            cmbOrigin.Items.Clear();
+            cmbOrigin.Items.AddRange(new string[] { "Donation", "Second-hand", "Other" });
         }
 
         private void PrepareAddMode()
         {
             ClearForm();
 
-            txtBookId.Text = GenerateNextBookId();
-            txtTitleId.Text = GenerateNextTitleId();
-            txtLanguage.Text = "English";
+            _currentBookId = GenerateNextBookId();
+            _currentTitleId = GenerateNextTitleId();
 
             SetMode(BookFormMode.Add);
         }
@@ -139,21 +157,25 @@ namespace xdd
             bool isView = mode == BookFormMode.View;
             bool isEdit = mode == BookFormMode.Edit;
             bool isAdd = mode == BookFormMode.Add;
+            bool isAddCopy = mode == BookFormMode.AddCopy;
 
             SetFieldsReadOnly(isView);
 
-            //txtBookId.ReadOnly = true;
-            txtTitleId.ReadOnly = true;
+            lblBookId.Text = string.IsNullOrWhiteSpace(_currentBookId) ? "" : _currentBookId;
+            lblBookId.Visible = isView || isEdit;
 
-            txtBookId.Visible = isEdit;
-            txtTitleId.Visible = false;
-
-            btnSave.Visible = isAdd || isEdit;
+            btnSave.Visible = isAdd || isEdit || isAddCopy;
             btnEdit.Visible = isView;
             btnCreateCopy.Visible = isView;
             btnCancel.Visible = true;
+            btnDelete.Visible = isView || isEdit;
 
-            btnSave.Text = isAdd ? "Add Book" : "Save Changes";
+            if (isAdd)
+                btnSave.Text = "Add Book";
+            else if (isAddCopy)
+                btnSave.Text = "Create Copy";
+            else
+                btnSave.Text = "Save Changes";
         }
 
         private void SetFieldsReadOnly(bool readOnly)
@@ -165,7 +187,6 @@ namespace xdd
             txtLanguage.ReadOnly = readOnly;
             txtGenre.ReadOnly = readOnly;
             txtDescription.ReadOnly = readOnly;
-            txtReasonStatus.ReadOnly = readOnly;
             txtDefectedNotes.ReadOnly = readOnly;
 
             numPages.Enabled = !readOnly;
@@ -176,6 +197,8 @@ namespace xdd
             cmbBookType.Enabled = !readOnly;
             cmbCondition.Enabled = !readOnly;
             cmbStatus.Enabled = !readOnly;
+            cmbReasonStatus.Enabled = !readOnly;
+            cmbOrigin.Enabled = !readOnly;
 
             btnAddImg.Enabled = !readOnly;
             btnRemoveImg.Enabled = !readOnly;
@@ -185,8 +208,10 @@ namespace xdd
         {
             if (book == null) return;
 
-            txtBookId.Text = book.BookId;
-            txtTitleId.Text = book.TitleId;
+            _currentBookId = book.BookId;
+            _currentTitleId = book.TitleId;
+
+            lblBookId.Text = _currentBookId;
 
             txtTitle.Text = book.Title;
             txtAuthor.Text = book.Author;
@@ -204,8 +229,9 @@ namespace xdd
             cmbBookType.SelectedItem = book.BookType;
             cmbCondition.SelectedItem = book.Condition;
             cmbStatus.SelectedItem = book.Status;
+            cmbReasonStatus.SelectedItem = book.ReasonStatus;
+            cmbOrigin.SelectedItem = book.Origin;
 
-            txtReasonStatus.Text = book.ReasonStatus;
             txtDefectedNotes.Text = book.DefectedNotes;
 
             image.Image = book.CoverImage;
@@ -230,7 +256,7 @@ namespace xdd
                         if (!string.IsNullOrWhiteSpace(existingTitleId))
                         {
                             book.TitleId = existingTitleId;
-                            txtTitleId.Text = existingTitleId;
+                            _currentTitleId = existingTitleId;
                         }
                         else
                         {
@@ -265,8 +291,8 @@ namespace xdd
         {
             return new ClassBook
             {
-                BookId = txtBookId.Text.Trim(),
-                TitleId = txtTitleId.Text.Trim(),
+                BookId = _currentBookId,
+                TitleId = _currentTitleId,
 
                 Title = txtTitle.Text.Trim(),
                 Author = txtAuthor.Text.Trim(),
@@ -284,8 +310,9 @@ namespace xdd
                 Price = numPrice.Value,
                 Condition = cmbCondition.SelectedItem?.ToString(),
                 Status = cmbStatus.SelectedItem?.ToString(),
-                ReasonStatus = string.IsNullOrWhiteSpace(txtReasonStatus.Text) ? null : txtReasonStatus.Text.Trim(),
+                ReasonStatus = cmbReasonStatus.SelectedItem?.ToString(),
                 DefectedNotes = txtDefectedNotes.Text.Trim(),
+                Origin = cmbOrigin.SelectedItem?.ToString(),
 
                 ImageBytes = GetImageBytesFromPictureBox()
             };
@@ -305,15 +332,15 @@ namespace xdd
 
         private bool ValidateForm()
         {
-            if (string.IsNullOrWhiteSpace(txtBookId.Text))
+            if (string.IsNullOrWhiteSpace(_currentBookId))
             {
-                MessageBox.Show("Book ID is required.");
+                MessageBox.Show("Book ID was not generated.");
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtTitleId.Text))
+            if (string.IsNullOrWhiteSpace(_currentTitleId))
             {
-                MessageBox.Show("Title ID is required.");
+                MessageBox.Show("Title ID was not generated.");
                 return false;
             }
 
@@ -377,14 +404,14 @@ namespace xdd
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(txtDefectedNotes.Text))
+            if (cmbOrigin.SelectedIndex == -1)
             {
-                MessageBox.Show("Defected notes is required.");
+                MessageBox.Show("Origin is required.");
                 return false;
             }
 
             if (cmbStatus.SelectedItem.ToString() == "UNAVALIABLE" &&
-                string.IsNullOrWhiteSpace(txtReasonStatus.Text))
+                cmbReasonStatus.SelectedIndex == -1)
             {
                 MessageBox.Show("Reason status is required when book is unavailable.");
                 return false;
@@ -497,12 +524,12 @@ namespace xdd
                 INSERT INTO book
                 (
                     book_id, price, book_condition, book_status, reason_status,
-                    defected_notes, title_id_in_book
+                    defected_notes, origin, title_id_in_book
                 )
                 VALUES
                 (
                     @book_id, @price, @condition, @status, @reason_status,
-                    @defected_notes, @title_id
+                    @defected_notes, @origin, @title_id
                 )";
 
             using (var cmd = new MySqlCommand(query, conn, transaction))
@@ -522,6 +549,7 @@ namespace xdd
                     book_status = @status,
                     reason_status = @reason_status,
                     defected_notes = @defected_notes,
+                    origin = @origin,
                     title_id_in_book = @title_id
                 WHERE book_id = @book_id";
 
@@ -540,6 +568,7 @@ namespace xdd
             cmd.Parameters.AddWithValue("@status", book.Status);
             cmd.Parameters.AddWithValue("@reason_status", (object)book.ReasonStatus ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@defected_notes", book.DefectedNotes);
+            cmd.Parameters.AddWithValue("@origin", (object)book.Origin ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@title_id", book.TitleId);
         }
 
@@ -585,7 +614,8 @@ namespace xdd
                     {
                         _loadingForm = true;
 
-                        txtTitleId.Text = reader["title_id"].ToString();
+                        _currentTitleId = reader["title_id"].ToString();
+
                         txtTitle.Text = reader["title"].ToString();
                         txtAuthor.Text = reader["author"].ToString();
                         txtPublisher.Text = reader["publisher"].ToString();
@@ -642,9 +672,9 @@ namespace xdd
         private string GenerateNextTitleId()
         {
             string query = @"
-                SELECT MAX(CAST(SUBSTRING(title_id, 3) AS UNSIGNED))
+                SELECT MAX(CAST(SUBSTRING(title_id, 4) AS UNSIGNED))
                 FROM book_titles
-                WHERE title_id LIKE 'TL%'";
+                WHERE title_id LIKE 'NLT%'";
 
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))
@@ -654,18 +684,15 @@ namespace xdd
                 object result = cmd.ExecuteScalar();
 
                 if (result == null || result == DBNull.Value)
-                    return "TL0001";
+                    return "NLT0001";
 
                 int number = Convert.ToInt32(result) + 1;
-                return "TL" + number.ToString("D4");
+                return "NLT" + number.ToString("D4");
             }
         }
-
         private void ClearForm()
         {
-            //txtBookId.Clear();
-            txtBookId.Text = string.Empty;
-            txtTitleId.Clear();
+            lblBookId.Text = string.Empty;
 
             txtTitle.Clear();
             txtAuthor.Clear();
@@ -683,8 +710,9 @@ namespace xdd
             cmbBookType.SelectedIndex = -1;
             cmbCondition.SelectedIndex = -1;
             cmbStatus.SelectedIndex = -1;
+            cmbReasonStatus.SelectedIndex = -1;
+            cmbOrigin.SelectedIndex = 0;
 
-            txtReasonStatus.Clear();
             txtDefectedNotes.Clear();
 
             image.Image = null;
@@ -764,17 +792,20 @@ namespace xdd
             if (_selectedBook == null)
                 return;
 
-            txtBookId.Text = GenerateNextBookId();
+            _currentBookId = GenerateNextBookId();
+            _currentTitleId = _selectedBook.TitleId;
+            lblBookId.Text = _currentBookId;
 
             cmbCondition.SelectedIndex = -1;
             cmbStatus.SelectedIndex = -1;
-            txtReasonStatus.Clear();
+            cmbReasonStatus.SelectedIndex = -1;
+            cmbOrigin.SelectedIndex = -1;
+
             txtDefectedNotes.Clear();
             SetNumericValue(numPrice, 0);
 
-            SetMode(BookFormMode.Add);
+            SetMode(BookFormMode.AddCopy);
 
-            txtTitleId.ReadOnly = true;
             txtISBN.ReadOnly = true;
             txtTitle.ReadOnly = true;
             txtAuthor.ReadOnly = true;
@@ -788,10 +819,7 @@ namespace xdd
             numPublicationYear.Enabled = false;
             cmbBookType.Enabled = false;
 
-            txtBookId.Visible = false;
-            txtTitleId.Visible = false;
-
-            btnSave.Text = "Create Copy";
+            lblBookId.Visible = false;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -800,10 +828,27 @@ namespace xdd
             {
                 ClearForm();
                 PrepareAddMode();
+                return;
             }
-            else
+
+            if (_mode == BookFormMode.AddCopy)
             {
+                FillForm(_selectedBook);
                 SetMode(BookFormMode.View);
+                return;
+            }
+
+            if (_mode == BookFormMode.Edit)
+            {
+                FillForm(_selectedBook);
+                SetMode(BookFormMode.View);
+                return;
+            }
+
+            if (_mode == BookFormMode.View)
+            {
+                frmPrincipal.PrincipalInstance.AbrirForm<Book>();
+                return;
             }
         }
 
@@ -824,31 +869,87 @@ namespace xdd
         {
             image.Image = null;
         }
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(_currentBookId))
+            {
+                MessageBox.Show("Invalid book ID.");
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(
+                $"Delete book {_currentBookId}?\n\n" +
+                "This will remove only this physical copy.\n" +
+                "The book title information will remain.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+
+            try
+            {
+                using (var conn = Db.GetConnection())
+                {
+                    conn.Open();
+
+                    string query = "DELETE FROM book WHERE book_id = @book_id";
+
+                    using (var cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@book_id", _currentBookId);
+
+                        int rows = cmd.ExecuteNonQuery();
+
+                        if (rows > 0)
+                        {
+                            MessageBox.Show("Book deleted successfully.");
+
+                            // Return to books screen
+                            frmPrincipal.PrincipalInstance.AbrirForm<Book>();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Book not found.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error deleting book: " + ex.Message);
+            }
+        }
 
         #region Round Buttons
         private void btnArchive_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-                private void btnDelete_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-                private void btnAddImg_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-                private void btnRemove_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-                private void btnCancel_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
-                private void btnSave_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+        private void btnDelete_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+        private void btnAddImg_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+        private void btnRemove_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+        private void btnCancel_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+        private void btnSave_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+        private void btnCreateCopy_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
+        private void btnEdit_Paint(object sender, PaintEventArgs e) { RoundButton(sender); }
 
-                private void RoundButton(object sender)
-                {
-                    Button btn = (Button)sender;
-                    int radius = 20;
+        private void RoundButton(object sender)
+        {
+            Button btn = (Button)sender;
+            int radius = 20;
 
-                    using (GraphicsPath path = new GraphicsPath())
-                    {
-                        path.StartFigure();
-                        path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
-                        path.AddArc(new Rectangle(btn.Width - radius, 0, radius, radius), 270, 90);
-                        path.AddArc(new Rectangle(btn.Width - radius, btn.Height - radius, radius, radius), 0, 90);
-                        path.AddArc(new Rectangle(0, btn.Height - radius, radius, radius), 90, 90);
-                        path.CloseFigure();
-                        btn.Region = new Region(path);
-                    }
-                }
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.StartFigure();
+                path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
+                path.AddArc(new Rectangle(btn.Width - radius, 0, radius, radius), 270, 90);
+                path.AddArc(new Rectangle(btn.Width - radius, btn.Height - radius, radius, radius), 0, 90);
+                path.AddArc(new Rectangle(0, btn.Height - radius, radius, radius), 90, 90);
+                path.CloseFigure();
+                btn.Region = new Region(path);
+            }
+        }
         #endregion
+
     }
 }

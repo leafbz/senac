@@ -60,6 +60,7 @@ namespace xdd
                 $"ID: {book.BookId}\n" +
                 $"Condition: {book.Condition}\n" +
                 $"Status: {book.Status}\n" +
+                $"Origin: {book.Origin}\n" +
                 $"Price: ${book.Price:F2}"
             );
 
