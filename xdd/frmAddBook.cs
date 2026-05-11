@@ -123,7 +123,7 @@ namespace xdd
             cmbCondition.Items.AddRange(new string[] { "NEW", "VERY GOOD", "GOOD", "ACCEPTABLE" });
 
             cmbStatus.Items.Clear();
-            cmbStatus.Items.AddRange(new string[] { "AVAILABLE", "SOLD", "UNAVALIABLE" });
+            cmbStatus.Items.AddRange(new string[] { "AVAILABLE", "SOLD", "UNAVAILABLE" });
 
             cmbReasonStatus.Items.Clear();
             cmbReasonStatus.Items.AddRange(new string[]
@@ -170,10 +170,37 @@ namespace xdd
             btnCancel.Visible = true;
             btnDelete.Visible = isView || isEdit;
 
+            if (mode == BookFormMode.AddCopy)
+            {
+                txtISBN.ReadOnly = true;
+                txtTitle.ReadOnly = true;
+                txtAuthor.ReadOnly = true;
+                txtPublisher.ReadOnly = true;
+                txtLanguage.ReadOnly = true;
+                txtGenre.ReadOnly = true;
+                txtDescription.ReadOnly = true;
+
+                numPages.Enabled = false;
+                numWeight.Enabled = false;
+                numPublicationYear.Enabled = false;
+
+                cmbBookType.Enabled = false;
+
+                numPrice.Enabled = true;
+                cmbCondition.Enabled = true;
+                cmbStatus.Enabled = true;
+                cmbReasonStatus.Enabled = true;
+                cmbOrigin.Enabled = true;
+
+                txtDefectedNotes.ReadOnly = false;
+
+                lblBookId.Visible = false;
+
+                btnSave.Text = "Create Copy";
+            }
+
             if (isAdd)
                 btnSave.Text = "Add Book";
-            else if (isAddCopy)
-                btnSave.Text = "Create Copy";
             else
                 btnSave.Text = "Save Changes";
         }
@@ -208,7 +235,8 @@ namespace xdd
         {
             if (book == null) return;
 
-            _currentBookId = book.BookId;
+            _currentBookId = string.IsNullOrWhiteSpace(book.BookId) ? GenerateNextBookId() : book.BookId;
+
             _currentTitleId = book.TitleId;
 
             lblBookId.Text = _currentBookId;
@@ -270,8 +298,6 @@ namespace xdd
                         {
                             SaveBookTitle(book, conn, transaction);
                         }
-                        
-                        SaveInventoryBook(book, conn, transaction);
 
                         SaveInventoryBook(book, conn, transaction);
 
@@ -421,7 +447,7 @@ namespace xdd
                 return false;
             }
 
-            if (cmbStatus.SelectedItem.ToString() == "UNAVALIABLE" &&
+            if (cmbStatus.SelectedItem.ToString() == "UNAVAILABLE" &&
                 cmbReasonStatus.SelectedIndex == -1)
             {
                 MessageBox.Show("Reason status is required when book is unavailable.");

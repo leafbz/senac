@@ -486,7 +486,7 @@
             this.cmbReasonStatus.FormattingEnabled = true;
             this.cmbReasonStatus.Location = new System.Drawing.Point(159, 324);
             this.cmbReasonStatus.Name = "cmbReasonStatus";
-            this.cmbReasonStatus.Size = new System.Drawing.Size(120, 24);
+            this.cmbReasonStatus.Size = new System.Drawing.Size(159, 24);
             this.cmbReasonStatus.TabIndex = 24;
             // 
             // cmbOrigin
