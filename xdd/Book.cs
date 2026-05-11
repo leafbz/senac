@@ -69,8 +69,11 @@ namespace xdd
                 FROM book b
                 INNER JOIN book_titles bt
                     ON b.title_id_in_book = bt.title_id
+            
+                WHERE b.book_status = 'AVAILABLE'
+            
                 ORDER BY b.book_id ASC, bt.title ASC;";
-
+    
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))
             {
