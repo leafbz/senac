@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\xdd\\frmaddbook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\xdd\\book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|solutionrelative:book.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\xdd\\frmarchive.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|solutionrelative:frmarchive.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmaddbook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|solutionrelative:frmaddbook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmaddbundle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|solutionrelative:frmaddbundle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmaddbook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|solutionrelative:frmaddbook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|c:\\users\\rafael.rbrazao\\source\\repos\\xdd\\frmaddbundle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|solutionrelative:frmaddbundle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9C39B1B-F98A-497C-AC1B-A086D0601B23}|nivelivesbooks.csproj|C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,7 +38,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -39,45 +47,65 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-14T17:50:45.731Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Book.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\Book.cs",
+              "RelativeDocumentMoniker": "Book.cs",
+              "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\Book.cs [Design]",
+              "RelativeToolTip": "Book.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T19:45:28.57Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmArchive.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmArchive.cs",
+              "RelativeDocumentMoniker": "frmArchive.cs",
+              "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmArchive.cs [Design]",
+              "RelativeToolTip": "frmArchive.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T19:44:57.096Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "frmAddBook.cs",
               "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmAddBook.cs",
               "RelativeDocumentMoniker": "frmAddBook.cs",
               "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmAddBook.cs",
               "RelativeToolTip": "frmAddBook.cs",
-              "ViewState": "AgIAAMgAAAAAAAAAAAAjwPEAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAcwLQAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-08T19:03:39.459Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-08T19:03:39.459Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "frmAddBundle.cs [Design]",
               "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmAddBundle.cs",
               "RelativeDocumentMoniker": "frmAddBundle.cs",
               "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmAddBundle.cs [Design]",
               "RelativeToolTip": "frmAddBundle.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-08T19:03:35.671Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-05-08T19:03:35.671Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "frmAddBook.cs [Design]",
               "DocumentMoniker": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmAddBook.cs",
               "RelativeDocumentMoniker": "frmAddBook.cs",
               "ToolTip": "C:\\Users\\rafael.rbrazao\\source\\repos\\xdd\\frmAddBook.cs [Design]",
               "RelativeToolTip": "frmAddBook.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-08T18:11:06.213Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-05-08T18:11:06.213Z"
             }
           ]
         }

@@ -39,14 +39,14 @@
             this.cardContainer.Location = new System.Drawing.Point(0, 0);
             this.cardContainer.Margin = new System.Windows.Forms.Padding(4);
             this.cardContainer.Name = "cardContainer";
-            this.cardContainer.Size = new System.Drawing.Size(1445, 912);
+            this.cardContainer.Size = new System.Drawing.Size(1584, 861);
             this.cardContainer.TabIndex = 0;
             // 
             // Book
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1445, 912);
+            this.ClientSize = new System.Drawing.Size(1584, 861);
             this.Controls.Add(this.cardContainer);
             this.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);

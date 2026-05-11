@@ -404,19 +404,12 @@ namespace xdd
                 return false;
             }
 
-<<<<<<< HEAD
+
             if (cmbOrigin.SelectedIndex == -1)
             {
                 MessageBox.Show("Origin is required.");
                 return false;
             }
-=======
-            //if (string.IsNullOrWhiteSpace(txtDefectedNotes.Text))
-            //{
-            //    MessageBox.Show("Defected notes is required.");
-            //    return false;
-            //}
->>>>>>> edd5f70c63877aa7a642043968ce710d2f6fa18c
 
             if (cmbStatus.SelectedItem.ToString() == "UNAVALIABLE" &&
                 cmbReasonStatus.SelectedIndex == -1)
