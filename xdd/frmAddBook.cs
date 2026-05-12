@@ -12,6 +12,7 @@ namespace xdd
         private BookFormMode _mode = BookFormMode.Add;
         private ClassBook _selectedBook;
         private bool _loadingForm = false;
+        private bool _returnToArchive = false;
         private string _currentBookId;
         private string _currentTitleId;
 
@@ -26,6 +27,15 @@ namespace xdd
             InitializeComponent();
             _selectedBook = book;
             _mode = mode;
+        }
+
+        public frmAddBook(ClassBook book, BookFormMode mode, bool returnToArchive)
+        {
+            InitializeComponent();
+
+            _selectedBook = book;
+            _mode = mode;
+            _returnToArchive = returnToArchive;
         }
 
         private void frmAddBook_Load(object sender, EventArgs e)
@@ -302,9 +312,12 @@ namespace xdd
                         SaveInventoryBook(book, conn, transaction);
 
                         transaction.Commit();
-
-                        MessageBox.Show("Book saved successfully.");
-
+                        if (_returnToArchive)
+                        {
+                            MessageBox.Show("Book saved successfully.");
+                            frmPrincipal.PrincipalInstance.AbrirForm<frmArchive>();
+                            return;
+                        }
                         if (_mode == BookFormMode.Add)
                         {
                             PrepareAddMode();
@@ -746,7 +759,7 @@ namespace xdd
 
             cmbBookType.SelectedIndex = -1;
             cmbCondition.SelectedIndex = -1;
-            cmbStatus.SelectedIndex = -1;
+            cmbStatus.SelectedIndex = 0;
             cmbReasonStatus.SelectedIndex = -1;
             cmbOrigin.SelectedIndex = 0;
 
@@ -861,6 +874,11 @@ namespace xdd
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            if (_returnToArchive)
+            {
+                frmPrincipal.PrincipalInstance.AbrirForm<frmArchive>();
+                return;
+            }
             if (_mode == BookFormMode.Add)
             {
                 frmPrincipal.PrincipalInstance.AbrirForm<Book>();

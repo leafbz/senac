@@ -96,7 +96,7 @@ namespace xdd
                     break;
 
                 case "btnBundles":
-                    AbrirForm<frmBundle>();
+                    AbrirForm<frmAddBundle>();
                     panelBundle.BackColor = Color.FromArgb(166, 78, 27);
                     break;
 

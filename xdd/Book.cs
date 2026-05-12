@@ -72,7 +72,7 @@ namespace xdd
             
                 WHERE b.book_status = 'AVAILABLE'
             
-                ORDER BY b.book_id ASC, bt.title ASC;";
+                ORDER BY bt.title ASC, b.book_id ASC;";
     
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))

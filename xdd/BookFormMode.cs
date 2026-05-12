@@ -11,6 +11,7 @@ namespace xdd
         Add,
         View,
         Edit,
-        AddCopy
+        AddCopy,
+        EditTitle
     }
 }

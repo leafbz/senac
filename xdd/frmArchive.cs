@@ -17,11 +17,30 @@ namespace xdd
         {
             InitializeComponent();
         }
-
         private void frmArchive_Load(object sender, EventArgs e)
         {
             LoadArchive();
             ConfigureGrid();
+            WireEvents();
+            UpdateActionButtons();
+        }
+
+        private void WireEvents()
+        {
+            btnRefresh.Click -= btnRefresh_Click;
+            btnRefresh.Click += btnRefresh_Click;
+
+            btnEdit.Click -= btnEdit_Click;
+            btnEdit.Click += btnEdit_Click;
+
+            btnDelete.Click -= btnDelete_Click;
+            btnDelete.Click += btnDelete_Click;
+
+            btnCopy.Click -= btnCopy_Click;
+            btnCopy.Click += btnCopy_Click;
+
+            dgvArchive.SelectionChanged -= dgvArchive_SelectionChanged;
+            dgvArchive.SelectionChanged += dgvArchive_SelectionChanged;
         }
 
         private void LoadArchive()
@@ -57,8 +76,7 @@ namespace xdd
                     ON bt.title_id = b.title_id_in_book
                 WHERE b.book_id IS NULL
 
-                ORDER BY ArchiveType, Title;
-            ";
+                ORDER BY ArchiveType, Title;";
 
             try
             {
@@ -66,11 +84,11 @@ namespace xdd
                 using (var da = new MySqlDataAdapter(query, conn))
                 {
                     DataTable dt = new DataTable();
-
                     da.Fill(dt);
-
                     dgvArchive.DataSource = dt;
                 }
+
+                UpdateActionButtons();
             }
             catch (Exception ex)
             {
@@ -83,32 +101,217 @@ namespace xdd
             }
         }
 
+        private void ConfigureGrid()
+        {
+            dgvArchive.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvArchive.ReadOnly = true;
+            dgvArchive.AllowUserToAddRows = false;
+            dgvArchive.AllowUserToDeleteRows = false;
+            dgvArchive.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvArchive.MultiSelect = false;
+            dgvArchive.RowHeadersVisible = false;
+
+            dgvArchive.BackgroundColor = Color.White;
+            dgvArchive.BorderStyle = BorderStyle.None;
+
+            dgvArchive.DefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 48);
+            dgvArchive.DefaultCellStyle.SelectionForeColor = Color.White;
+
+            dgvArchive.ColumnHeadersDefaultCellStyle.Font = new Font("Georgia", 12, FontStyle.Bold);
+
+            dgvArchive.DefaultCellStyle.Font = new Font("Georgia", 10);
+
+            dgvArchive.EnableHeadersVisualStyles = false;
+            dgvArchive.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(46, 70, 50);
+            dgvArchive.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(214, 167, 86);
+        }
+
+        private string GetSelectedArchiveType()
+        {
+            if (dgvArchive.CurrentRow == null)
+                return null;
+
+            return dgvArchive.CurrentRow.Cells["ArchiveType"].Value?.ToString();
+        }
+
+        private string GetSelectedEntityId()
+        {
+            if (dgvArchive.CurrentRow == null)
+                return null;
+
+            return dgvArchive.CurrentRow.Cells["EntityId"].Value?.ToString();
+        }
+
+        private void UpdateActionButtons()
+        {
+            bool hasSelection = dgvArchive.CurrentRow != null;
+
+            btnEdit.Enabled = hasSelection;
+            btnDelete.Enabled = hasSelection;
+            btnCopy.Enabled = hasSelection;
+        }
+
+        private void dgvArchive_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateActionButtons();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadArchive();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            string archiveType = GetSelectedArchiveType();
+            string entityId = GetSelectedEntityId();
+
+            if (string.IsNullOrWhiteSpace(archiveType) || string.IsNullOrWhiteSpace(entityId))
+            {
+                MessageBox.Show("Select an archive item first.");
+                return;
+            }
+
+            if (archiveType == "Book Copy")
+            {
+                ClassBook book = GetBookById(entityId);
+
+                if (book != null)
+                    frmPrincipal.PrincipalInstance.OpenBookForm(book, BookFormMode.Edit);
+
+                return;
+            }
+
+            if (archiveType == "Book Title Without Copies")
+            {
+                ClassBook titleOnlyBook = GetBookTitleById(entityId);
+
+                if (titleOnlyBook != null)
+                    frmPrincipal.PrincipalInstance.OpenBookForm(titleOnlyBook, BookFormMode.EditTitle);
+
+                return;
+            }
+        }
+
+        private void btnCopy_Click(object sender, EventArgs e)
+        {
+            string archiveType = GetSelectedArchiveType();
+            string entityId = GetSelectedEntityId();
+
+            if (string.IsNullOrWhiteSpace(archiveType) || string.IsNullOrWhiteSpace(entityId))
+            {
+                MessageBox.Show("Select an archive item first.");
+                return;
+            }
+
+            ClassBook source = null;
+
+            if (archiveType == "Book Copy")
+                source = GetBookById(entityId);
+            else if (archiveType == "Book Title Without Copies")
+                source = GetBookTitleById(entityId);
+
+            if (source != null)
+                frmPrincipal.PrincipalInstance.OpenBookForm(source, BookFormMode.AddCopy);
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string archiveType = GetSelectedArchiveType();
+            string entityId = GetSelectedEntityId();
+
+            if (string.IsNullOrWhiteSpace(archiveType) || string.IsNullOrWhiteSpace(entityId))
+            {
+                MessageBox.Show("Select an archive item first.");
+                return;
+            }
+
+            if (archiveType == "Book Copy")
+            {
+                DeleteBook(entityId);
+                return;
+            }
+
+            if (archiveType == "Book Title Without Copies")
+            {
+                DeleteBookTitle(entityId);
+                return;
+            }
+        }
+
+        private ClassBook GetBookById(string bookId)
+        {
+            string query = @"
+                SELECT
+                    b.book_id,
+                    b.price,
+                    b.book_condition,
+                    b.book_status,
+                    b.reason_status,
+                    b.defected_notes,
+                    b.origin,
+                    b.title_id_in_book,
+
+                    bt.title_id,
+                    bt.title,
+                    bt.author,
+                    bt.iSBN,
+                    bt.pages,
+                    bt.book_type,
+                    bt.book_approx_weight,
+                    bt.publisher,
+                    bt.publication_year,
+                    bt.book_language,
+                    bt.genre,
+                    bt.book_description,
+                    bt.book_image
+                FROM book b
+                INNER JOIN book_titles bt
+                    ON b.title_id_in_book = bt.title_id
+                WHERE b.book_id = @book_id
+                LIMIT 1;";
+
+            using (var conn = Db.GetConnection())
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@book_id", bookId);
+                conn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                        return MapBook(reader);
+                }
+            }
+
+            return null;
+        }
+
         private ClassBook GetBookTitleById(string titleId)
         {
             string query = @"
-        SELECT
-            title_id,
-            title,
-            author,
-            iSBN,
-            pages,
-            book_type,
-            book_approx_weight,
-            publisher,
-            publication_year,
-            book_language,
-            genre,
-            book_description,
-            book_image
-        FROM book_titles
-        WHERE title_id = @title_id
-        LIMIT 1;";
+                SELECT
+                    title_id,
+                    title,
+                    author,
+                    iSBN,
+                    pages,
+                    book_type,
+                    book_approx_weight,
+                    publisher,
+                    publication_year,
+                    book_language,
+                    genre,
+                    book_description,
+                    book_image
+                FROM book_titles
+                WHERE title_id = @title_id
+                LIMIT 1;";
 
             using (var conn = Db.GetConnection())
             using (var cmd = new MySqlCommand(query, conn))
             {
                 cmd.Parameters.AddWithValue("@title_id", titleId);
-
                 conn.Open();
 
                 using (var reader = cmd.ExecuteReader())
@@ -118,36 +321,19 @@ namespace xdd
                         return new ClassBook
                         {
                             BookId = null,
-
                             TitleId = reader["title_id"].ToString(),
-
                             Title = reader["title"].ToString(),
                             Author = reader["author"].ToString(),
                             ISBN = reader["iSBN"].ToString(),
-
                             Pages = Convert.ToInt32(reader["pages"]),
-
                             BookType = reader["book_type"].ToString(),
-
-                            ApproxWeight =
-                                Convert.ToDecimal(reader["book_approx_weight"]),
-
+                            ApproxWeight = Convert.ToDecimal(reader["book_approx_weight"]),
                             Publisher = reader["publisher"].ToString(),
-
-                            PublicationYear =
-                                Convert.ToInt32(reader["publication_year"]),
-
+                            PublicationYear = Convert.ToInt32(reader["publication_year"]),
                             Language = reader["book_language"].ToString(),
-
                             Genre = reader["genre"].ToString(),
-
-                            Description =
-                                reader["book_description"].ToString(),
-
-                            ImageBytes =
-                                reader["book_image"] == DBNull.Value
-                                ? null
-                                : (byte[])reader["book_image"]
+                            Description = reader["book_description"].ToString(),
+                            ImageBytes = reader["book_image"] == DBNull.Value ? null : (byte[])reader["book_image"]
                         };
                     }
                 }
@@ -156,97 +342,70 @@ namespace xdd
             return null;
         }
 
-        private void ConfigureGrid()
+        private ClassBook MapBook(MySqlDataReader reader)
         {
-            dgvArchive.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            return new ClassBook
+            {
+                BookId = reader["book_id"].ToString(),
+                TitleId = reader["title_id"].ToString(),
+                Price = Convert.ToDecimal(reader["price"]),
+                Condition = reader["book_condition"].ToString(),
+                Status = reader["book_status"].ToString(),
+                ReasonStatus = reader["reason_status"] == DBNull.Value ? null : reader["reason_status"].ToString(),
+                DefectedNotes = reader["defected_notes"] == DBNull.Value ? null : reader["defected_notes"].ToString(),
+                Origin = reader["origin"] == DBNull.Value ? null : reader["origin"].ToString(),
 
-            dgvArchive.ReadOnly = true;
-
-            dgvArchive.AllowUserToAddRows = false;
-            dgvArchive.AllowUserToDeleteRows = false;
-
-            dgvArchive.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvArchive.MultiSelect = false;
-
-            dgvArchive.RowHeadersVisible = false;
-
-            dgvArchive.BackgroundColor = Color.White;
-            dgvArchive.BorderStyle = BorderStyle.None;
-
-            dgvArchive.DefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 48);
-            dgvArchive.DefaultCellStyle.SelectionForeColor = Color.White;
-
-            dgvArchive.ColumnHeadersDefaultCellStyle.Font =
-                new Font("Segoe UI", 10, FontStyle.Bold);
-
-            dgvArchive.DefaultCellStyle.Font =
-                new Font("Segoe UI", 10);
-
-            dgvArchive.EnableHeadersVisualStyles = false;
-
-            dgvArchive.ColumnHeadersDefaultCellStyle.BackColor =
-                Color.FromArgb(30, 30, 30);
-
-            dgvArchive.ColumnHeadersDefaultCellStyle.ForeColor =
-                Color.White;
-
-            dgvArchive.CellDoubleClick -= dgvArchive_CellDoubleClick;
-            dgvArchive.CellDoubleClick += dgvArchive_CellDoubleClick;
+                Title = reader["title"].ToString(),
+                Author = reader["author"].ToString(),
+                ISBN = reader["iSBN"].ToString(),
+                Pages = Convert.ToInt32(reader["pages"]),
+                BookType = reader["book_type"].ToString(),
+                ApproxWeight = Convert.ToDecimal(reader["book_approx_weight"]),
+                Publisher = reader["publisher"].ToString(),
+                PublicationYear = Convert.ToInt32(reader["publication_year"]),
+                Language = reader["book_language"].ToString(),
+                Genre = reader["genre"].ToString(),
+                Description = reader["book_description"].ToString(),
+                ImageBytes = reader["book_image"] == DBNull.Value ? null : (byte[])reader["book_image"]
+            };
         }
 
-        private void dgvArchive_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DeleteBook(string bookId)
         {
-            if (e.RowIndex < 0)
+            DialogResult result = MessageBox.Show(
+                $"Delete book {bookId}?\n\nThis deletes only the physical copy, not the book title.",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result != DialogResult.Yes)
                 return;
 
-            string archiveType =
-                dgvArchive.Rows[e.RowIndex]
-                .Cells["ArchiveType"]
-                .Value
-                .ToString();
-
-            string entityId =
-                dgvArchive.Rows[e.RowIndex]
-                .Cells["EntityId"]
-                .Value
-                .ToString();
-
-            // Only for titles without copies
-            if (archiveType == "Book Title Without Copies")
+            try
             {
-                ContextMenuStrip menu = new ContextMenuStrip();
-
-                // Add Copy
-
-                menu.Items.Add("Add Copy", null, (s, ev) =>
+                using (var conn = Db.GetConnection())
                 {
-                    ClassBook titleOnlyBook =
-                        GetBookTitleById(entityId);
+                    conn.Open();
 
-                    if (titleOnlyBook != null)
+                    string query = "DELETE FROM book WHERE book_id = @book_id";
+
+                    using (var cmd = new MySqlCommand(query, conn))
                     {
-                        frmAddBook frm =
-                            new frmAddBook(
-                                titleOnlyBook,
-                                BookFormMode.AddCopy
-                            );
-
-                        frm.ShowDialog();
-
-                        LoadArchive();
+                        cmd.Parameters.AddWithValue("@book_id", bookId);
+                        cmd.ExecuteNonQuery();
                     }
-                });
+                }
 
-                // Delete Title
-
-                menu.Items.Add("Delete Title", null, (s, ev) =>
-                {
-                    DeleteBookTitle(entityId);
-                });
-
-                menu.Show(Cursor.Position);
+                MessageBox.Show("Book deleted successfully.");
+                LoadArchive();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error deleting book:\n" + ex.Message);
             }
         }
+
         private void DeleteBookTitle(string titleId)
         {
             try
@@ -255,37 +414,22 @@ namespace xdd
                 {
                     conn.Open();
 
-                    // Safety Check
-
                     string checkQuery = @"
-                SELECT COUNT(*)
-                FROM book
-                WHERE title_id_in_book = @title_id";
+                        SELECT COUNT(*)
+                        FROM book
+                        WHERE title_id_in_book = @title_id";
 
-                    using (var checkCmd =
-                        new MySqlCommand(checkQuery, conn))
+                    using (var checkCmd = new MySqlCommand(checkQuery, conn))
                     {
-                        checkCmd.Parameters.AddWithValue(
-                            "@title_id",
-                            titleId
-                        );
-
-                        int count =
-                            Convert.ToInt32(
-                                checkCmd.ExecuteScalar()
-                            );
+                        checkCmd.Parameters.AddWithValue("@title_id", titleId);
+                        int count = Convert.ToInt32(checkCmd.ExecuteScalar());
 
                         if (count > 0)
                         {
-                            MessageBox.Show(
-                                "Cannot delete title because books still exist."
-                            );
-
+                            MessageBox.Show("Cannot delete title because books still exist.");
                             return;
                         }
                     }
-
-                    // Confirmation
 
                     DialogResult result = MessageBox.Show(
                         "Delete this book title permanently?",
@@ -297,43 +441,24 @@ namespace xdd
                     if (result != DialogResult.Yes)
                         return;
 
-                    // Delete
-
                     string deleteQuery = @"
-                DELETE FROM book_titles
-                WHERE title_id = @title_id";
+                        DELETE FROM book_titles
+                        WHERE title_id = @title_id";
 
-                    using (var deleteCmd =
-                        new MySqlCommand(deleteQuery, conn))
+                    using (var deleteCmd = new MySqlCommand(deleteQuery, conn))
                     {
-                        deleteCmd.Parameters.AddWithValue(
-                            "@title_id",
-                            titleId
-                        );
-
+                        deleteCmd.Parameters.AddWithValue("@title_id", titleId);
                         deleteCmd.ExecuteNonQuery();
                     }
-
-                    MessageBox.Show(
-                        "Book title deleted successfully."
-                    );
-
-                    // Refresh archive
-                    LoadArchive();
                 }
+
+                MessageBox.Show("Book title deleted successfully.");
+                LoadArchive();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error deleting title:\n" + ex.Message
-                );
+                MessageBox.Show("Error deleting title:\n" + ex.Message);
             }
-        }
-
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            LoadArchive();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace xdd
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmAddBundle());
+            Application.Run(new frmPrincipal());
         }
     }
 }

@@ -387,6 +387,7 @@
             this.numPublicationYear.Name = "numPublicationYear";
             this.numPublicationYear.Size = new System.Drawing.Size(120, 22);
             this.numPublicationYear.TabIndex = 15;
+            this.numPublicationYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // panelDesc
             // 
@@ -520,6 +521,7 @@
             this.numPrice.Name = "numPrice";
             this.numPrice.Size = new System.Drawing.Size(120, 22);
             this.numPrice.TabIndex = 20;
+            this.numPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // cmbStatus
             // 
@@ -547,6 +549,7 @@
             this.numWeight.Size = new System.Drawing.Size(120, 22);
             this.numWeight.TabIndex = 23;
             this.numWeight.Tag = "Kg";
+            this.numWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // numPages
             // 
@@ -554,6 +557,7 @@
             this.numPages.Name = "numPages";
             this.numPages.Size = new System.Drawing.Size(120, 22);
             this.numPages.TabIndex = 21;
+            this.numPages.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // cmbBookType
             // 
