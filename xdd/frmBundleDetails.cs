@@ -9,7 +9,7 @@ using System.IO;
 using System.Windows.Forms;
 using xdd;
 
-namespace NineLivesBooks
+namespace xdd
 {
     public partial class FrmBundleDetails : Form
     {
