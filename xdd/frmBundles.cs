@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace xdd
 {
-    public partial class frmBundle : Form
+    public partial class frmBundles : Form
     {
-        public frmBundle()
+        public frmBundles()
         {
             InitializeComponent();
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

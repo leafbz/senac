@@ -90,48 +90,56 @@ namespace xdd
 
         private void lstBook_DrawItem(object sender, DrawListViewItemEventArgs e)
         {
-            Color back = (e.ItemIndex % 2 == 0) ? rowEven : rowOdd;
 
-            if (e.Item.Selected)
-                back = Color.FromArgb(255, 215, 160);
-
-            e.Graphics.FillRectangle(new SolidBrush(back), e.Bounds);
         }
 
         private void lstBook_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
-            Color backColor =
-                (e.ItemIndex % 2 == 0)
-                    ? Color.FromArgb(255, 245, 220)
-                    : Color.FromArgb(255, 235, 200);
+            Color backColor;
+            Color textColor;
 
             if (e.Item.Selected)
+            {
+                textColor = Color.Black;
+            }
+            else if (e.ColumnIndex == 0)
+            {
+                textColor = Color.FromArgb(0, 80, 60);
+            }
+            else
+            {
+                textColor = Color.FromArgb(20, 60, 40);
+            }
+
+            if (e.Item.Selected)
+            {
                 backColor = Color.FromArgb(255, 215, 160);
+            }
+            else if ((e.ItemState & ListViewItemStates.Hot) != 0)
+            {
+                backColor = Color.FromArgb(255, 230, 190);
+            }
+            else
+            {
+                backColor = (e.ItemIndex % 2 == 0) ? rowEven : rowOdd;
+            }
 
             using (SolidBrush back = new SolidBrush(backColor))
                 e.Graphics.FillRectangle(back, e.Bounds);
 
-            Color textColor =
-                e.ColumnIndex == 0
-                    ? Color.FromArgb(0, 80, 60)
-                    : Color.FromArgb(40, 40, 40);
-
-            Font font =
-                e.ColumnIndex == 0
-                    ? new Font("Georgia", 10F, FontStyle.Bold)
-                    : new Font("Georgia", 10F);
+            Font font = new Font("Georgia", 10F, FontStyle.Bold);
 
             TextRenderer.DrawText(
-                e.Graphics,
-                e.SubItem.Text,
-                font,
-                e.Bounds,
-                textColor,
-                TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+             e.Graphics,
+             e.SubItem.Text,
+             font,
+             e.Bounds,
+             textColor,
+             TextFormatFlags.Left | TextFormatFlags.VerticalCenter
             );
 
-            using (Pen pen = new Pen(Color.FromArgb(255, 215, 160)))
-                e.Graphics.DrawRectangle(pen, e.Bounds);
+            e.Graphics.DrawRectangle(new Pen(gridColor), e.Bounds);
+
         }
         private void lstBookBundle_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
         {
@@ -155,49 +163,59 @@ namespace xdd
 
         private void lstBookBundle_DrawItem(object sender, DrawListViewItemEventArgs e)
         {
-            Color back = (e.ItemIndex % 2 == 0) ? rowEven : rowOdd;
 
-            if (e.Item.Selected)
-                back = Color.FromArgb(255, 215, 160);
-
-            e.Graphics.FillRectangle(new SolidBrush(back), e.Bounds);
         }
 
         private void lstBookBundle_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
-            Color backColor =
-                (e.ItemIndex % 2 == 0)
-                    ? Color.FromArgb(255, 245, 220)
-                    : Color.FromArgb(255, 235, 200);
+
+            Color backColor;
+            Color textColor;
 
             if (e.Item.Selected)
+            {
+                textColor = Color.Black;
+            }
+            else if (e.ColumnIndex == 0)
+            {
+                textColor = Color.FromArgb(0, 80, 60);
+            }
+            else
+            {
+                textColor = Color.FromArgb(20, 60, 40);
+            }
+
+            if (e.Item.Selected)
+            {
                 backColor = Color.FromArgb(255, 215, 160);
+            }
+            else if ((e.ItemState & ListViewItemStates.Hot) != 0)
+            {
+                backColor = Color.FromArgb(255, 230, 190);
+            }
+            else
+            {
+                backColor = (e.ItemIndex % 2 == 0) ? rowEven : rowOdd;
+            }
 
             using (SolidBrush back = new SolidBrush(backColor))
                 e.Graphics.FillRectangle(back, e.Bounds);
 
-            Color textColor =
-                e.ColumnIndex == 0
-                    ? Color.FromArgb(0, 80, 60)
-                    : Color.FromArgb(40, 40, 40);
-
-            Font font =
-                e.ColumnIndex == 0
-                    ? new Font("Georgia", 10F, FontStyle.Bold)
-                    : new Font("Georgia", 10F);
+            Font font = new Font("Georgia", 10F, FontStyle.Bold);
 
             TextRenderer.DrawText(
-                e.Graphics,
-                e.SubItem.Text,
-                font,
-                e.Bounds,
-                textColor,
-                TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+             e.Graphics,
+             e.SubItem.Text,
+             font,
+             e.Bounds,
+             textColor,
+             TextFormatFlags.Left | TextFormatFlags.VerticalCenter
             );
 
-            using (Pen pen = new Pen(Color.FromArgb(255, 215, 160)))
-                e.Graphics.DrawRectangle(pen, e.Bounds);
+            e.Graphics.DrawRectangle(new Pen(gridColor), e.Bounds);
         }
+
+
 
 
         public frmAddBundle()
@@ -307,7 +325,7 @@ namespace xdd
 
                     string sql = @"
                 SELECT 
-                    bt.title_id,
+                    b.book_id,
                     b.price,
                     b.book_condition,
                     bt.title,
@@ -322,10 +340,10 @@ namespace xdd
 
                     while (reader.Read())
                     {
-                        
+
                         decimal price = 0;
 
-                        
+
                         decimal.TryParse(
                             reader["price"]?.ToString()?.Replace(",", "."),
                             NumberStyles.Any,
@@ -335,7 +353,7 @@ namespace xdd
 
                         Livro livro = new Livro
                         {
-                            Id_Book = reader["title_id"]?.ToString() ?? "",
+                            Id_Book = reader["book_id"]?.ToString() ?? "",
                             Title = reader["title"]?.ToString() ?? "",
                             Author = reader["author"]?.ToString() ?? "",
                             Condition = reader["book_condition"]?.ToString() ?? "",
@@ -391,6 +409,7 @@ namespace xdd
 
                 livrosDoGrupo.Add(livro);
             }
+            UpdateBundlePrice();
             UpdateBundleWeight();
             CarregarLivrosGrupo();
         }
@@ -428,7 +447,7 @@ namespace xdd
             livrosDisponiveis.Clear();
 
             string sql = @" SELECT  
-            bt.title_id,
+            b.book_id,
             b.price,
             b.book_condition,
             bt.title,
@@ -452,12 +471,12 @@ namespace xdd
                         {
                             Livro livro = new Livro
                             {
-                                Id_Book = reader["title_id"].ToString(),
+                                Id_Book = reader["book_id"].ToString(),
                                 Title = reader["title"].ToString(),
                                 Author = reader["author"].ToString(),
                                 Condition = reader["book_condition"].ToString(),
                                 Price = Convert.ToDecimal(reader["price"]),
-                                
+
 
                             };
 
@@ -495,6 +514,7 @@ namespace xdd
                 Livro livro = (Livro)item.Tag;
                 livrosDoGrupo.Remove(livro);
             }
+            UpdateBundlePrice();
             UpdateBundleWeight();
             CarregarLivrosGrupo();
         }
@@ -509,6 +529,7 @@ namespace xdd
             txtWeight.Text = "0.0 g";
             livrosDoGrupo.Clear();
             txtBundleName.Focus();
+            UpdateBundlePrice();
             UpdateBundleWeight();
             CarregarLivrosGrupo();
 
@@ -581,7 +602,7 @@ namespace xdd
                 string idBundle = SalvarBundle();
                 SalvarLivrosDoBundle(idBundle);
 
-                MessageBox.Show("Bundle salvo com sucesso!");
+                MessageBox.Show("Bundle save sucessfully!");
             }
             catch (MySqlException ex)
             {
@@ -641,13 +662,13 @@ namespace xdd
                             Livro livro = (Livro)item.Tag;
 
                             string sql = @"
-                        INSERT INTO bundle_book (bundle_id_in_bundle_book, title_id_in_bundle_book)
-                        VALUES (@bundle_id, @title_id)";
+                        INSERT INTO bundle_book (bundle_id_in_bundle_book, book_id_in_bundle_book)
+                        VALUES (@bundle_id, @book_id)";
 
                             using (MySqlCommand cmd = new MySqlCommand(sql, conn, trans))
                             {
                                 cmd.Parameters.AddWithValue("@bundle_id", idBundle);
-                                cmd.Parameters.AddWithValue("@title_id", livro.Id_Book);
+                                cmd.Parameters.AddWithValue("@book_id", livro.Id_Book);
 
                                 cmd.ExecuteNonQuery();
                             }
@@ -674,7 +695,7 @@ namespace xdd
             txtWeight.Text = totalWeight.ToString("0.0 g", CultureInfo.InvariantCulture);
 
         }
-    
+
         private decimal GetBundleTotalWeight()
         {
             decimal total = 0;
@@ -683,6 +704,17 @@ namespace xdd
                 total += livro.ApproxWeight;
 
             return total;
+        }
+        private void UpdateBundlePrice()
+        {
+            decimal totalPrice = 0;
+
+            foreach (Livro livro in livrosDoGrupo)
+            {
+                totalPrice += livro.Price;
+            }
+            numPrice.Text = totalPrice.ToString();
+
         }
     }
 }

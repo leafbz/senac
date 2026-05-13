@@ -31,6 +31,11 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblBundleStatus = new System.Windows.Forms.Label();
+            this.lblBundleTheme = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtWeight = new System.Windows.Forms.TextBox();
             this.numPrice = new System.Windows.Forms.NumericUpDown();
             this.cbStatus = new System.Windows.Forms.ComboBox();
@@ -55,11 +60,6 @@
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblBundleTheme = new System.Windows.Forms.Label();
-            this.lblBundleStatus = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numPrice)).BeginInit();
             this.panelDesc.SuspendLayout();
@@ -90,6 +90,56 @@
             this.panel1.Size = new System.Drawing.Size(1584, 349);
             this.panel1.TabIndex = 0;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Georgia", 9.75F);
+            this.label6.Location = new System.Drawing.Point(891, 83);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 16);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Weight";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Georgia", 9.75F);
+            this.label3.Location = new System.Drawing.Point(700, 76);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 16);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Price";
+            // 
+            // lblBundleStatus
+            // 
+            this.lblBundleStatus.AutoSize = true;
+            this.lblBundleStatus.Font = new System.Drawing.Font("Georgia", 9.75F);
+            this.lblBundleStatus.Location = new System.Drawing.Point(431, 123);
+            this.lblBundleStatus.Name = "lblBundleStatus";
+            this.lblBundleStatus.Size = new System.Drawing.Size(45, 16);
+            this.lblBundleStatus.TabIndex = 13;
+            this.lblBundleStatus.Text = "Status";
+            // 
+            // lblBundleTheme
+            // 
+            this.lblBundleTheme.AutoSize = true;
+            this.lblBundleTheme.Font = new System.Drawing.Font("Georgia", 9.75F);
+            this.lblBundleTheme.Location = new System.Drawing.Point(63, 123);
+            this.lblBundleTheme.Name = "lblBundleTheme";
+            this.lblBundleTheme.Size = new System.Drawing.Size(49, 16);
+            this.lblBundleTheme.TabIndex = 12;
+            this.lblBundleTheme.Text = "Theme";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Georgia", 9.75F);
+            this.label2.Location = new System.Drawing.Point(63, 59);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 16);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Bundle Name";
+            // 
             // txtWeight
             // 
             this.txtWeight.Font = new System.Drawing.Font("Georgia", 9.75F);
@@ -113,6 +163,8 @@
             // 
             // cbStatus
             // 
+            this.cbStatus.AllowDrop = true;
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStatus.Font = new System.Drawing.Font("Georgia", 9.75F);
             this.cbStatus.FormattingEnabled = true;
             this.cbStatus.Items.AddRange(new object[] {
@@ -190,11 +242,10 @@
             this.panel2.Controls.Add(this.btnClearImg);
             this.panel2.Controls.Add(this.picImage);
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel2.Location = new System.Drawing.Point(1191, 0);
+            this.panel2.Location = new System.Drawing.Point(1199, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(393, 349);
+            this.panel2.Size = new System.Drawing.Size(339, 349);
             this.panel2.TabIndex = 3;
             // 
             // btnAddImg
@@ -204,7 +255,7 @@
             this.btnAddImg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddImg.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddImg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.btnAddImg.Location = new System.Drawing.Point(62, 282);
+            this.btnAddImg.Location = new System.Drawing.Point(36, 282);
             this.btnAddImg.Name = "btnAddImg";
             this.btnAddImg.Size = new System.Drawing.Size(117, 48);
             this.btnAddImg.TabIndex = 6;
@@ -219,7 +270,7 @@
             this.btnClearImg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearImg.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearImg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.btnClearImg.Location = new System.Drawing.Point(220, 282);
+            this.btnClearImg.Location = new System.Drawing.Point(190, 282);
             this.btnClearImg.Name = "btnClearImg";
             this.btnClearImg.Size = new System.Drawing.Size(117, 48);
             this.btnClearImg.TabIndex = 7;
@@ -229,9 +280,9 @@
             // 
             // picImage
             // 
-            this.picImage.Location = new System.Drawing.Point(54, 59);
+            this.picImage.Location = new System.Drawing.Point(62, 59);
             this.picImage.Name = "picImage";
-            this.picImage.Size = new System.Drawing.Size(283, 206);
+            this.picImage.Size = new System.Drawing.Size(219, 206);
             this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picImage.TabIndex = 1;
             this.picImage.TabStop = false;
@@ -243,7 +294,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(393, 53);
+            this.panel3.Size = new System.Drawing.Size(339, 53);
             this.panel3.TabIndex = 0;
             // 
             // label1
@@ -252,11 +303,11 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
-            this.label1.Location = new System.Drawing.Point(152, 16);
+            this.label1.Location = new System.Drawing.Point(115, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 18);
+            this.label1.Size = new System.Drawing.Size(103, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Book Cover";
+            this.label1.Text = "Bundle Cover";
             // 
             // lstBook
             // 
@@ -376,56 +427,6 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(588, 24);
             this.txtSearch.TabIndex = 13;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Georgia", 9.75F);
-            this.label2.Location = new System.Drawing.Point(63, 59);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 16);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Bundle Name";
-            // 
-            // lblBundleTheme
-            // 
-            this.lblBundleTheme.AutoSize = true;
-            this.lblBundleTheme.Font = new System.Drawing.Font("Georgia", 9.75F);
-            this.lblBundleTheme.Location = new System.Drawing.Point(63, 123);
-            this.lblBundleTheme.Name = "lblBundleTheme";
-            this.lblBundleTheme.Size = new System.Drawing.Size(49, 16);
-            this.lblBundleTheme.TabIndex = 12;
-            this.lblBundleTheme.Text = "Theme";
-            // 
-            // lblBundleStatus
-            // 
-            this.lblBundleStatus.AutoSize = true;
-            this.lblBundleStatus.Font = new System.Drawing.Font("Georgia", 9.75F);
-            this.lblBundleStatus.Location = new System.Drawing.Point(431, 123);
-            this.lblBundleStatus.Name = "lblBundleStatus";
-            this.lblBundleStatus.Size = new System.Drawing.Size(45, 16);
-            this.lblBundleStatus.TabIndex = 13;
-            this.lblBundleStatus.Text = "Status";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Georgia", 9.75F);
-            this.label3.Location = new System.Drawing.Point(700, 76);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 16);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Price";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Georgia", 9.75F);
-            this.label6.Location = new System.Drawing.Point(891, 83);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(50, 16);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Weight";
             // 
             // frmAddBundle
             // 

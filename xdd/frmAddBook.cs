@@ -212,6 +212,8 @@ namespace xdd
 
             if (isAdd)
                 btnSave.Text = "Add Book";
+            else if (isAddCopy)
+                btnSave.Text = "Create Copy";
             else
                 btnSave.Text = "Save Changes";
         }

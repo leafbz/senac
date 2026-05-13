@@ -12,7 +12,6 @@ C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.pdb
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.Card.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.Book.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmArchive.resources
-C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmBundle.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmAddBundle.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmAddBook.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\bin\Debug\BouncyCastle.Cryptography.dll
@@ -48,7 +47,6 @@ C:\Users\rafael.rbrazao\source\repos\xdd\bin\Debug\System.Threading.Tasks.Extens
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmRegistration.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\nivelive.4DDAD583.Up2Date
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmLogin.resources
-C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.ModalAdd.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmResetPassword.resources
 C:\Users\rafael.rbrazao\source\repos\senac\xdd\obj\Debug\nivelivesbooks.csproj.AssemblyReference.cache
 C:\Users\rafael.rbrazao\source\repos\senac\xdd\obj\Debug\xdd.exe.config
@@ -102,3 +100,5 @@ C:\Users\rafael.rbrazao\source\repos\senac\xdd\bin\Debug\System.Numerics.Vectors
 C:\Users\rafael.rbrazao\source\repos\senac\xdd\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\rafael.rbrazao\source\repos\senac\xdd\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\rafael.rbrazao\source\repos\senac\xdd\obj\Debug\nivelive.4DDAD583.Up2Date
+C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\NineLivesBooks.FrmBundleDetails.resources
+C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmBundles.resources

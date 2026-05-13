@@ -396,7 +396,7 @@
             this.panelDesc.Controls.Add(this.txtDescription);
             this.panelDesc.Controls.Add(this.panel8);
             this.panelDesc.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panelDesc.Location = new System.Drawing.Point(87, 558);
+            this.panelDesc.Location = new System.Drawing.Point(88, 558);
             this.panelDesc.Name = "panelDesc";
             this.panelDesc.Size = new System.Drawing.Size(489, 206);
             this.panelDesc.TabIndex = 3;
@@ -483,6 +483,7 @@
             // 
             // cmbReasonStatus
             // 
+            this.cmbReasonStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbReasonStatus.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbReasonStatus.FormattingEnabled = true;
             this.cmbReasonStatus.Location = new System.Drawing.Point(159, 324);
@@ -492,6 +493,7 @@
             // 
             // cmbOrigin
             // 
+            this.cmbOrigin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbOrigin.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbOrigin.FormattingEnabled = true;
             this.cmbOrigin.Location = new System.Drawing.Point(159, 367);
@@ -525,6 +527,7 @@
             // 
             // cmbStatus
             // 
+            this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStatus.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbStatus.FormattingEnabled = true;
             this.cmbStatus.Location = new System.Drawing.Point(159, 123);
@@ -534,6 +537,7 @@
             // 
             // cmbCondition
             // 
+            this.cmbCondition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCondition.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbCondition.FormattingEnabled = true;
             this.cmbCondition.Location = new System.Drawing.Point(159, 81);
@@ -561,6 +565,7 @@
             // 
             // cmbBookType
             // 
+            this.cmbBookType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbBookType.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbBookType.FormattingEnabled = true;
             this.cmbBookType.Location = new System.Drawing.Point(159, 245);
