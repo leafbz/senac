@@ -44,6 +44,7 @@ namespace xdd
 
             SetupNumericControls();
             LoadCombos();
+            SetupAutoComplete();
             WireEvents();
 
             if (_mode == BookFormMode.Add)
@@ -739,6 +740,36 @@ namespace xdd
                 int number = Convert.ToInt32(result) + 1;
                 return "NLT" + number.ToString("D4");
             }
+        }
+
+        private void SetupAutoComplete()
+        {
+            SetupAutoCompleteForTextBox(txtPublisher, "SELECT DISTINCT publisher FROM book_titles ORDER BY publisher");
+            SetupAutoCompleteForTextBox(txtGenre, "SELECT DISTINCT genre FROM book_titles ORDER BY genre");
+            SetupAutoCompleteForTextBox(txtLanguage, "SELECT DISTINCT book_language FROM book_titles ORDER BY book_language");
+        }
+        
+        private void SetupAutoCompleteForTextBox(TextBox textBox, string query)
+        {
+            AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
+        
+            using (var conn = Db.GetConnection())
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                conn.Open();
+        
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        collection.Add(reader[0].ToString());
+                    }
+                }
+            }
+        
+            textBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            textBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            textBox.AutoCompleteCustomSource = collection;
         }
         private void ClearForm()
         {
