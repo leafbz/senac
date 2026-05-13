@@ -324,16 +324,18 @@ namespace xdd
                     conn.Open();
 
                     string sql = @"
-                SELECT 
-                    b.book_id,
-                    b.price,
-                    b.book_condition,
-                    bt.title,
-                    bt.book_approx_weight,
-                    bt.author
-                FROM book b
-                LEFT JOIN book_titles bt
-                    ON b.title_id_in_book = bt.title_id";
+                        SELECT 
+                            b.book_id,
+                            b.price,
+                            b.book_condition,
+                            bt.title,
+                            bt.book_approx_weight,
+                            bt.author
+                        FROM book b
+                        INNER JOIN book_titles bt
+                            ON b.title_id_in_book = bt.title_id
+                        WHERE b.book_status = 'AVAILABLE'
+                        ORDER BY bt.title ASC, b.book_id ASC";
 
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     MySqlDataReader reader = cmd.ExecuteReader();
@@ -446,14 +448,25 @@ namespace xdd
         {
             livrosDisponiveis.Clear();
 
-            string sql = @" SELECT  
-            b.book_id,
-            b.price,
-            b.book_condition,
-            bt.title,
-            bt.author
-        FROM book b
-        INNER JOIN book_titles bt ON b.title_id_in_book = bt.title_id WHERE bt.title LIKE @q OR bt.author LIKE @q OR bt.title_id LIKE @q ORDER BY bt.title ASC";
+            string sql = @"
+                SELECT  
+                    b.book_id,
+                    b.price,
+                    b.book_condition,
+                    bt.title,
+                    bt.author,
+                    bt.book_approx_weight
+                FROM book b
+                INNER JOIN book_titles bt 
+                    ON b.title_id_in_book = bt.title_id 
+                WHERE b.book_status = 'AVAILABLE'
+                AND (
+                    bt.title LIKE @q 
+                    OR bt.author LIKE @q 
+                    OR b.book_id LIKE @q
+                    OR bt.iSBN LIKE @q
+                )
+                ORDER BY bt.title ASC";
             ;
 
             using (MySqlConnection conn = new MySqlConnection(data_source))
