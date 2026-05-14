@@ -26,8 +26,8 @@ namespace xdd
         {
             ConfigureGrid();
             WireEvents();
-            LoadBundles();
             ClearPreview();
+            LoadBundles();
         }
 
         private void WireEvents()
@@ -115,9 +115,18 @@ namespace xdd
                     dgvBundles.Columns["ID"].Width = 90;
 
                 if (dgvBundles.Rows.Count > 0)
+                {
+                    dgvBundles.ClearSelection();
                     dgvBundles.Rows[0].Selected = true;
+                    dgvBundles.CurrentCell = dgvBundles.Rows[0].Cells["ID"];
+                
+                    _selectedBundleId = dgvBundles.Rows[0].Cells["ID"].Value.ToString();
+                    LoadPreview(_selectedBundleId);
+                }
                 else
+                {
                     ClearPreview();
+                }
             }
             catch (Exception ex)
             {
