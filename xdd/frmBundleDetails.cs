@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
-using xdd;
 
 namespace xdd
 {
@@ -54,6 +53,7 @@ namespace xdd
                     b.bundle_name,
                     b.bundle_status,
                     b.bundle_theme,
+                    b.bundle_description,
                     b.bundle_created_at,
                     b.bundle_updated_at,
                     b.bundle_image,
@@ -89,15 +89,17 @@ namespace xdd
                                     colunas += dr.GetName(i) + Environment.NewLine;
                                 }
 
-                                // MessageBox.Show(colunas); // descomente para testar
+                                MessageBox.Show(colunas); // descomente para testar
 
                                 lblBundleName.Text = dr["bundle_name"] == DBNull.Value ? "" : dr["bundle_name"].ToString();
                                 lblTheme.Text = dr["bundle_theme"] == DBNull.Value ? "" : dr["bundle_theme"].ToString();
                                 lblTotalBooks.Text = dr["total_books"] == DBNull.Value ? "0" : dr["total_books"].ToString();
                                 lblTotalPrice.Text = dr["total_price"] == DBNull.Value ? "0,00" : Convert.ToDecimal(dr["total_price"]).ToString("N2");
                                 lblStatus.Text = dr["bundle_status"] == DBNull.Value ? "" : dr["bundle_status"].ToString();
+                                txtDescription.Text = dr["bundle_description"] == DBNull.Value ? "" : dr["bundle_description"].ToString();
                                 lblCreatedAt.Text = dr["bundle_created_at"] == DBNull.Value ? "" : Convert.ToDateTime(dr["bundle_created_at"]).ToString("dd-MM-yyyy");
                                 lblUpdatedAt.Text = dr["bundle_updated_at"] == DBNull.Value ? "" : Convert.ToDateTime(dr["bundle_updated_at"]).ToString("dd-MM-yyyy");
+                                btnMarkSold.Enabled = lblStatus.Text != "SOLD";
 
                                 if (dr["bundle_image"] != DBNull.Value)
                                 {
@@ -271,6 +273,12 @@ namespace xdd
 
                         try
                         {
+                            if (lblStatus.Text == "SOLD")
+                            {
+                                MessageBox.Show("Sold bundles should not be deleted.");
+                                return;
+                            }
+
                             string sqlRelacao = @"
                                 DELETE FROM bundle_book
                                 WHERE bundle_id_in_bundle_book = @bundleId;";
@@ -309,6 +317,80 @@ namespace xdd
             }
         }
 
+        private void btnMarkSold_Click(object sender, EventArgs e)
+        {
+            if (lblStatus.Text == "SOLD")
+            {
+                MessageBox.Show("This bundle is already sold.");
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(
+                "Mark this bundle as SOLD?\n\nAll books inside this bundle will also be marked as SOLD.",
+                "Confirm Sale",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result != DialogResult.Yes)
+                return;
+
+            try
+            {
+                using (MySqlConnection con = Db.GetConnection())
+                {
+                    con.Open();
+
+                    using (MySqlTransaction transaction = con.BeginTransaction())
+                    {
+                        try
+                        {
+                            string updateBundleSql = @"
+                        UPDATE bundle
+                        SET bundle_status = 'SOLD'
+                        WHERE bundle_id = @bundleId;";
+
+                            using (MySqlCommand cmd = new MySqlCommand(updateBundleSql, con, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@bundleId", bundleId);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            string updateBooksSql = @"
+                        UPDATE book bk
+                        INNER JOIN bundle_book bb
+                            ON bb.book_id_in_bundle_book = bk.book_id
+                        SET
+                            bk.book_status = 'SOLD',
+                            bk.reason_status = NULL
+                        WHERE bb.bundle_id_in_bundle_book = @bundleId;";
+
+                            using (MySqlCommand cmd = new MySqlCommand(updateBooksSql, con, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@bundleId", bundleId);
+                                cmd.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+
+                            MessageBox.Show("Bundle and books marked as SOLD.");
+
+                            CarregarResumoBundle();
+                            CarregarLivrosDoBundle();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error marking bundle as sold: " + ex.Message);
+            }
+        }
 
 
 

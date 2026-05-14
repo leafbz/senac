@@ -80,10 +80,10 @@ namespace xdd
 
             try
             {
+                lblTextConfirmation.Text = "A verification code has been sent to the registered email address.";
                 string codigo = GerarCodigo();
                 SalvarCodigo(email, codigo);
                 EnviarEmail(email, codigo);
-                lblTextConfirmation.Text = "A verification code has been sent to the registered email address.";
             }
 
             catch (Exception ex)

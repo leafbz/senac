@@ -100,5 +100,5 @@ C:\Users\rafael.rbrazao\source\repos\senac\xdd\bin\Debug\System.Numerics.Vectors
 C:\Users\rafael.rbrazao\source\repos\senac\xdd\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\rafael.rbrazao\source\repos\senac\xdd\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\rafael.rbrazao\source\repos\senac\xdd\obj\Debug\nivelive.4DDAD583.Up2Date
-C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\NineLivesBooks.FrmBundleDetails.resources
 C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.frmBundles.resources
+C:\Users\rafael.rbrazao\source\repos\xdd\obj\Debug\xdd.FrmBundleDetails.resources

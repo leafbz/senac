@@ -729,6 +729,14 @@ namespace xdd
             numPrice.Text = totalPrice.ToString();
 
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            //frmBundles form = new frmBundles();
+            //form.Show();
+            //this.Hide();
+            this.Close();
+        }
     }
 }
 

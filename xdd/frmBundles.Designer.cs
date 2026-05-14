@@ -45,12 +45,13 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvBundles = new System.Windows.Forms.DataGridView();
+            this.btnMarkSold = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picBundle)).BeginInit();
             this.panel2.SuspendLayout();
             this.panelDesc.SuspendLayout();
             this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBundles)).BeginInit();
             this.SuspendLayout();
             // 
             // picBundle
@@ -221,7 +222,6 @@
             this.btnAdd.TabIndex = 21;
             this.btnAdd.Text = "Add Bundle";
             this.btnAdd.UseVisualStyleBackColor = false;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnView
             // 
@@ -253,20 +253,36 @@
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = false;
             // 
-            // dataGridView1
+            // dgvBundles
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(105, 232);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1044, 484);
-            this.dataGridView1.TabIndex = 24;
+            this.dgvBundles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBundles.Location = new System.Drawing.Point(105, 232);
+            this.dgvBundles.Name = "dgvBundles";
+            this.dgvBundles.Size = new System.Drawing.Size(1044, 484);
+            this.dgvBundles.TabIndex = 24;
+            // 
+            // btnMarkSold
+            // 
+            this.btnMarkSold.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMarkSold.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
+            this.btnMarkSold.FlatAppearance.BorderSize = 0;
+            this.btnMarkSold.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMarkSold.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMarkSold.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnMarkSold.Location = new System.Drawing.Point(749, 107);
+            this.btnMarkSold.Name = "btnMarkSold";
+            this.btnMarkSold.Size = new System.Drawing.Size(117, 48);
+            this.btnMarkSold.TabIndex = 25;
+            this.btnMarkSold.Text = "Mark as Sold";
+            this.btnMarkSold.UseVisualStyleBackColor = false;
             // 
             // frmBundles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 777);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.btnMarkSold);
+            this.Controls.Add(this.dgvBundles);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnView);
@@ -274,6 +290,7 @@
             this.Controls.Add(this.panel2);
             this.Name = "frmBundles";
             this.Text = "frmBundles";
+            this.Load += new System.EventHandler(this.frmBundles_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBundle)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -281,7 +298,7 @@
             this.panelDesc.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBundles)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -305,6 +322,7 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnView;
         private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvBundles;
+        private System.Windows.Forms.Button btnMarkSold;
     }
 }

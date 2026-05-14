@@ -83,7 +83,7 @@ namespace xdd
                 }
                 if (txtPassword.Text.Trim().Length < 6 || txtPassword.Text.Trim().Length > 10)
                 {
-                    MessageBox.Show("Digite um número mínimo de caracteres");
+                    MessageBox.Show("Password require a minimum number of characters.");
                     return;
                 }
                 Conn = new MySqlConnection(data_source);
@@ -120,6 +120,14 @@ namespace xdd
                     return;
                 }
 
+                string email = txtEmail.Text.Trim().ToLower();
+
+                if (!email.EndsWith("@gmail.com"))
+                {
+                    MessageBox.Show("Only Gmail accounts are allowed. Use @gmail.com",
+                        "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 cmd.CommandText = "INSERT INTO usuario(user_name, user_role, user_email, user_status, user_password_hash, user_created_at)" +
                     "VALUES(@user_name, @user_role, @user_email, @user_status, @user_password_hash, @user_created_at)";
