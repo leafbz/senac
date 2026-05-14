@@ -267,12 +267,7 @@ namespace xdd
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (frmAddBundle form = new frmAddBundle())
-            {
-                form.ShowDialog();
-            }
-
-            LoadBundles();
+            frmPrincipal.PrincipalInstance.AbrirForm<frmAddBundle>();
         }
 
         private void btnView_Click(object sender, EventArgs e)
