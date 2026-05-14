@@ -615,7 +615,8 @@ namespace xdd
                 string idBundle = SalvarBundle();
                 SalvarLivrosDoBundle(idBundle);
 
-                MessageBox.Show("Bundle save sucessfully!");
+                MessageBox.Show("Bundle saved successfully.");
+                frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
             }
             catch (MySqlException ex)
             {
