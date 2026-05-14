@@ -279,14 +279,14 @@ namespace xdd
         {
             if (!HasSelectedBundle())
                 return;
-
+        
             using (FrmBundleDetails details = new FrmBundleDetails(_selectedBundleId))
             {
                 details.ShowDialog();
             }
-
+        
             LoadBundles();
-
+        
             if (!string.IsNullOrWhiteSpace(_selectedBundleId))
                 LoadPreview(_selectedBundleId);
         }
