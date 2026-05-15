@@ -23,11 +23,26 @@ namespace xdd
 
         private readonly List<BundleBookItem> availableBooks = new List<BundleBookItem>();
         private readonly List<BundleBookItem> bundleBooks = new List<BundleBookItem>();
+        
+        private bool _isEditMode = false;
+        private string _currentBundleId = null;
+
 
         public frmAddBundle()
         {
             InitializeComponent();
 
+            SetupListViews();
+            WireEvents();
+        }
+
+        public frmAddBundle(string bundleId)
+        {
+            InitializeComponent();
+        
+            _isEditMode = true;
+            _currentBundleId = bundleId;
+        
             SetupListViews();
             WireEvents();
         }
@@ -120,11 +135,20 @@ namespace xdd
                 e.NewWidth = listView.Columns[e.ColumnIndex].Width;
             };
         }
-
+        
         private void frmAddBundle_Load(object sender, EventArgs e)
         {
             LoadAvailableBooks();
+        
+            if (_isEditMode)
+            {
+                LoadBundleForEdit(_currentBundleId);
+                BtnSaveBundle.Text = "Save Changes";
+            }
+        
             LoadAvailableBooksIntoListView();
+            LoadBundleBooksIntoListView();
+        
             UpdateBundleWeight();
             UpdateBundlePrice();
         }
