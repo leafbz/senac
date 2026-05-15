@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookFormMode.cs" />
+    <Compile Include="BundleBookItem.cs" />
     <Compile Include="Card.cs">
       <SubType>UserControl</SubType>
     </Compile>

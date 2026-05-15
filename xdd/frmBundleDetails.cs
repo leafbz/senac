@@ -48,31 +48,31 @@ namespace xdd
                 using (MySqlConnection con = Db.GetConnection())
                 {
                     string sql = @"
-                SELECT
-                    b.bundle_id,
-                    b.bundle_name,
-                    b.bundle_status,
-                    b.bundle_theme,
-                    b.bundle_description,
-                    b.bundle_created_at,
-                    b.bundle_updated_at,
-                    b.bundle_image,
-                    COUNT(bb.book_id_in_bundle_book) AS total_books,
-                    IFNULL(SUM(bk.price), 0) AS total_price
-                FROM bundle b
-                LEFT JOIN bundle_book bb
-                    ON bb.bundle_id_in_bundle_book = b.bundle_id
-                LEFT JOIN book bk
-                    ON bk.book_id = bb.book_id_in_bundle_book
-                WHERE b.bundle_id = @bundleId
-                GROUP BY
-                    b.bundle_id,
-                    b.bundle_name,
-                    b.bundle_status,
-                    b.bundle_theme,
-                    b.bundle_created_at,
-                    b.bundle_updated_at,
-                    b.bundle_image;";
+                    SELECT
+                        b.bundle_id,
+                        b.bundle_name,
+                        b.bundle_status,
+                        b.bundle_theme,
+                        b.bundle_description,
+                        b.bundle_created_at,
+                        b.bundle_updated_at,
+                        b.bundle_image,
+                        COUNT(bb.book_id_in_bundle_book) AS total_books,
+                        IFNULL(SUM(bk.price), 0) AS total_price
+                    FROM bundle b
+                    LEFT JOIN bundle_book bb
+                        ON bb.bundle_id_in_bundle_book = b.bundle_id
+                    LEFT JOIN book bk
+                        ON bk.book_id = bb.book_id_in_bundle_book
+                    WHERE b.bundle_id = @bundleId
+                    GROUP BY
+                        b.bundle_id,
+                        b.bundle_name,
+                        b.bundle_status,
+                        b.bundle_theme,
+                        b.bundle_created_at,
+                        b.bundle_updated_at,
+                        b.bundle_image;";
 
                     using (MySqlCommand cmd = new MySqlCommand(sql, con))
                     {

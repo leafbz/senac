@@ -177,7 +177,6 @@
             // 
             this.btnEnter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(167)))), ((int)(((byte)(86)))));
             this.btnEnter.Font = new System.Drawing.Font("Georgia", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnEnter.Image = ((System.Drawing.Image)(resources.GetObject("btnEnter.Image")));
             this.btnEnter.Location = new System.Drawing.Point(617, 48);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(85, 31);
