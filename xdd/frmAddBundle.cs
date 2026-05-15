@@ -22,8 +22,6 @@ namespace xdd
         Color rowOdd = Color.FromArgb(255, 235, 200);
 
         Color gridColor = Color.FromArgb(255, 215, 160);
-
-
         MySqlConnection Conn;
         string data_source = "datasource=localhost; username=root; password=; database=ninelivebooks";
 
@@ -66,8 +64,6 @@ namespace xdd
                 return new MySqlConnection(connectionString);
             }
         }
-
-
         private void lstBook_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
         {
             using (SolidBrush back = new SolidBrush(headerBack))
@@ -733,10 +729,7 @@ namespace xdd
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            //frmBundles form = new frmBundles();
-            //form.Show();
-            //this.Hide();
-            this.Close();
+            frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
         }
     }
 }

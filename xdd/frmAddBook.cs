@@ -180,6 +180,7 @@ namespace xdd
             btnCreateCopy.Visible = isView;
             btnCancel.Visible = true;
             btnDelete.Visible = isView || isEdit;
+            btnArchive.Visible = isView || isEdit;
 
             if (mode == BookFormMode.AddCopy)
             {
@@ -1038,5 +1039,9 @@ namespace xdd
         }
         #endregion
 
+        private void btnArchive_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -674,6 +674,7 @@
             this.btnArchive.TabIndex = 3;
             this.btnArchive.Text = "Archive";
             this.btnArchive.UseVisualStyleBackColor = false;
+            this.btnArchive.Click += new System.EventHandler(this.btnArchive_Click);
             this.btnArchive.Paint += new System.Windows.Forms.PaintEventHandler(this.btnArchive_Paint);
             // 
             // lblBookId
