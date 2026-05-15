@@ -286,10 +286,8 @@ namespace xdd
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            using (frmAddBundle editBundle = new frmAddBundle(bundleId))
-            {
-                editBundle.ShowDialog();
-            }
+            frmAddBundle editBundle = new frmAddBundle(bundleId);
+            editBundle.ShowDialog();
         
             CarregarResumoBundle();
             CarregarLivrosDoBundle();
