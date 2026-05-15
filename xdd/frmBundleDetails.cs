@@ -87,9 +87,7 @@ namespace xdd
                                 for (int i = 0; i < dr.FieldCount; i++)
                                 {
                                     colunas += dr.GetName(i) + Environment.NewLine;
-                                }
-
-                                MessageBox.Show(colunas); // descomente para testar
+                                } // descomente para testar
 
                                 lblBundleName.Text = dr["bundle_name"] == DBNull.Value ? "" : dr["bundle_name"].ToString();
                                 lblTheme.Text = dr["bundle_theme"] == DBNull.Value ? "" : dr["bundle_theme"].ToString();

@@ -175,20 +175,20 @@ namespace xdd
             if (archiveType == "Book Copy")
             {
                 ClassBook book = GetBookById(entityId);
-
+            
                 if (book != null)
-                    frmPrincipal.PrincipalInstance.OpenBookForm(book, BookFormMode.Edit);
-
+                    frmPrincipal.PrincipalInstance.OpenBookForm(book, BookFormMode.Edit, true);
+            
                 return;
             }
-
+            
             if (archiveType == "Book Title Without Copies")
             {
                 ClassBook titleOnlyBook = GetBookTitleById(entityId);
-
+            
                 if (titleOnlyBook != null)
-                    frmPrincipal.PrincipalInstance.OpenBookForm(titleOnlyBook, BookFormMode.EditTitle);
-
+                    frmPrincipal.PrincipalInstance.OpenBookForm(titleOnlyBook, BookFormMode.EditTitle, true);
+            
                 return;
             }
         }
@@ -212,7 +212,7 @@ namespace xdd
                 source = GetBookTitleById(entityId);
 
             if (source != null)
-                frmPrincipal.PrincipalInstance.OpenBookForm(source, BookFormMode.AddCopy);
+                frmPrincipal.PrincipalInstance.OpenBookForm(source, BookFormMode.AddCopy, true);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)

@@ -26,8 +26,8 @@ namespace xdd
         {
             ConfigureGrid();
             WireEvents();
-            LoadBundles();
             ClearPreview();
+            LoadBundles();
         }
 
         private void WireEvents()
@@ -115,9 +115,18 @@ namespace xdd
                     dgvBundles.Columns["ID"].Width = 90;
 
                 if (dgvBundles.Rows.Count > 0)
+                {
+                    dgvBundles.ClearSelection();
                     dgvBundles.Rows[0].Selected = true;
+                    dgvBundles.CurrentCell = dgvBundles.Rows[0].Cells["ID"];
+                
+                    _selectedBundleId = dgvBundles.Rows[0].Cells["ID"].Value.ToString();
+                    LoadPreview(_selectedBundleId);
+                }
                 else
+                {
                     ClearPreview();
+                }
             }
             catch (Exception ex)
             {
@@ -258,26 +267,21 @@ namespace xdd
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (frmAddBundle form = new frmAddBundle())
-            {
-                form.ShowDialog();
-            }
-
-            LoadBundles();
+            frmPrincipal.PrincipalInstance.AbrirForm<frmAddBundle>();
         }
 
         private void btnView_Click(object sender, EventArgs e)
         {
             if (!HasSelectedBundle())
                 return;
-
+        
             using (FrmBundleDetails details = new FrmBundleDetails(_selectedBundleId))
             {
                 details.ShowDialog();
             }
-
+        
             LoadBundles();
-
+        
             if (!string.IsNullOrWhiteSpace(_selectedBundleId))
                 LoadPreview(_selectedBundleId);
         }

@@ -63,6 +63,22 @@ namespace xdd
             form.Show();
             form.BringToFront();
         }
+        
+        public void OpenBookForm(ClassBook book, BookFormMode mode, bool returnToArchive = false)
+        {
+            frmAddBook form = new frmAddBook(book, mode, returnToArchive);
+        
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+        
+            panelForms.Controls.Clear();
+            panelForms.Controls.Add(form);
+            panelForms.Tag = form;
+        
+            form.Show();
+            form.BringToFront();
+        }
 
         public void OpenAddBookForm()
         {
