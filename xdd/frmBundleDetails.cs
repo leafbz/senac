@@ -19,7 +19,8 @@ namespace xdd
         {
             InitializeComponent();
             bundleId = idBundle;
-
+        
+            this.Load -= FrmBundleDetails_Load_1;
             this.Load += FrmBundleDetails_Load_1;
         }
 
