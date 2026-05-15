@@ -20,6 +20,9 @@ namespace xdd
         public frmBundles()
         {
             InitializeComponent();
+            
+            this.Load -= frmBundles_Load;
+            this.Load += frmBundles_Load;
         }
 
         private void frmBundles_Load(object sender, EventArgs e)
