@@ -41,7 +41,12 @@ namespace xdd
             dgvBooksBundle.AllowUserToDeleteRows = false;
             dgvBooksBundle.RowHeadersVisible = false;
             dgvBooksBundle.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        
+            dgvBooksBundle.CellClick -= dgvBooksBundle_CellClick;
             dgvBooksBundle.CellClick += dgvBooksBundle_CellClick;
+        
+            dgvBooksBundle.CellDoubleClick -= dgvBooksBundle_CellDoubleClick;
+            dgvBooksBundle.CellDoubleClick += dgvBooksBundle_CellDoubleClick;
         }
 
         private void CarregarResumoBundle()
@@ -164,6 +169,9 @@ namespace xdd
 
                         if (dgvBooksBundle.Columns["IdInterno"] != null)
                             dgvBooksBundle.Columns["IdInterno"].Visible = false;
+                        
+                        if (dgvBooksBundle.Columns["ISBN"] != null)
+                            dgvBooksBundle.Columns["ISBN"].Visible = false;
                     }
                 }
             }
@@ -171,6 +179,80 @@ namespace xdd
             {
                 MessageBox.Show("Error loading books from bundle: " + ex.Message);
             }
+        }
+
+        private ClassBook GetBookById(string bookId)
+        {
+            string query = @"
+                SELECT
+                    b.book_id,
+                    b.price,
+                    b.book_condition,
+                    b.book_status,
+                    b.reason_status,
+                    b.defected_notes,
+                    b.origin,
+                    b.title_id_in_book,
+        
+                    bt.title_id,
+                    bt.title,
+                    bt.author,
+                    bt.iSBN,
+                    bt.pages,
+                    bt.book_type,
+                    bt.book_approx_weight,
+                    bt.publisher,
+                    bt.publication_year,
+                    bt.book_language,
+                    bt.genre,
+                    bt.book_description,
+                    bt.book_image
+                FROM book b
+                INNER JOIN book_titles bt
+                    ON b.title_id_in_book = bt.title_id
+                WHERE b.book_id = @book_id
+                LIMIT 1;";
+        
+            using (var conn = Db.GetConnection())
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@book_id", bookId);
+                conn.Open();
+        
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new ClassBook
+                        {
+                            BookId = reader["book_id"].ToString(),
+                            TitleId = reader["title_id"].ToString(),
+        
+                            Price = Convert.ToDecimal(reader["price"]),
+                            Condition = reader["book_condition"].ToString(),
+                            Status = reader["book_status"].ToString(),
+                            ReasonStatus = reader["reason_status"] == DBNull.Value ? null : reader["reason_status"].ToString(),
+                            DefectedNotes = reader["defected_notes"] == DBNull.Value ? null : reader["defected_notes"].ToString(),
+                            Origin = reader["origin"] == DBNull.Value ? null : reader["origin"].ToString(),
+        
+                            Title = reader["title"].ToString(),
+                            Author = reader["author"].ToString(),
+                            ISBN = reader["iSBN"].ToString(),
+                            Pages = Convert.ToInt32(reader["pages"]),
+                            BookType = reader["book_type"].ToString(),
+                            ApproxWeight = Convert.ToDecimal(reader["book_approx_weight"]),
+                            Publisher = reader["publisher"].ToString(),
+                            PublicationYear = Convert.ToInt32(reader["publication_year"]),
+                            Language = reader["book_language"].ToString(),
+                            Genre = reader["genre"].ToString(),
+                            Description = reader["book_description"].ToString(),
+                            ImageBytes = reader["book_image"] == DBNull.Value ? null : (byte[])reader["book_image"]
+                        };
+                    }
+                }
+            }
+        
+            return null;
         }
 
         private void LimparResumoBundle()
@@ -204,7 +286,13 @@ namespace xdd
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Open your bundle editing screen here.");
+            using (frmAddBundle editBundle = new frmAddBundle(bundleId))
+            {
+                editBundle.ShowDialog();
+            }
+        
+            CarregarResumoBundle();
+            CarregarLivrosDoBundle();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -316,6 +404,28 @@ namespace xdd
                     MessageBox.Show("Connection error while deleting bundle: " + ex.Message);
                 }
             }
+        }
+        private void dgvBooksBundle_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+        
+            DataGridViewRow row = dgvBooksBundle.Rows[e.RowIndex];
+        
+            if (row.Cells["IdInterno"].Value == null)
+                return;
+        
+            string selectedBookId = row.Cells["IdInterno"].Value.ToString();
+        
+            ClassBook book = GetBookById(selectedBookId);
+        
+            if (book == null)
+            {
+                MessageBox.Show("Book not found.");
+                return;
+            }
+        
+            frmPrincipal.PrincipalInstance.OpenBookForm(book, BookFormMode.Edit);
         }
 
         private void btnMarkSold_Click(object sender, EventArgs e)
