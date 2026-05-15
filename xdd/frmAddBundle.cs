@@ -15,378 +15,267 @@ namespace xdd
 {
     public partial class frmAddBundle : Form
     {
-        Color headerBack = Color.FromArgb(0, 60, 40);
-        Color headerFore = Color.FromArgb(255, 240, 200);
+        private readonly Color headerBack = Color.FromArgb(0, 60, 40);
+        private readonly Color headerFore = Color.FromArgb(255, 240, 200);
+        private readonly Color rowEven = Color.FromArgb(255, 245, 220);
+        private readonly Color rowOdd = Color.FromArgb(255, 235, 200);
+        private readonly Color gridColor = Color.FromArgb(255, 215, 160);
 
-        Color rowEven = Color.FromArgb(255, 245, 220);
-        Color rowOdd = Color.FromArgb(255, 235, 200);
-
-        Color gridColor = Color.FromArgb(255, 215, 160);
-        MySqlConnection Conn;
-        string data_source = "datasource=localhost; username=root; password=; database=ninelivebooks";
-
-        List<Livro> livrosDisponiveis = new List<Livro>();
-        List<Livro> livrosDoGrupo = new List<Livro>();
-
-
-        public class Livro
-        {
-            public string Id_Book { get; set; }
-            private string Bundle_id { get; set; }
-            public decimal ApproxWeight { get; set; }
-            public string Title { get; set; }
-            public string Author { get; set; }
-            public string Condition { get; set; }
-            public string Db { get; set; }
-            public decimal Price { get; set; }
-            public byte[] ImageBytes { get; set; }
-            public System.Drawing.Image CoverImage
-            {
-                get
-                {
-                    if (ImageBytes == null || ImageBytes.Length == 0)
-                        return null;
-
-                    using (var ms = new MemoryStream(ImageBytes))
-                    {
-                        return System.Drawing.Image.FromStream(ms);
-                    }
-                }
-            }
-        }
-        public static class Db
-        {
-            private static readonly string connectionString =
-                "datasource=localhost; username=root; password=; database=ninelivebooks";
-
-            public static MySqlConnection GetConnection()
-            {
-                return new MySqlConnection(connectionString);
-            }
-        }
-        private void lstBook_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
-        {
-            using (SolidBrush back = new SolidBrush(headerBack))
-            using (SolidBrush fore = new SolidBrush(headerFore))
-            {
-                e.Graphics.FillRectangle(back, e.Bounds);
-
-                TextRenderer.DrawText(
-                    e.Graphics,
-                    e.Header.Text,
-                    new Font("Georgia", 10F, FontStyle.Bold),
-                    e.Bounds,
-                    headerFore,
-                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
-                );
-
-                e.Graphics.DrawRectangle(new Pen(gridColor), e.Bounds);
-            }
-        }
-
-        private void lstBook_DrawItem(object sender, DrawListViewItemEventArgs e)
-        {
-
-        }
-
-        private void lstBook_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
-        {
-            Color backColor;
-            Color textColor;
-
-            if (e.Item.Selected)
-            {
-                textColor = Color.Black;
-            }
-            else if (e.ColumnIndex == 0)
-            {
-                textColor = Color.FromArgb(0, 80, 60);
-            }
-            else
-            {
-                textColor = Color.FromArgb(20, 60, 40);
-            }
-
-            if (e.Item.Selected)
-            {
-                backColor = Color.FromArgb(255, 215, 160);
-            }
-            else if ((e.ItemState & ListViewItemStates.Hot) != 0)
-            {
-                backColor = Color.FromArgb(255, 230, 190);
-            }
-            else
-            {
-                backColor = (e.ItemIndex % 2 == 0) ? rowEven : rowOdd;
-            }
-
-            using (SolidBrush back = new SolidBrush(backColor))
-                e.Graphics.FillRectangle(back, e.Bounds);
-
-            Font font = new Font("Georgia", 10F, FontStyle.Bold);
-
-            TextRenderer.DrawText(
-             e.Graphics,
-             e.SubItem.Text,
-             font,
-             e.Bounds,
-             textColor,
-             TextFormatFlags.Left | TextFormatFlags.VerticalCenter
-            );
-
-            e.Graphics.DrawRectangle(new Pen(gridColor), e.Bounds);
-
-        }
-        private void lstBookBundle_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
-        {
-            using (SolidBrush back = new SolidBrush(headerBack))
-            using (SolidBrush fore = new SolidBrush(headerFore))
-            {
-                e.Graphics.FillRectangle(back, e.Bounds);
-
-                TextRenderer.DrawText(
-                    e.Graphics,
-                    e.Header.Text,
-                    new Font("Georgia", 10F, FontStyle.Bold),
-                    e.Bounds,
-                    headerFore,
-                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
-                );
-
-                e.Graphics.DrawRectangle(new Pen(gridColor), e.Bounds);
-            }
-        }
-
-        private void lstBookBundle_DrawItem(object sender, DrawListViewItemEventArgs e)
-        {
-
-        }
-
-        private void lstBookBundle_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
-        {
-
-            Color backColor;
-            Color textColor;
-
-            if (e.Item.Selected)
-            {
-                textColor = Color.Black;
-            }
-            else if (e.ColumnIndex == 0)
-            {
-                textColor = Color.FromArgb(0, 80, 60);
-            }
-            else
-            {
-                textColor = Color.FromArgb(20, 60, 40);
-            }
-
-            if (e.Item.Selected)
-            {
-                backColor = Color.FromArgb(255, 215, 160);
-            }
-            else if ((e.ItemState & ListViewItemStates.Hot) != 0)
-            {
-                backColor = Color.FromArgb(255, 230, 190);
-            }
-            else
-            {
-                backColor = (e.ItemIndex % 2 == 0) ? rowEven : rowOdd;
-            }
-
-            using (SolidBrush back = new SolidBrush(backColor))
-                e.Graphics.FillRectangle(back, e.Bounds);
-
-            Font font = new Font("Georgia", 10F, FontStyle.Bold);
-
-            TextRenderer.DrawText(
-             e.Graphics,
-             e.SubItem.Text,
-             font,
-             e.Bounds,
-             textColor,
-             TextFormatFlags.Left | TextFormatFlags.VerticalCenter
-            );
-
-            e.Graphics.DrawRectangle(new Pen(gridColor), e.Bounds);
-        }
-
-
-
+        private readonly List<BundleBookItem> availableBooks = new List<BundleBookItem>();
+        private readonly List<BundleBookItem> bundleBooks = new List<BundleBookItem>();
 
         public frmAddBundle()
         {
             InitializeComponent();
-            lstBook.BackColor = Color.FromArgb(255, 245, 220);
-            lstBook.BorderStyle = BorderStyle.FixedSingle;
-            lstBookBundle.BackColor = Color.FromArgb(255, 245, 220);
-            lstBookBundle.BorderStyle = BorderStyle.FixedSingle;
 
-            lstBook.View = View.Details;
+            SetupListViews();
+            WireEvents();
+        }
 
+        private void WireEvents()
+        {
+            this.Load -= frmAddBundle_Load;
+            this.Load += frmAddBundle_Load;
 
-            lstBook.MultiSelect = true;
-            lstBook.AllowColumnReorder = false;
-            lstBook.FullRowSelect = true;
-            lstBook.GridLines = true;
-            lstBook.HideSelection = false;
-            lstBook.OwnerDraw = true;
-            lstBook.HoverSelection = false;
-            lstBook.Activation = ItemActivation.Standard;
-            lstBook.ColumnWidthChanging += (s, e) =>
-            {
-                e.Cancel = true;
-                e.NewWidth = lstBook.Columns[e.ColumnIndex].Width;
-            };
+            btnAdd.Click -= btnAdd_Click;
+            btnAdd.Click += btnAdd_Click;
 
-            lstBookBundle.View = View.Details;
+            btnRemove.Click -= btnRemove_Click;
+            btnRemove.Click += btnRemove_Click;
 
-            lstBookBundle.MultiSelect = true;
-            lstBookBundle.AllowColumnReorder = false;
-            lstBookBundle.FullRowSelect = true;
-            lstBookBundle.HideSelection = false;
-            lstBookBundle.GridLines = true;
-            lstBookBundle.OwnerDraw = true;
-            lstBookBundle.HoverSelection = false;
-            lstBookBundle.Activation = ItemActivation.Standard;
-            lstBookBundle.Activation = ItemActivation.Standard;
-            lstBookBundle.ColumnWidthChanging += (s, e) =>
-            {
-                e.Cancel = true;
-                e.NewWidth = lstBook.Columns[e.ColumnIndex].Width;
-            };
+            btnSearch.Click -= btnSearch_Click;
+            btnSearch.Click += btnSearch_Click;
 
+            txtSearch.TextChanged -= txtSearch_TextChanged;
+            txtSearch.TextChanged += txtSearch_TextChanged;
 
+            btnClear.Click -= btnClear_Click;
+            btnClear.Click += btnClear_Click;
+
+            btnAddImg.Click -= btnAddImg_Click;
+            btnAddImg.Click += btnAddImg_Click;
+
+            btnClearImg.Click -= btnClearImg_Click;
+            btnClearImg.Click += btnClearImg_Click;
+
+            BtnSaveBundle.Click -= BtnSaveBundle_Click;
+            BtnSaveBundle.Click += BtnSaveBundle_Click;
+
+            btnCancel.Click -= btnCancel_Click;
+            btnCancel.Click += btnCancel_Click;
+        }
+
+        private void SetupListViews()
+        {
+            SetupListViewBase(lstBook);
+            SetupListViewBase(lstBookBundle);
+
+            lstBook.Columns.Clear();
             lstBook.Columns.Add("ID", 126, HorizontalAlignment.Left);
             lstBook.Columns.Add("Title", 250, HorizontalAlignment.Left);
             lstBook.Columns.Add("Author", 170, HorizontalAlignment.Left);
             lstBook.Columns.Add("Condition", 135, HorizontalAlignment.Left);
             lstBook.Columns.Add("Price", 115, HorizontalAlignment.Left);
 
+            lstBookBundle.Columns.Clear();
             lstBookBundle.Columns.Add("ID", 126, HorizontalAlignment.Left);
             lstBookBundle.Columns.Add("Title", 220, HorizontalAlignment.Left);
             lstBookBundle.Columns.Add("Author", 160, HorizontalAlignment.Left);
             lstBookBundle.Columns.Add("Price", 115, HorizontalAlignment.Left);
 
+            lstBook.DrawColumnHeader -= ListView_DrawColumnHeader;
+            lstBook.DrawItem -= ListView_DrawItem;
+            lstBook.DrawSubItem -= ListView_DrawSubItem;
 
-            lstBook.DrawColumnHeader += lstBook_DrawColumnHeader;
-            lstBook.DrawItem += lstBook_DrawItem;
-            lstBook.DrawSubItem += lstBook_DrawSubItem;
+            lstBook.DrawColumnHeader += ListView_DrawColumnHeader;
+            lstBook.DrawItem += ListView_DrawItem;
+            lstBook.DrawSubItem += ListView_DrawSubItem;
 
-            lstBookBundle.DrawColumnHeader += lstBookBundle_DrawColumnHeader;
-            lstBookBundle.DrawItem += lstBookBundle_DrawItem;
-            lstBookBundle.DrawSubItem += lstBookBundle_DrawSubItem;
+            lstBookBundle.DrawColumnHeader -= ListView_DrawColumnHeader;
+            lstBookBundle.DrawItem -= ListView_DrawItem;
+            lstBookBundle.DrawSubItem -= ListView_DrawSubItem;
 
-
-            this.Load += frmAddBundle_Load;
+            lstBookBundle.DrawColumnHeader += ListView_DrawColumnHeader;
+            lstBookBundle.DrawItem += ListView_DrawItem;
+            lstBookBundle.DrawSubItem += ListView_DrawSubItem;
         }
-        private string GenerateNextBundleId()
+
+        private void SetupListViewBase(ListView listView)
         {
-            string query = @"
-                SELECT MAX(CAST(SUBSTRING(bundle_id, 4) AS UNSIGNED))
-                FROM bundle
-                WHERE bundle_id LIKE 'NLB%'";
+            listView.BackColor = Color.FromArgb(255, 245, 220);
+            listView.BorderStyle = BorderStyle.FixedSingle;
+            listView.View = View.Details;
+            listView.MultiSelect = true;
+            listView.AllowColumnReorder = false;
+            listView.FullRowSelect = true;
+            listView.GridLines = true;
+            listView.HideSelection = false;
+            listView.OwnerDraw = true;
+            listView.HoverSelection = false;
+            listView.Activation = ItemActivation.Standard;
 
-
-            using (var conn = Db.GetConnection())
-            using (var cmd = new MySqlCommand(query, conn))
+            listView.ColumnWidthChanging += (s, e) =>
             {
-                conn.Open();
-
-                object result = cmd.ExecuteScalar();
-
-                if (result == null || result == DBNull.Value)
-                    return "NLB0001";
-
-                int number = Convert.ToInt32(result) + 1;
-                return "NLB" + number.ToString("D4");
-            }
+                e.Cancel = true;
+                e.NewWidth = listView.Columns[e.ColumnIndex].Width;
+            };
         }
 
         private void frmAddBundle_Load(object sender, EventArgs e)
         {
-            BuscarLivrosDoBanco();
-            CarregarLivrosBanco();
-
+            LoadAvailableBooks();
+            LoadAvailableBooksIntoListView();
+            UpdateBundleWeight();
+            UpdateBundlePrice();
         }
-        private void BuscarLivrosDoBanco()
+
+        private void LoadAvailableBooks()
         {
-            livrosDisponiveis.Clear();
+            availableBooks.Clear();
+
+            string sql = @"
+                SELECT
+                    b.book_id,
+                    bt.title_id,
+                    b.price,
+                    b.book_condition,
+                    bt.title,
+                    bt.author,
+                    bt.book_approx_weight
+                FROM book b
+                INNER JOIN book_titles bt
+                    ON b.title_id_in_book = bt.title_id
+                WHERE b.book_status = 'AVAILABLE'
+                ORDER BY bt.title ASC, b.book_id ASC;";
 
             try
             {
-                using (MySqlConnection conn = new MySqlConnection(data_source))
+                using (var conn = Db.GetConnection())
+                using (var cmd = new MySqlCommand(sql, conn))
                 {
                     conn.Open();
 
-                    string sql = @"
-                        SELECT 
-                            b.book_id,
-                            b.price,
-                            b.book_condition,
-                            bt.title,
-                            bt.book_approx_weight,
-                            bt.author
-                        FROM book b
-                        INNER JOIN book_titles bt
-                            ON b.title_id_in_book = bt.title_id
-                        WHERE b.book_status = 'AVAILABLE'
-                        ORDER BY bt.title ASC, b.book_id ASC";
-
-                    MySqlCommand cmd = new MySqlCommand(sql, conn);
-                    MySqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    using (var reader = cmd.ExecuteReader())
                     {
-
-                        decimal price = 0;
-
-
-                        decimal.TryParse(
-                            reader["price"]?.ToString()?.Replace(",", "."),
-                            NumberStyles.Any,
-                            CultureInfo.InvariantCulture,
-                            out price
-                        );
-
-                        Livro livro = new Livro
+                        while (reader.Read())
                         {
-                            Id_Book = reader["book_id"]?.ToString() ?? "",
-                            Title = reader["title"]?.ToString() ?? "",
-                            Author = reader["author"]?.ToString() ?? "",
-                            Condition = reader["book_condition"]?.ToString() ?? "",
-                            ApproxWeight = Convert.ToDecimal(reader["book_approx_weight"]),
-                            Price = price
-                        };
-
-                        livrosDisponiveis.Add(livro);
+                            availableBooks.Add(MapBundleBookItem(reader));
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    "ERROR:" + ex.Message,
-                    "ERROR",
+                    "Error loading available books:\n" + ex.Message,
+                    "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
             }
         }
-        private void CarregarLivrosBanco()
+
+        private void SearchAvailableBooks()
+        {
+            availableBooks.Clear();
+
+            string sql = @"
+                SELECT
+                    b.book_id,
+                    bt.title_id,
+                    b.price,
+                    b.book_condition,
+                    bt.title,
+                    bt.author,
+                    bt.book_approx_weight
+                FROM book b
+                INNER JOIN book_titles bt
+                    ON b.title_id_in_book = bt.title_id
+                WHERE b.book_status = 'AVAILABLE'
+                AND (
+                    bt.title LIKE @q
+                    OR bt.author LIKE @q
+                    OR b.book_id LIKE @q
+                    OR bt.iSBN LIKE @q
+                    OR bt.genre LIKE @q
+                )
+                ORDER BY bt.title ASC, b.book_id ASC;";
+
+            try
+            {
+                using (var conn = Db.GetConnection())
+                using (var cmd = new MySqlCommand(sql, conn))
+                {
+                    cmd.Parameters.AddWithValue("@q", "%" + txtSearch.Text.Trim() + "%");
+
+                    conn.Open();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            availableBooks.Add(MapBundleBookItem(reader));
+                        }
+                    }
+                }
+
+                LoadAvailableBooksIntoListView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error searching books:\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private BundleBookItem MapBundleBookItem(MySqlDataReader reader)
+        {
+            return new BundleBookItem
+            {
+                BookId = reader["book_id"].ToString(),
+                TitleId = reader["title_id"].ToString(),
+                Title = reader["title"].ToString(),
+                Author = reader["author"].ToString(),
+                Condition = reader["book_condition"].ToString(),
+                Price = Convert.ToDecimal(reader["price"]),
+                ApproxWeight = Convert.ToDecimal(reader["book_approx_weight"])
+            };
+        }
+
+        private void LoadAvailableBooksIntoListView()
         {
             lstBook.Items.Clear();
 
-            foreach (var livro in livrosDisponiveis)
+            foreach (BundleBookItem book in availableBooks)
             {
-                ListViewItem item = new ListViewItem(livro.Id_Book);
-                item.SubItems.Add(livro.Title);
-                item.SubItems.Add(livro.Author);
-                item.SubItems.Add(livro.Condition);
-                item.SubItems.Add(livro.Price.ToString("C"));
-                item.Tag = livro;
+                ListViewItem item = new ListViewItem(book.BookId);
+                item.SubItems.Add(book.Title);
+                item.SubItems.Add(book.Author);
+                item.SubItems.Add(book.Condition);
+                item.SubItems.Add(book.Price.ToString("C", CultureInfo.CurrentCulture));
+                item.Tag = book;
 
                 lstBook.Items.Add(item);
+            }
+        }
+
+        private void LoadBundleBooksIntoListView()
+        {
+            lstBookBundle.Items.Clear();
+
+            foreach (BundleBookItem book in bundleBooks)
+            {
+                ListViewItem item = new ListViewItem(book.BookId);
+                item.SubItems.Add(book.Title);
+                item.SubItems.Add(book.Author);
+                item.SubItems.Add(book.Price.ToString("C", CultureInfo.CurrentCulture));
+                item.Tag = book;
+
+                lstBookBundle.Items.Add(item);
             }
         }
 
@@ -394,159 +283,84 @@ namespace xdd
         {
             if (lstBook.SelectedItems.Count == 0)
             {
-                MessageBox.Show("Select a book.");
+                MessageBox.Show("Select at least one book.");
                 return;
             }
 
             foreach (ListViewItem item in lstBook.SelectedItems)
             {
-                Livro livro = (Livro)item.Tag;
+                BundleBookItem book = (BundleBookItem)item.Tag;
 
-                if (livrosDoGrupo.Any(l => l.Id_Book == livro.Id_Book))
+                if (bundleBooks.Any(b => b.BookId == book.BookId))
                     continue;
 
-                livrosDoGrupo.Add(livro);
+                bundleBooks.Add(book);
             }
+
             UpdateBundlePrice();
             UpdateBundleWeight();
-            CarregarLivrosGrupo();
-        }
-        private void CarregarLivrosGrupo()
-        {
-            lstBookBundle.Items.Clear();
-
-            foreach (var livro in livrosDoGrupo)
-            {
-                ListViewItem item = new ListViewItem(livro.Id_Book.ToString());
-                item.SubItems.Add(livro.Title);
-                item.SubItems.Add(livro.Author);
-                item.SubItems.Add(livro.Price.ToString("C"));
-
-                item.Tag = livro;
-
-                lstBookBundle.Items.Add(item);
-            }
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            pesquisarLivros();
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            if (txtSearch.Text.Length >= 2)
-                btnSearch.PerformClick();
-        }
-
-
-        private void pesquisarLivros()
-        {
-            livrosDisponiveis.Clear();
-
-            string sql = @"
-                SELECT  
-                    b.book_id,
-                    b.price,
-                    b.book_condition,
-                    bt.title,
-                    bt.author,
-                    bt.book_approx_weight
-                FROM book b
-                INNER JOIN book_titles bt 
-                    ON b.title_id_in_book = bt.title_id 
-                WHERE b.book_status = 'AVAILABLE'
-                AND (
-                    bt.title LIKE @q 
-                    OR bt.author LIKE @q 
-                    OR b.book_id LIKE @q
-                    OR bt.iSBN LIKE @q
-                )
-                ORDER BY bt.title ASC";
-            ;
-
-            using (MySqlConnection conn = new MySqlConnection(data_source))
-            {
-                conn.Open();
-
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@q", "%" + txtSearch.Text.Trim() + "%");
-
-                try
-                {
-                    using (MySqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Livro livro = new Livro
-                            {
-                                Id_Book = reader["book_id"].ToString(),
-                                Title = reader["title"].ToString(),
-                                Author = reader["author"].ToString(),
-                                Condition = reader["book_condition"].ToString(),
-                                Price = Convert.ToDecimal(reader["price"]),
-
-
-                            };
-
-                            livrosDisponiveis.Add(livro);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error ");
-                }
-
-                finally
-                {
-
-                    if (Conn != null && Conn.State == ConnectionState.Open)
-                    {
-                        Conn.Close();
-                    }
-
-                }
-                CarregarLivrosBanco();
-
-            }
+            LoadBundleBooksIntoListView();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-
             if (lstBookBundle.SelectedItems.Count == 0)
                 return;
 
             foreach (ListViewItem item in lstBookBundle.SelectedItems)
             {
-                Livro livro = (Livro)item.Tag;
-                livrosDoGrupo.Remove(livro);
+                BundleBookItem book = (BundleBookItem)item.Tag;
+                bundleBooks.RemoveAll(b => b.BookId == book.BookId);
             }
-            UpdateBundlePrice();
-            UpdateBundleWeight();
-            CarregarLivrosGrupo();
-        }
-        private void clear_itens()
-        {
-            txtBundleName.Text = string.Empty;
-            txtTheme.Text = "";
-            cbStatus.Text = null;
-            txtDescription.Text = "";
-            picImage.Image = null;
-            numPrice.Text = "0.00";
-            txtWeight.Text = "0.0 g";
-            livrosDoGrupo.Clear();
-            txtBundleName.Focus();
-            UpdateBundlePrice();
-            UpdateBundleWeight();
-            CarregarLivrosGrupo();
 
+            UpdateBundlePrice();
+            UpdateBundleWeight();
+            LoadBundleBooksIntoListView();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                LoadAvailableBooks();
+                LoadAvailableBooksIntoListView();
+            }
+            else
+            {
+                SearchAvailableBooks();
+            }
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string search = txtSearch.Text.Trim();
+
+            if (search.Length == 0 || search.Length >= 2)
+                btnSearch.PerformClick();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            clear_itens();
+            ClearFields();
+        }
+
+        private void ClearFields()
+        {
+            txtBundleName.Text = string.Empty;
+            txtTheme.Text = string.Empty;
+            cbStatus.SelectedIndex = -1;
+            txtDescription.Text = string.Empty;
+            picImage.Image = null;
+
+            SetPriceText(0);
+            txtWeight.Text = "0.0 g";
+
+            bundleBooks.Clear();
+            LoadBundleBooksIntoListView();
+            UpdateBundlePrice();
+            UpdateBundleWeight();
+
+            txtBundleName.Focus();
         }
 
         private void btnAddImg_Click(object sender, EventArgs e)
@@ -561,6 +375,12 @@ namespace xdd
                 }
             }
         }
+
+        private void btnClearImg_Click(object sender, EventArgs e)
+        {
+            picImage.Image = null;
+        }
+
         private byte[] GetImageBytesFromPictureBox()
         {
             if (picImage.Image == null)
@@ -572,165 +392,359 @@ namespace xdd
                 return ms.ToArray();
             }
         }
-        private void LoadImageFromReader(MySqlDataReader reader)
-        {
-            if (reader["bundle_image"] != DBNull.Value)
-            {
-                byte[] imageBytes = (byte[])reader["bundle_image"];
-
-                using (MemoryStream ms = new MemoryStream(imageBytes))
-                {
-                    picImage.Image = System.Drawing.Image.FromStream(new MemoryStream(ms.ToArray()));
-                }
-            }
-        }
-
-        private void btnClearImg_Click(object sender, EventArgs e)
-        {
-            picImage.Image = null;
-        }
 
         private void BtnSaveBundle_Click(object sender, EventArgs e)
         {
+            if (!ValidateBundle())
+                return;
+
             try
             {
-                if (string.IsNullOrEmpty(txtBundleName.Text.Trim()) || string.IsNullOrEmpty(numPrice.Text.Trim()) || string.IsNullOrEmpty(cbStatus.Text.Trim()) ||
-                    string.IsNullOrEmpty(txtWeight.Text.Trim()))
+                using (var conn = Db.GetConnection())
                 {
-                    MessageBox.Show("Please fill in all required fields.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    conn.Open();
+
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            string bundleId = GenerateNextBundleId(conn, transaction);
+
+                            InsertBundle(bundleId, conn, transaction);
+                            InsertBundleBooks(bundleId, conn, transaction);
+                            MarkBundledBooksAsUnavailable(conn, transaction);
+
+                            transaction.Commit();
+
+                            MessageBox.Show("Bundle saved successfully.");
+                            frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
                 }
-
-
-                if (lstBookBundle.Items.Count == 0)
-                {
-                    MessageBox.Show("Add books to bundle.");
-                    return;
-                }
-
-                string idBundle = SalvarBundle();
-                SalvarLivrosDoBundle(idBundle);
-
-                MessageBox.Show("Bundle saved successfully.");
-                frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show($"An error has occurred. Please try again. + {ex.Number} : {ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Database error {ex.Number}:\n{ex.Message}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error saving bundle:\n" + ex.Message,
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
-        string SalvarBundle()
+        private bool ValidateBundle()
         {
-            string bundleId = GenerateNextBundleId();
-
-            using (MySqlConnection conn = new MySqlConnection(data_source))
+            if (string.IsNullOrWhiteSpace(txtBundleName.Text))
             {
-                conn.Open();
+                MessageBox.Show("Bundle name is required.");
+                return false;
+            }
 
-                string sql = @"
-            INSERT INTO bundle 
-            (bundle_id, bundle_name, bundle_status, bundle_theme, 
-             bundle_price, bundle_approx_weight, bundle_description, 
-             bundle_image, bundle_created_at)
-            VALUES 
-            (@bundle_id, @bundle_name, @bundle_status, @bundle_theme,
-             @bundle_price, @bundle_approx_weight, @bundle_description,
-             @bundle_image, NOW());
-        ";
+            if (string.IsNullOrWhiteSpace(txtTheme.Text))
+            {
+                MessageBox.Show("Bundle theme is required.");
+                return false;
+            }
 
-                using (MySqlCommand cmd = new MySqlCommand(sql, conn))
+            if (string.IsNullOrWhiteSpace(cbStatus.Text))
+            {
+                MessageBox.Show("Bundle status is required.");
+                return false;
+            }
+
+            if (bundleBooks.Count == 0)
+            {
+                MessageBox.Show("Add at least one book to the bundle.");
+                return false;
+            }
+
+            if (!TryGetBundlePrice(out decimal price) || price < 0)
+            {
+                MessageBox.Show("Invalid bundle price.");
+                return false;
+            }
+
+            return true;
+        }
+
+        private string GenerateNextBundleId(MySqlConnection conn, MySqlTransaction transaction)
+        {
+            string query = @"
+                SELECT MAX(CAST(SUBSTRING(bundle_id, 4) AS UNSIGNED))
+                FROM bundle
+                WHERE bundle_id LIKE 'NLB%'";
+
+            using (var cmd = new MySqlCommand(query, conn, transaction))
+            {
+                object result = cmd.ExecuteScalar();
+
+                if (result == null || result == DBNull.Value)
+                    return "NLB0001";
+
+                int number = Convert.ToInt32(result) + 1;
+                return "NLB" + number.ToString("D4");
+            }
+        }
+
+        private void InsertBundle(string bundleId, MySqlConnection conn, MySqlTransaction transaction)
+        {
+            string sql = @"
+                INSERT INTO bundle
+                (
+                    bundle_id,
+                    bundle_name,
+                    bundle_status,
+                    bundle_theme,
+                    bundle_price,
+                    bundle_approx_weight,
+                    bundle_description,
+                    bundle_image
+                )
+                VALUES
+                (
+                    @bundle_id,
+                    @bundle_name,
+                    @bundle_status,
+                    @bundle_theme,
+                    @bundle_price,
+                    @bundle_approx_weight,
+                    @bundle_description,
+                    @bundle_image
+                );";
+
+            using (var cmd = new MySqlCommand(sql, conn, transaction))
+            {
+                cmd.Parameters.AddWithValue("@bundle_id", bundleId);
+                cmd.Parameters.AddWithValue("@bundle_name", txtBundleName.Text.Trim());
+                cmd.Parameters.AddWithValue("@bundle_status", cbStatus.Text.Trim());
+                cmd.Parameters.AddWithValue("@bundle_theme", txtTheme.Text.Trim());
+                cmd.Parameters.AddWithValue("@bundle_price", GetBundlePrice());
+                cmd.Parameters.AddWithValue("@bundle_approx_weight", GetBundleTotalWeight());
+                cmd.Parameters.AddWithValue("@bundle_description", txtDescription.Text.Trim());
+                cmd.Parameters.AddWithValue("@bundle_image", (object)GetImageBytesFromPictureBox() ?? DBNull.Value);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void InsertBundleBooks(string bundleId, MySqlConnection conn, MySqlTransaction transaction)
+        {
+            string sql = @"
+                INSERT INTO bundle_book
+                (
+                    bundle_id_in_bundle_book,
+                    book_id_in_bundle_book
+                )
+                VALUES
+                (
+                    @bundle_id,
+                    @book_id
+                );";
+
+            foreach (BundleBookItem book in bundleBooks)
+            {
+                using (var cmd = new MySqlCommand(sql, conn, transaction))
                 {
                     cmd.Parameters.AddWithValue("@bundle_id", bundleId);
-                    cmd.Parameters.AddWithValue("@bundle_name", txtBundleName.Text.Trim());
-                    cmd.Parameters.AddWithValue("@bundle_status", cbStatus.Text.Trim());
-                    cmd.Parameters.AddWithValue("@bundle_theme", txtTheme.Text.Trim());
-                    cmd.Parameters.AddWithValue("@bundle_price", decimal.Parse(numPrice.Text));
-                    cmd.Parameters.AddWithValue("@bundle_approx_weight", GetBundleTotalWeight());
-                    cmd.Parameters.AddWithValue("@bundle_description", txtDescription.Text.Trim());
-                    cmd.Parameters.AddWithValue("@bundle_image", GetImageBytesFromPictureBox());
-
+                    cmd.Parameters.AddWithValue("@book_id", book.BookId);
                     cmd.ExecuteNonQuery();
                 }
             }
-            return bundleId;
         }
-        private void SalvarLivrosDoBundle(string idBundle)
+
+        private void MarkBundledBooksAsUnavailable(MySqlConnection conn, MySqlTransaction transaction)
         {
+            string sql = @"
+                UPDATE book
+                SET
+                    book_status = 'UNAVAILABLE',
+                    reason_status = 'RemovedFromCuration'
+                WHERE book_id = @book_id;";
 
-            using (MySqlConnection conn = new MySqlConnection(data_source))
+            foreach (BundleBookItem book in bundleBooks)
             {
-                conn.Open();
-
-                using (MySqlTransaction trans = conn.BeginTransaction())
+                using (var cmd = new MySqlCommand(sql, conn, transaction))
                 {
-                    try
-                    {
-                        foreach (ListViewItem item in lstBookBundle.Items)
-                        {
-                            Livro livro = (Livro)item.Tag;
-
-                            string sql = @"
-                        INSERT INTO bundle_book (bundle_id_in_bundle_book, book_id_in_bundle_book)
-                        VALUES (@bundle_id, @book_id)";
-
-                            using (MySqlCommand cmd = new MySqlCommand(sql, conn, trans))
-                            {
-                                cmd.Parameters.AddWithValue("@bundle_id", idBundle);
-                                cmd.Parameters.AddWithValue("@book_id", livro.Id_Book);
-
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-
-                        trans.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        trans.Rollback();
-                        throw;
-                    }
+                    cmd.Parameters.AddWithValue("@book_id", book.BookId);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
+
         private void UpdateBundleWeight()
         {
-            decimal totalWeight = 0;
-
-            foreach (Livro livro in livrosDoGrupo)
-            {
-                totalWeight += livro.ApproxWeight;
-            }
-            txtWeight.Text = totalWeight.ToString("0.0 g", CultureInfo.InvariantCulture);
-
+            txtWeight.Text = GetBundleTotalWeight().ToString("0.0", CultureInfo.InvariantCulture) + " g";
         }
 
         private decimal GetBundleTotalWeight()
         {
-            decimal total = 0;
+            decimal totalWeight = 0;
 
-            foreach (Livro livro in livrosDoGrupo)
-                total += livro.ApproxWeight;
+            foreach (BundleBookItem book in bundleBooks)
+            {
+                totalWeight += book.ApproxWeight;
+            }
 
-            return total;
+            return totalWeight;
         }
+
         private void UpdateBundlePrice()
         {
             decimal totalPrice = 0;
 
-            foreach (Livro livro in livrosDoGrupo)
+            foreach (BundleBookItem book in bundleBooks)
             {
-                totalPrice += livro.Price;
+                totalPrice += book.Price;
             }
-            numPrice.Text = totalPrice.ToString();
 
+            SetPriceText(totalPrice);
+        }
+
+        private bool TryGetBundlePrice(out decimal price)
+        {
+            string text = numPrice.Text
+                .Replace("R$", "")
+                .Replace("$", "")
+                .Trim()
+                .Replace(",", ".");
+
+            return decimal.TryParse(
+                text,
+                NumberStyles.Any,
+                CultureInfo.InvariantCulture,
+                out price
+            );
+        }
+
+        private decimal GetBundlePrice()
+        {
+            TryGetBundlePrice(out decimal price);
+            return price;
+        }
+
+        private void SetPriceText(decimal value)
+        {
+            numPrice.Text = value.ToString("0.00", CultureInfo.InvariantCulture);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
         }
+
+        private void ListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            using (SolidBrush back = new SolidBrush(headerBack))
+            {
+                e.Graphics.FillRectangle(back, e.Bounds);
+            }
+
+            TextRenderer.DrawText(
+                e.Graphics,
+                e.Header.Text,
+                new Font("Georgia", 10F, FontStyle.Bold),
+                e.Bounds,
+                headerFore,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter
+            );
+
+            using (Pen pen = new Pen(gridColor))
+            {
+                e.Graphics.DrawRectangle(pen, e.Bounds);
+            }
+        }
+
+        private void ListView_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            Color back = (e.ItemIndex % 2 == 0) ? rowEven : rowOdd;
+
+            if (e.Item.Selected)
+                back = Color.FromArgb(255, 215, 160);
+
+            using (SolidBrush brush = new SolidBrush(back))
+            {
+                e.Graphics.FillRectangle(brush, e.Bounds);
+            }
+        }
+
+        private void ListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            Color backColor;
+            Color textColor;
+
+            if (e.Item.Selected)
+            {
+                textColor = Color.Black;
+                backColor = Color.FromArgb(255, 215, 160);
+            }
+            else
+            {
+                textColor = e.ColumnIndex == 0
+                    ? Color.FromArgb(0, 80, 60)
+                    : Color.FromArgb(20, 60, 40);
+
+                backColor = (e.ItemIndex % 2 == 0) ? rowEven : rowOdd;
+            }
+
+            using (SolidBrush back = new SolidBrush(backColor))
+            {
+                e.Graphics.FillRectangle(back, e.Bounds);
+            }
+
+            using (Font font = new Font("Georgia", 10F, FontStyle.Bold))
+            {
+                TextRenderer.DrawText(
+                    e.Graphics,
+                    e.SubItem.Text,
+                    font,
+                    e.Bounds,
+                    textColor,
+                    TextFormatFlags.Left | TextFormatFlags.VerticalCenter
+                );
+            }
+
+            using (Pen pen = new Pen(gridColor))
+            {
+                e.Graphics.DrawRectangle(pen, e.Bounds);
+            }
+        }
+
+        #region Round Buttons
+        private void RoundButton(object sender)
+        {
+            if (!(sender is Button btn))
+                return;
+
+            int radius = 20;
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.StartFigure();
+                path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
+                path.AddArc(new Rectangle(btn.Width - radius, 0, radius, radius), 270, 90);
+                path.AddArc(new Rectangle(btn.Width - radius, btn.Height - radius, radius, radius), 0, 90);
+                path.AddArc(new Rectangle(0, btn.Height - radius, radius, radius), 90, 90);
+                path.CloseFigure();
+
+                btn.Region = new Region(path);
+            }
+        }
+        #endregion
     }
 }
 
