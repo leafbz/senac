@@ -48,6 +48,23 @@ namespace xdd
                 form.BringToFront();
             }
         }
+        
+        public void AbrirForm(Form form)
+        {
+            if (form == null)
+                return;
+        
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+        
+            panelForms.Controls.Clear();
+            panelForms.Controls.Add(form);
+            panelForms.Tag = form;
+        
+            form.Show();
+            form.BringToFront();
+        }
 
         public void OpenBookForm(ClassBook book, BookFormMode mode)
         {
