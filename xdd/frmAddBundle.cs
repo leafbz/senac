@@ -421,27 +421,47 @@ namespace xdd
         {
             if (!ValidateBundle())
                 return;
-
+        
             try
             {
                 using (var conn = Db.GetConnection())
                 {
                     conn.Open();
-
+        
                     using (var transaction = conn.BeginTransaction())
                     {
                         try
                         {
-                            string bundleId = GenerateNextBundleId(conn, transaction);
-
-                            InsertBundle(bundleId, conn, transaction);
-                            InsertBundleBooks(bundleId, conn, transaction);
-                            MarkBundledBooksAsUnavailable(conn, transaction);
-
+                            if (_isEditMode)
+                            {
+                                UpdateBundle(_currentBundleId, conn, transaction);
+                                ReplaceBundleBooks(_currentBundleId, conn, transaction);
+                            }
+                            else
+                            {
+                                string bundleId = GenerateNextBundleId(conn, transaction);
+        
+                                InsertBundle(bundleId, conn, transaction);
+                                InsertBundleBooks(bundleId, conn, transaction);
+                                MarkBundledBooksAsUnavailable(conn, transaction);
+                            }
+        
                             transaction.Commit();
-
-                            MessageBox.Show("Bundle saved successfully.");
-                            frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
+        
+                            MessageBox.Show(
+                                _isEditMode
+                                    ? "Bundle updated successfully."
+                                    : "Bundle saved successfully."
+                            );
+        
+                            if (_isEditMode)
+                            {
+                                this.Close();
+                            }
+                            else
+                            {
+                                frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
+                            }
                         }
                         catch
                         {
@@ -668,6 +688,12 @@ namespace xdd
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            if (_isEditMode)
+            {
+                this.Close();
+                return;
+            }
+        
             frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
         }
 
@@ -746,6 +772,141 @@ namespace xdd
             {
                 e.Graphics.DrawRectangle(pen, e.Bounds);
             }
+        }
+
+        private void LoadBundleForEdit(string bundleId)
+        {
+            LoadBundleInfo(bundleId);
+            LoadBundleBooksForEdit(bundleId);
+        }
+        
+        private void LoadBundleInfo(string bundleId)
+        {
+            string query = @"
+                SELECT
+                    bundle_name,
+                    bundle_status,
+                    bundle_theme,
+                    bundle_price,
+                    bundle_description,
+                    bundle_image
+                FROM bundle
+                WHERE bundle_id = @bundle_id
+                LIMIT 1;";
+        
+            using (var conn = Db.GetConnection())
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@bundle_id", bundleId);
+        
+                conn.Open();
+        
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        txtBundleName.Text = reader["bundle_name"].ToString();
+                        cbStatus.Text = reader["bundle_status"].ToString();
+                        txtTheme.Text = reader["bundle_theme"].ToString();
+                        numPrice.Text = Convert.ToDecimal(reader["bundle_price"]).ToString("0.00");
+                        txtDescription.Text = reader["bundle_description"] == DBNull.Value
+                            ? ""
+                            : reader["bundle_description"].ToString();
+        
+                        if (reader["bundle_image"] != DBNull.Value)
+                        {
+                            byte[] imgBytes = (byte[])reader["bundle_image"];
+        
+                            using (MemoryStream ms = new MemoryStream(imgBytes))
+                            {
+                                picImage.Image = Image.FromStream(new MemoryStream(ms.ToArray()));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        private void LoadBundleBooksForEdit(string bundleId)
+        {
+            bundleBooks.Clear();
+        
+            string query = @"
+                SELECT
+                    b.book_id,
+                    bt.title_id,
+                    b.price,
+                    b.book_condition,
+                    bt.title,
+                    bt.author,
+                    bt.book_approx_weight
+                FROM bundle_book bb
+                INNER JOIN book b
+                    ON b.book_id = bb.book_id_in_bundle_book
+                INNER JOIN book_titles bt
+                    ON bt.title_id = b.title_id_in_book
+                WHERE bb.bundle_id_in_bundle_book = @bundle_id
+                ORDER BY bt.title ASC;";
+        
+            using (var conn = Db.GetConnection())
+            using (var cmd = new MySqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@bundle_id", bundleId);
+        
+                conn.Open();
+        
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        bundleBooks.Add(MapBundleBookItem(reader));
+                    }
+                }
+            }
+        }
+
+        private void UpdateBundle(string bundleId, MySqlConnection conn, MySqlTransaction transaction)
+        {
+            string sql = @"
+                UPDATE bundle
+                SET
+                    bundle_name = @bundle_name,
+                    bundle_status = @bundle_status,
+                    bundle_theme = @bundle_theme,
+                    bundle_price = @bundle_price,
+                    bundle_approx_weight = @bundle_approx_weight,
+                    bundle_description = @bundle_description,
+                    bundle_image = @bundle_image
+                WHERE bundle_id = @bundle_id;";
+        
+            using (var cmd = new MySqlCommand(sql, conn, transaction))
+            {
+                cmd.Parameters.AddWithValue("@bundle_id", bundleId);
+                cmd.Parameters.AddWithValue("@bundle_name", txtBundleName.Text.Trim());
+                cmd.Parameters.AddWithValue("@bundle_status", cbStatus.Text.Trim());
+                cmd.Parameters.AddWithValue("@bundle_theme", txtTheme.Text.Trim());
+                cmd.Parameters.AddWithValue("@bundle_price", GetBundlePrice());
+                cmd.Parameters.AddWithValue("@bundle_approx_weight", GetBundleTotalWeight());
+                cmd.Parameters.AddWithValue("@bundle_description", txtDescription.Text.Trim());
+                cmd.Parameters.AddWithValue("@bundle_image", (object)GetImageBytesFromPictureBox() ?? DBNull.Value);
+        
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void ReplaceBundleBooks(string bundleId, MySqlConnection conn, MySqlTransaction transaction)
+        {
+            string deleteSql = @"
+                DELETE FROM bundle_book
+                WHERE bundle_id_in_bundle_book = @bundle_id;";
+        
+            using (var deleteCmd = new MySqlCommand(deleteSql, conn, transaction))
+            {
+                deleteCmd.Parameters.AddWithValue("@bundle_id", bundleId);
+                deleteCmd.ExecuteNonQuery();
+            }
+        
+            InsertBundleBooks(bundleId, conn, transaction);
         }
 
         #region Round Buttons
