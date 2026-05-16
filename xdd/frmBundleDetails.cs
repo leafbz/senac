@@ -278,20 +278,21 @@ namespace xdd
                     bookIdSelecionado = row.Cells["IdInterno"].Value.ToString();
             }
         }
-
+        
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close();
+            frmPrincipal.PrincipalInstance.AbrirForm<frmBundles>();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            frmAddBundle editBundle = new frmAddBundle(bundleId);
-            editBundle.ShowDialog();
-        
-            CarregarResumoBundle();
-            CarregarLivrosDoBundle();
+            frmPrincipal.PrincipalInstance.AbrirForm(
+                new frmAddBundle(bundleId)
+            );
         }
+            // CarregarResumoBundle();
+            // CarregarLivrosDoBundle();
+        
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
