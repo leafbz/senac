@@ -456,7 +456,13 @@ namespace xdd
         
                             if (_isEditMode)
                             {
-                                this.Close();
+                                MessageBox.Show("Bundle updated successfully.");
+                            
+                                frmPrincipal.PrincipalInstance.AbrirForm(
+                                    new FrmBundleDetails(_currentBundleId)
+                                );
+                            
+                                return;
                             }
                             else
                             {
@@ -690,7 +696,10 @@ namespace xdd
         {
             if (_isEditMode)
             {
-                this.Close();
+                frmPrincipal.PrincipalInstance.AbrirForm(
+                    new FrmBundleDetails(_currentBundleId)
+                );
+        
                 return;
             }
         
