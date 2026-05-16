@@ -70,7 +70,12 @@ namespace xdd
                 INNER JOIN book_titles bt
                     ON b.title_id_in_book = bt.title_id
             
-                WHERE b.book_status = 'AVAILABLE'
+                WHERE 
+                    b.book_status = 'AVAILABLE'
+                    OR (
+                        b.book_status = 'UNAVAILABLE'
+                        AND b.reason_status = 'RemovedFromCuration'
+                    )
             
                 ORDER BY bt.title ASC, b.book_id ASC;";
     
