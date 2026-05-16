@@ -314,8 +314,15 @@ namespace xdd
                         }
 
                         SaveInventoryBook(book, conn, transaction);
-
+                        UpdateBundleStatusIfBookWasSold(
+                            book.BookId,
+                            book.Status,
+                            conn,
+                            transaction
+                        );
+                        
                         transaction.Commit();
+                        
                         if (_returnToArchive)
                         {
                             MessageBox.Show("Book saved successfully.");
@@ -1008,6 +1015,30 @@ namespace xdd
             catch (Exception ex)
             {
                 MessageBox.Show("Error deleting book: " + ex.Message);
+            }
+        }
+        
+        private void UpdateBundleStatusIfBookWasSold(
+            string bookId,
+            string bookStatus,
+            MySqlConnection conn,
+            MySqlTransaction transaction)
+        {
+            if (bookStatus != "SOLD")
+                return;
+        
+            string query = @"
+                UPDATE bundle b
+                INNER JOIN bundle_book bb
+                    ON bb.bundle_id_in_bundle_book = b.bundle_id
+                SET b.bundle_status = 'UNAVAILABLE'
+                WHERE bb.book_id_in_bundle_book = @book_id
+                  AND b.bundle_status <> 'SOLD';";
+        
+            using (var cmd = new MySqlCommand(query, conn, transaction))
+            {
+                cmd.Parameters.AddWithValue("@book_id", bookId);
+                cmd.ExecuteNonQuery();
             }
         }
 
