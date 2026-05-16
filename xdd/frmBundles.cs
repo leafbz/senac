@@ -278,23 +278,25 @@ namespace xdd
             if (!HasSelectedBundle())
                 return;
         
-            using (FrmBundleDetails details = new FrmBundleDetails(_selectedBundleId))
-            {
-                details.ShowDialog();
-            }
-        
-            LoadBundles();
-        
-            if (!string.IsNullOrWhiteSpace(_selectedBundleId))
-                LoadPreview(_selectedBundleId);
+            frmPrincipal.PrincipalInstance.AbrirForm(
+                new FrmBundleDetails(_selectedBundleId)
+            );
         }
+
+        //   LoadBundles();
+        
+        //    if (!string.IsNullOrWhiteSpace(_selectedBundleId))
+       //         LoadPreview(_selectedBundleId);
+        
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (!HasSelectedBundle())
                 return;
-
-            MessageBox.Show("Edit bundle screen not implemented yet.");
+        
+            frmPrincipal.PrincipalInstance.AbrirForm(
+                new frmAddBundle(_selectedBundleId)
+            );
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
